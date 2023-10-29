@@ -5,11 +5,13 @@ import timeit
 import shutil
 from tqdm import tqdm
 from pipeline_analyzer.jn_analyzer.constants import (
-    PATH_TO_JSON_RESOURCE_INPUT_DIR,
     PATH_TO_JSON_RESOURCE_OUTPUT_DIR,
     PATH_TO_JSON_RESOURCE_BACKUP_DIR,
     DEBUG_MODE,
     INSERT_HEADERS,
+    PATH_TO_JSON_RESOURCE_EVALUATION_120_DIR,
+    PATH_TO_BENCHMARK_1000_DIR,
+    PATH_TO_BENCHMARK_HEADERGEN_NOTEBOOKS_DIR,
 )
 from pipeline_analyzer.jn_analyzer.heuristics import (
     get_current_heuristic_dict,
@@ -133,8 +135,14 @@ def ml_data_hybrid(pre_processed_notebook: dict, ML_CONTENT: dict):
                 ML_CONTENT["source"].append(source_content)
 
 
-def benchmark_hybrid(debug_mode: bool, headers: bool):
-    assert len(os.listdir(PATH_TO_JSON_RESOURCE_INPUT_DIR)) == 1000
+def benchmark_hybrid(debug_mode: bool, headers: bool, dataset: str):
+    path = None
+    if dataset == "jupylab":
+        assert len(os.listdir(PATH_TO_BENCHMARK_1000_DIR)) == 1000
+        path = PATH_TO_BENCHMARK_1000_DIR
+    elif dataset == "headergen":
+        assert len(os.listdir(PATH_TO_BENCHMARK_HEADERGEN_NOTEBOOKS_DIR)) == 15
+        path = PATH_TO_BENCHMARK_HEADERGEN_NOTEBOOKS_DIR
     num_executions = 10
     total_time = 0
     DEBUG_MODE[0] = debug_mode
@@ -143,7 +151,7 @@ def benchmark_hybrid(debug_mode: bool, headers: bool):
     with tqdm(total=num_executions, colour="red") as pbar:
         for _ in range(num_executions):
             start_time = timeit.default_timer()
-            start_pipeline_hybrid(PATH_TO_JSON_RESOURCE_INPUT_DIR, debug_mode, headers)
+            start_pipeline_hybrid(path, debug_mode, headers)
             end_time = timeit.default_timer()
             execution_time = end_time - start_time
             total_time += execution_time
@@ -164,7 +172,8 @@ def start_pipeline_hybrid_cli_test(
     DEBUG_MODE[0] = debug_mode
     INSERT_HEADERS[0] = headers
     with tqdm(total=len(os.listdir(basepath)), colour="blue") as pbar:
-        for entry in os.listdir(basepath):
+        files = sorted(os.listdir(basepath))
+        for entry in files:
             if os.path.isfile(os.path.join(basepath, entry)):
                 path = os.path.join(basepath, entry)
                 try:
@@ -190,11 +199,12 @@ def start_pipeline_hybrid_cli_test(
 
 
 def create_cli_inference_file(
-    path_to_notebooks: str = PATH_TO_JSON_RESOURCE_INPUT_DIR,
+    path_to_notebooks: str = PATH_TO_JSON_RESOURCE_EVALUATION_120_DIR,
     output_file: str = "cli_run.json",
     debug_mode: bool = False,
     headers: bool = False,
 ):
+    assert len(os.listdir(path_to_notebooks)) == 120
     ML_CONTENT = {"source": []}
     DEBUG_MODE[0] = debug_mode
     INSERT_HEADERS[0] = headers

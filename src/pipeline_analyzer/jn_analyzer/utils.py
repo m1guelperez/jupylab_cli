@@ -1,14 +1,12 @@
 from pprint import pprint
 import re
-from colorama import Fore, Style
 from pipeline_analyzer.jn_analyzer.constants import (
     DEBUG_MODE,
     INSERT_HEADERS,
     CLASSIFIERS,
     VECTORIZERS,
     ALL_TAGS,
-    EXPLICIT_MODELS,
-    ACTIVITY,
+    KEYWORDS,
 )
 import joblib
 import xgboost as xgb
@@ -53,7 +51,7 @@ def clear_prints(text_as_list: list) -> list:
         else:
             temp.append(line)
     if found_prints:
-        temp.insert(0, "CHECKPOINT")
+        temp.insert(0, KEYWORDS.VALIDATION)
     return temp
 
 
@@ -186,7 +184,7 @@ def rename_const(text_as_list: str) -> list:
             len(pattern_constants_without_suffix.findall(line)) > 0
             and not already_found
         ):
-            new_list.insert(0, "SETUP")
+            new_list.insert(0, KEYWORDS.SETUP)
             already_found = True
         elif len(pattern_constants_without_suffix.findall(line)) > 0 and already_found:
             continue
@@ -222,7 +220,7 @@ def rename_magic_commands(text_as_list: list) -> list:
     """Removes all magic commands from the notebook. If the cell contains a magic command and was not labeled as SETUP, it will be labeled as SETUP"""
     setup_cell = False
     for line in text_as_list:
-        if "SETUP" in line:
+        if KEYWORDS.SETUP in line:
             setup_cell = True
             break
     temp = []
@@ -234,7 +232,7 @@ def rename_magic_commands(text_as_list: list) -> list:
         elif (
             str(line).strip().startswith("%") or str(line).strip().startswith("!")
         ) and not setup_cell:
-            temp.insert(0, "SETUP")
+            temp.insert(0, KEYWORDS.SETUP)
         else:
             temp.append(line)
     return temp
@@ -247,10 +245,10 @@ def rename_implicit_returns(text_as_list: list) -> list:
     elif (
         (str(temp[-1])[-1].isalpha() or str(temp[-1])[-1].isdigit())
         and "=" not in str(temp[-1])
-        and (temp[-1] != "ASSIGN" and temp[-1] != "SETUP")
+        and (temp[-1] != KEYWORDS.ASSIGN and temp[-1] != KEYWORDS.SETUP)
         and len(temp[-1].split(" ")) == 1
     ):
-        temp.insert(0, "CHECKPOINT")
+        temp.insert(0, KEYWORDS.VALIDATION)
     return temp
 
 
@@ -263,7 +261,7 @@ def rename_slicing_assignments(text_as_list: list) -> list:
             new_list.append(
                 re.sub(
                     slicing_pattern,
-                    "SLICE",
+                    KEYWORDS.SLICE,
                     line,
                 )
             )
@@ -358,15 +356,6 @@ def debug_print(text: str):
         print(text)
 
 
-# Each print is seperated by a newline
-def number_of_print_calls(text_as_list: list) -> int:
-    counter = 0
-    for line in text_as_list:
-        if len(pattern_print.findall(line)) > 0:
-            counter += 1
-    return counter
-
-
 def delete_kaggle_cells(analyzed_dict: dict) -> dict:
     """This method automatically removes kaggle cells from our evaluation set as well as a particular spanish cell."""
     new_dict = {"source": []}
@@ -411,19 +400,15 @@ def load_pre_trained_models_dev():
         debug_print("Loading " + tag + " ...")
         classifier = xgb.XGBClassifier()
         classifier.load_model(
-            "./src/pipeline_analyzer/jn_analyzer/resources/models/model_"
+            "./src/pipeline_analyzer/jn_analyzer/resources/new_trained_models/model_"
             + tag.replace("-", "_").replace(" ", "_")
-            + "_boost-"
-            + str(datetime.now().strftime("%Y-%m-%d"))
-            + ".json"
+            + "_boost.json"
         )
         CLASSIFIERS[tag] = classifier
         VECTORIZERS[tag] = joblib.load(
-            "./src/pipeline_analyzer/jn_analyzer/resources/models/vectorizer_"
+            "./src/pipeline_analyzer/jn_analyzer/resources/new_trained_models/vectorizer_"
             + tag.replace("-", "_").replace(" ", "_")
-            + "_boost-"
-            + str(datetime.now().strftime("%Y-%m-%d"))
-            + ".joblib"
+            + "_boost.joblib"
         )
 
 

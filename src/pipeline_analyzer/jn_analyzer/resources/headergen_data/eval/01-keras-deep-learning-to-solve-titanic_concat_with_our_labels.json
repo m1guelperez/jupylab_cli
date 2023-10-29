@@ -46,13 +46,13 @@
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results",
+                "validate_data",
                 "ingest_data"
             ],
             "correct_tag_ours": [
                 "setup_notebook",
                 "ingest_data",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Library Loading",
@@ -72,10 +72,10 @@
                 "train_orj.info()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -200,12 +200,12 @@
                 "ASSIGN.head()"
             ],
             "tag_pred": [
-                "check_results",
+                "validate_data",
                 "process_data"
             ],
             "correct_tag_ours": [
                 "process_data",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Feature Engineering",
@@ -225,10 +225,10 @@
                 "train.info()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -282,7 +282,7 @@
             ],
             "content_processed": [
                 "SETUP",
-                "CHECKPOINT",
+                "VALIDATION",
                 "ASSIGN = train.iloc[:,1:train.shape[1]].values",
                 "ASSIGN = train.Survived.values",
                 "X_train, X_val, Y_train, Y_val = train_test_split(ASSIGN, ASSIGN, test_size = 0.1, random_state=2)",
@@ -293,13 +293,13 @@
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results",
+                "validate_data",
                 "process_data"
             ],
             "correct_tag_ours": [
                 "setup_notebook",
                 "process_data",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -381,13 +381,12 @@
                 "'''"
             ],
             "tag_pred": [
-                "check_results",
                 "train_model",
                 "transfer_results"
             ],
             "correct_tag_ours": [
                 "train_model",
-                "check_results",
+                "validate_data",
                 "transfer_results"
             ],
             "headergen_tag": [
@@ -428,7 +427,7 @@
                 "print(\"%s: %.3f%%\" % (model.metrics_names[1], scores[1]*100))"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "ASSIGN = Sequential()",
                 "ASSIGN.add(Dense(units = 128, kernel_initializer = 'uniform', activation = 'relu', input_dim = X_train.shape[1]))",
                 "ASSIGN.add(BatchNormalization())",
@@ -449,14 +448,14 @@
                 "print( % (ASSIGN.metrics_names[1], ASSIGN[1]*100))"
             ],
             "tag_pred": [
-                "check_results",
+                "validate_data",
                 "train_model",
                 "evaluate_model"
             ],
             "correct_tag_ours": [
                 "train_model",
                 "evaluate_model",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Model Building and Training"
@@ -628,7 +627,7 @@
             ],
             "content_processed": [
                 "SETUP",
-                "CHECKPOINT",
+                "VALIDATION",
                 "'''",
                 "def DenseNet(X_train):",
                 "ASSIGN = Input(shape=(X_train.shape[1],))",
@@ -693,7 +692,6 @@
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results",
                 "train_model",
                 "evaluate_model"
             ],
@@ -701,7 +699,7 @@
                 "setup_notebook",
                 "train_model",
                 "evaluate_model",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 ""
@@ -730,12 +728,12 @@
                 "ASSIGN.info()"
             ],
             "tag_pred": [
-                "check_results",
+                "validate_data",
                 "process_data"
             ],
             "correct_tag_ours": [
                 "process_data",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Feature Engineering",

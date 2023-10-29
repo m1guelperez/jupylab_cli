@@ -73,9 +73,10 @@ def help():
     default=True,
     help="Insert tags or headers.",
 )
-def bench(debug, headers):
+@click.argument("dataset", default="jupylab")
+def bench(debug, headers, dataset):
     print("Starting benchmarking JupyLab.")
-    benchmark_hybrid(debug, headers)
+    benchmark_hybrid(debug, headers, dataset)
 
 
 @cli.command()

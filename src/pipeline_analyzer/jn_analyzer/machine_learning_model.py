@@ -13,7 +13,12 @@ from pipeline_analyzer.jn_analyzer.evaluation import (
     test_on_final_validation_notebooks_hybrid_macro,
     evaluate_on_headergen,
 )
-from pipeline_analyzer.jn_analyzer.constants import REGEX, ALL_TAGS, ACTIVITY
+from pipeline_analyzer.jn_analyzer.constants import (
+    REGEX,
+    ALL_TAGS,
+    ACTIVITY,
+    PATH_TO_NEW_TRAINED_MODELS,
+)
 from sklearn.utils import resample
 
 
@@ -23,9 +28,6 @@ CONFIGS = {
     },
     ACTIVITY.INGEST_DATA: {
         "learning_rate": 0.24,
-    },
-    ACTIVITY.VALIDATE_DATA: {
-        "learning_rate": 0.02,
     },
     ACTIVITY.PROCESS_DATA: {
         "learning_rate": 0.17,
@@ -42,7 +44,7 @@ CONFIGS = {
     ACTIVITY.VISUALIZE_DATA: {
         "learning_rate": 0.24,
     },
-    ACTIVITY.CHECK_RESULTS: {
+    ACTIVITY.VALIDATE_DATA: {
         "learning_rate": 0.21,
     },
 }
@@ -58,9 +60,7 @@ def cv_model(word: str):
     df3 = pd.read_csv(
         "./src/pipeline_analyzer/jn_analyzer/resources/training_data/training/csvs/"
         + word
-        + "_shuffled_b1_b2_concat-"
-        + str(datetime.now().strftime("%Y-%m-%d"))
-        + ".csv"
+        + "_shuffled.csv"
     )
     print("Number of samples with value 1: " + str(len(df3[df3.tag == 1])))
     print("Number of samples with value 0: " + str(len(df3[df3.tag == 0])))
@@ -117,19 +117,17 @@ def cv_model(word: str):
     pprint(report)
     joblib.dump(
         count_vectorizer,
-        "./src/pipeline_analyzer/jn_analyzer/resources/new_trained_models/vectorizer_"
+        PATH_TO_NEW_TRAINED_MODELS
+        + "vectorizer_"
         + word.replace(" ", "_").replace("-", "_")
-        + "_boost-"
-        + str(datetime.now().strftime("%Y-%m-%d"))
-        + ".joblib",
+        + "_boost.joblib",
     )
 
     classifier.save_model(
-        "./src/pipeline_analyzer/jn_analyzer/resources/new_trained_models/model_"
+        PATH_TO_NEW_TRAINED_MODELS
+        + "model_"
         + word.replace(" ", "_").replace("-", "_")
-        + "_boost-"
-        + str(datetime.now().strftime("%Y-%m-%d"))
-        + ".json"
+        + "_boost.json"
     )
 
 

@@ -21,16 +21,16 @@
             ],
             "content_processed": [
                 "SETUP",
-                "CHECKPOINT",
+                "VALIDATION",
                 "print(os.listdir())"
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
                 "setup_notebook",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Library Loading"
@@ -68,7 +68,8 @@
                 "process_data"
             ],
             "correct_tag_ours": [
-                "ingest_data"
+                "ingest_data",
+                "process_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -212,8 +213,8 @@
                 "        return"
             ],
             "content_processed": [
-                "CHECKPOINT",
-                "CHECKPOINT",
+                "VALIDATION",
+                "VALIDATION",
                 "class roc_auc_callback(Callback):",
                 "def __init__(self,training_data,validation_data):",
                 "self.x = training_data[0]",
@@ -243,14 +244,13 @@
                 "return"
             ],
             "tag_pred": [
-                "check_results",
                 "train_model",
                 "evaluate_model"
             ],
             "correct_tag_ours": [
                 "train_model",
                 "evaluate_model",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Model Building and Training"

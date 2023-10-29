@@ -566,7 +566,6 @@
                 "self.max_lr = self.max_lr*np.exp(-epoch*self.decay)"
             ],
             "tag_pred": [
-                "process_data",
                 "train_model"
             ],
             "correct_tag_ours": [
@@ -784,7 +783,7 @@
                 "ASSIGN.compile(optimizer=Nadam(1e-3), loss=triplet_loss_distance)"
             ],
             "tag_pred": [
-                "train_model"
+                "None"
             ],
             "correct_tag_ours": [
                 "train_model"
@@ -860,6 +859,7 @@
                 "np.savez('emb.npz', x=ASSIGN, xt=ASSIGN)"
             ],
             "tag_pred": [
+                "process_data",
                 "evaluate_model"
             ],
             "correct_tag_ours": [
@@ -947,10 +947,10 @@
                 "pca.explained_variance_ratio_"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"

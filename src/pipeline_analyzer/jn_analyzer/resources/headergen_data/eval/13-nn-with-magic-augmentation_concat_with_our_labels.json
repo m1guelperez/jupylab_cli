@@ -166,7 +166,7 @@
             "content_processed": [
                 "SETUP",
                 "SETUP",
-                "CHECKPOINT",
+                "VALIDATION",
                 "os.environ['CUDA_VISIBLE_DEVICES'] = '0'",
                 "warnings.filterwarnings('ignore')",
                 "ASSIGN = pd.read_csv('..path',index_col='ID_code')",
@@ -262,8 +262,8 @@
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results",
                 "ingest_data",
+                "process_data",
                 "train_model",
                 "evaluate_model",
                 "transfer_results"
@@ -274,7 +274,7 @@
                 "process_data",
                 "train_model",
                 "evaluate_model",
-                "check_results",
+                "validate_data",
                 "transfer_results"
             ],
             "headergen_tag": [

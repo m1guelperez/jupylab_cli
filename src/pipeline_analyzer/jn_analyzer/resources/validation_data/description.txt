@@ -1,4 +1,0 @@
-_SHORT is the small set that we corrected
-_COMPLETE is the merged set that uses all the corrected code cells and the unprocessed code snippets from ML_DATA_HYBRID_FINAL
-_OLD is my short file, the normal one is by selin with her labels
-Add your changes in the _SHORT file and execute ´update_ml_hybrid_files()´ in prototype_testing

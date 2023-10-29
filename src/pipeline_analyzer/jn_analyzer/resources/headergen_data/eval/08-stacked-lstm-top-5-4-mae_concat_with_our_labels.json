@@ -23,18 +23,18 @@
             ],
             "content_processed": [
                 "SETUP",
-                "CHECKPOINT",
+                "VALIDATION",
                 "for dirname, _, filenames in os.walk('path'):",
                 "for filename in filenames:",
                 "print(os.path.join(dirname, filename))"
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
                 "setup_notebook",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Library Loading"
@@ -119,7 +119,7 @@
                 "    print(df.shape)"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "def basic_eda(df):",
                 "print()",
                 "print(df.head(5))",
@@ -139,10 +139,10 @@
                 "print(df.shape)"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -199,14 +199,14 @@
                 "dataset"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "dataset"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -242,14 +242,14 @@
                 "dataset"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "dataset"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -286,14 +286,14 @@
                 "dataset"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "dataset"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -335,12 +335,12 @@
                 "dataset.head()"
             ],
             "tag_pred": [
-                "check_results",
+                "validate_data",
                 "process_data"
             ],
             "correct_tag_ours": [
                 "process_data",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Feature Engineering",
@@ -367,19 +367,19 @@
                 ""
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "ASSIGN = np.expand_dims(dataset.values[:,:-1],axis = 2)",
                 "ASSIGN = dataset.values[:,-1:]",
                 "ASSIGN = np.expand_dims(dataset.values[:,1:],axis = 2)",
                 "print(ASSIGN.shape,ASSIGN.shape,ASSIGN.shape)"
             ],
             "tag_pred": [
-                "check_results",
+                "validate_data",
                 "process_data"
             ],
             "correct_tag_ours": [
                 "process_data",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Feature Engineering",
@@ -434,12 +434,11 @@
                 "ASSIGN.summary()"
             ],
             "tag_pred": [
-                "check_results",
                 "train_model"
             ],
             "correct_tag_ours": [
                 "train_model",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Model Building and Training"
@@ -521,12 +520,12 @@
                 "ASSIGN.summary()"
             ],
             "tag_pred": [
-                "check_results",
+                "validate_data",
                 "train_model"
             ],
             "correct_tag_ours": [
                 "train_model",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Model Building and Training"

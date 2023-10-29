@@ -29,7 +29,7 @@
             ],
             "content_processed": [
                 "SETUP",
-                "CHECKPOINT",
+                "VALIDATION",
                 "ASSIGN = pd.read_csv('path')",
                 "ASSIGN['Sec_Name'] = ASSIGN['Name'].astype(str).str.split().str[1]",
                 "ASSIGN = np.array(train['Survived'])",
@@ -51,7 +51,6 @@
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results",
                 "ingest_data",
                 "process_data",
                 "transfer_results"
@@ -60,7 +59,7 @@
                 "setup_notebook",
                 "ingest_data",
                 "process_data",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Library Loading",
@@ -182,7 +181,6 @@
             ],
             "tag_pred": [
                 "ingest_data",
-                "process_data",
                 "evaluate_model",
                 "transfer_results"
             ],

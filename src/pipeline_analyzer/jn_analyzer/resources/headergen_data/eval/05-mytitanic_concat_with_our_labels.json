@@ -189,7 +189,7 @@
             ],
             "content_processed": [
                 "SETUP",
-                "CHECKPOINT",
+                "VALIDATION",
                 "def pandas_type(inp):",
                 "if str(type(inp)) != \"<class 'pandas.core.frame.DataFrame'>\":",
                 "print()",
@@ -285,13 +285,12 @@
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results",
                 "process_data"
             ],
             "correct_tag_ours": [
                 "setup_notebook",
                 "process_data",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Library Loading",

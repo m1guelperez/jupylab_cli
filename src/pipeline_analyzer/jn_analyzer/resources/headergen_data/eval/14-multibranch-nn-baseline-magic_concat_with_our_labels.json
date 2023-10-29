@@ -45,17 +45,17 @@
             ],
             "content_processed": [
                 "SETUP",
-                "CHECKPOINT",
+                "VALIDATION",
                 "print(os.listdir())",
                 "warnings.filterwarnings(\"ignore\")"
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
                 "setup_notebook",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Library Loading"
@@ -113,7 +113,8 @@
                 "plt.show()"
             ],
             "tag_pred": [
-                "visualize_data"
+                "visualize_data",
+                "evaluate_model"
             ],
             "correct_tag_ours": [
                 "evaluate_model",
@@ -336,7 +337,7 @@
                 "ASSIGN = base_features + noise1_features + noise2_features"
             ],
             "tag_pred": [
-                "check_results",
+                "validate_data",
                 "process_data"
             ],
             "correct_tag_ours": [
@@ -493,12 +494,12 @@
                 "ASSIGN.summary()"
             ],
             "tag_pred": [
-                "check_results",
+                "validate_data",
                 "train_model"
             ],
             "correct_tag_ours": [
                 "train_model",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Model Building and Training"
@@ -689,15 +690,15 @@
                 "    print('Fold_%d AUC: %.6f' % (i+1, val_aucs[i]))"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "for i in range(len(val_aucs)):",
                 "print('Fold_%d AUC: %.6f' % (i+1, val_aucs[i]))"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results",
+                "validate_data",
                 "evaluate_model"
             ],
             "headergen_tag": [
@@ -717,19 +718,19 @@
                 "print('%d-fold auc mean: %.9f, std: %.9f. All auc: %6f.' % (n_folds, auc_mean, auc_std, auc_all))"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "ASSIGN = np.mean(val_aucs)",
                 "ASSIGN = np.std(val_aucs)",
                 "ASSIGN = roc_auc_score(valid_X.target, valid_X.predict)",
                 "print('%d-fold auc mean: %.9f, std: %.9f. All auc: %6f.' % (n_folds, ASSIGN, ASSIGN, ASSIGN))"
             ],
             "tag_pred": [
-                "check_results",
+                "validate_data",
                 "evaluate_model"
             ],
             "correct_tag_ours": [
                 "evaluate_model",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Model Building and Training"

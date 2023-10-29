@@ -1,3 +1,3 @@
-All Notebooks are from the KgTorrent [dataset](https://zenodo.org/records/4468523). The 1067 Notebooks in were explicitly removed from the selection of Notebooks for the Evaluation dataset. The reason for that is, that we picked around 120 Notebooks for training from these 1067 Notebooks. But because of several shuffling and pre-processing steps it is not 100% clear to which Notebook the code cells we used for training belonged to. Thus, to be sure, we disqualified these Notebooks to be used for evaluation.
+The `sample_of_notebooks` folder contains the sample of 1000 notebooks that we picked and where we then randomly selected code cells to train the models. 
 
-In the training folder are all necesarry code cells in a JSON file to retrain the models from scratch.
+In the `training` folder are the json files that contain the code cells used for training as well as the csv files. 

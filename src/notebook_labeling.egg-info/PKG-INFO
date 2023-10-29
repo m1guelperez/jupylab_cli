@@ -1,10 +1,10 @@
 Metadata-Version: 2.1
 Name: notebook-labeling
-Version: 0.0.post1.dev397+g18a7c0e.d20231029
+Version: 0.0.post1.dev437+gaa62b08
 Summary: Jupyter Notebook Analyzer!
 Home-page: https://github.com/pyscaffold/pyscaffold/
-Author: Anonymized
-Author-email: anony@mous.com
+Author: anonymous
+Author-email: anonymous@e.mail
 License: MIT
 Project-URL: Documentation, https://pyscaffold.org/
 Platform: any

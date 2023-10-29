@@ -23,18 +23,18 @@
             ],
             "content_processed": [
                 "SETUP",
-                "CHECKPOINT",
+                "VALIDATION",
                 "for dirname, _, filenames in os.walk('path'):",
                 "for filename in filenames:",
                 "print(os.path.join(dirname, filename))"
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
                 "setup_notebook",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Library Loading"
@@ -75,10 +75,10 @@
                 "df.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -96,10 +96,10 @@
                 "sample.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -142,10 +142,10 @@
                 "items.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -160,14 +160,14 @@
                 "items.shape"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "items.shape"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -182,14 +182,14 @@
                 "items_category.shape"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "items_category.shape"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -207,10 +207,10 @@
                 "items.head(5)"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -251,10 +251,10 @@
                 "items_category.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -272,10 +272,10 @@
                 "shops.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -290,14 +290,14 @@
                 "shops.shape"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "shops.shape"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -337,14 +337,14 @@
                 "print(category[0:20])"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "print(category[0:20])"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -362,10 +362,10 @@
                 "items.iloc[22154,:]"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -404,10 +404,10 @@
                 "df.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -464,14 +464,14 @@
                 "data.shape"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "data.shape"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -486,14 +486,14 @@
                 "df.shape"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "df.shape"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -511,10 +511,10 @@
                 "len(data['item_cnt_day'].unique())"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -571,14 +571,14 @@
                 "print(target.value_counts())"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "print(target.value_counts())"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -614,14 +614,14 @@
                 "data.shape"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "data.shape"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -639,10 +639,10 @@
                 "data.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -734,10 +734,10 @@
                 "data['date_block_engineered'].unique()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -778,10 +778,10 @@
                 "data.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -841,10 +841,10 @@
                 "len(labels.unique())"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -881,10 +881,10 @@
                 "labels.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -899,14 +899,14 @@
                 "labels.shape"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "labels.shape"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -924,10 +924,10 @@
                 "data.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -965,14 +965,14 @@
                 "data.shape"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "data.shape"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -987,14 +987,14 @@
                 "labels.shape"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "labels.shape"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -1071,10 +1071,10 @@
                 "data.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -1115,10 +1115,10 @@
                 "data_x.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -1228,10 +1228,10 @@
                 "test.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -1354,10 +1354,10 @@
                 "predictions.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -1421,10 +1421,10 @@
                 "predictions.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -1484,10 +1484,10 @@
                 "predictions.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -1528,10 +1528,10 @@
                 "predictions.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"

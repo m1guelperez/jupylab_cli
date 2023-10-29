@@ -1,4 +1,0 @@
-content,tag,output_type,original_content,y_pred
-"pd.set_option(""display.max_columns"",2000)  # used for viewing all the columns at onces pd.set_option(""display.max_rows"",85)",1,not_existent,"# To show the all columns  pd.set_option(""display.max_columns"",2000)  # used for viewing all the columns at onces  pd.set_option(""display.max_rows"",85)",0
-CHECKPOINT print(co2_levels.describe()) print(co2_levels.co2.min()) print(co2_levels.co2.max()),0,stream,# Print out summary statistics of the co2_levels DataFrame  print(co2_levels.describe())    # Print out the minima of the co2 column in the co2_levels DataFrame  print(co2_levels.co2.min())    # Print out the maxima of the co2 column in the co2_levels DataFrame  print(co2_levels.co2.max()),1
-"os.environ['KAGGLE_USERNAME'] = API[""username""] os.environ['KAGGLE_KEY'] = API[""key""]",1,not_existent," os.environ['KAGGLE_USERNAME'] = API[""username""] os.environ['KAGGLE_KEY'] = API[""key""]",0

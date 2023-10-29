@@ -3,7 +3,7 @@ FROM python:3.10-slim-bullseye
 
 # Set environment variables
 ENV HOME=/root
-ENV APP_HOME=$HOME/notebook-labeling
+ENV APP_HOME=$HOME/jupylab
 
 # Set work directory
 WORKDIR $APP_HOME

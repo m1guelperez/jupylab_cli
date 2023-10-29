@@ -23,18 +23,18 @@
             ],
             "content_processed": [
                 "SETUP",
-                "CHECKPOINT",
+                "VALIDATION",
                 "for dirname, _, filenames in os.walk('path'):",
                 "for filename in filenames:",
                 "print(os.path.join(dirname, filename))"
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
                 "setup_notebook",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Library Loading"
@@ -98,10 +98,10 @@
                 "df_Train.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -119,10 +119,10 @@
                 "df_Test.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -140,10 +140,10 @@
                 "df_Train.isnull().sum()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -161,10 +161,10 @@
                 "df_Test.isnull().sum()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -192,7 +192,8 @@
                 "ASSIGN.plot(kind='bar',stacked=True, figsize=(10,5))"
             ],
             "tag_pred": [
-                "visualize_data"
+                "visualize_data",
+                "process_data"
             ],
             "correct_tag_ours": [
                 "visualize_data"
@@ -213,7 +214,7 @@
                 "bar_chart('Sex')"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
                 "visualize_data"
@@ -234,7 +235,7 @@
                 "bar_chart('Pclass')"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
                 "visualize_data"
@@ -255,7 +256,7 @@
                 "bar_chart('Embarked')"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
                 "visualize_data"
@@ -302,10 +303,10 @@
                 "df_Train.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -323,10 +324,10 @@
                 "df_Test.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -506,10 +507,10 @@
                 "df_Train.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -527,10 +528,10 @@
                 "df_Test.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -624,10 +625,10 @@
                 "df_Train.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -645,10 +646,10 @@
                 "df_Test.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -716,10 +717,10 @@
                 "df_Train.isnull().sum()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -734,14 +735,14 @@
                 "df_Test.dtypes"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "df_Test.dtypes"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -758,18 +759,17 @@
                 "df_Test.dtypes"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "df_Test['Sex'] = df_Test['Sex'].astype(int)",
                 "df_Test['Embarked'] = df_Test['Embarked'].astype(int)",
                 "df_Test.dtypes"
             ],
             "tag_pred": [
-                "check_results",
                 "process_data"
             ],
             "correct_tag_ours": [
                 "process_data",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Feature Engineering",
@@ -789,10 +789,10 @@
                 "df_Test.isnull().sum()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -807,14 +807,14 @@
                 "df_Test"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "df_Test"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -832,7 +832,7 @@
                 "df_Test1"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "SETUP",
                 "ASSIGN = StandardScaler()",
                 "ASSIGN = sc.fit_transform(df_Test)",
@@ -840,13 +840,12 @@
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results",
                 "process_data"
             ],
             "correct_tag_ours": [
                 "setup_notebook",
                 "process_data",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Library Loading",
@@ -863,14 +862,14 @@
                 "X.shape"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "X.shape"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -977,7 +976,6 @@
                 "ASSIGN=classifier.fit(X_train, y_train, validation_split=0.350, batch_size = 5, epochs = 100)"
             ],
             "tag_pred": [
-                "process_data",
                 "train_model"
             ],
             "correct_tag_ours": [
@@ -1033,14 +1031,14 @@
                 "y_pred1"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "y_pred1"
             ],
             "tag_pred": [
-                "check_results"
+                "None"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"

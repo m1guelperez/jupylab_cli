@@ -63,14 +63,14 @@
                 "train.shape"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "train.shape"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -85,14 +85,14 @@
                 "test.shape"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "test.shape"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -109,15 +109,15 @@
                 "print(train.target.value_counts()[1]/train.target.value_counts()[0])"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "print(train.target.value_counts())",
                 "print(train.target.value_counts()[1]path()[0])"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -241,18 +241,17 @@
                 "input_dim"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "ASSIGN = X_train.shape[1]",
                 "input_dim"
             ],
             "tag_pred": [
-                "check_results",
                 "process_data",
                 "train_model"
             ],
             "correct_tag_ours": [
                 "process_data",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -329,12 +328,11 @@
                 "ASSIGN.summary()"
             ],
             "tag_pred": [
-                "check_results",
                 "train_model"
             ],
             "correct_tag_ours": [
                 "train_model",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Model Building and Training"
@@ -422,10 +420,10 @@
                 "pred_"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -462,14 +460,14 @@
                 "my_submission"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "my_submission"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"

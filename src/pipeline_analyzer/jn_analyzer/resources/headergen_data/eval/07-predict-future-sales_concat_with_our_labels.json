@@ -162,10 +162,10 @@
                 "sales.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -185,11 +185,12 @@
                 "ASSIGN.head()"
             ],
             "tag_pred": [
+                "validate_data",
                 "process_data"
             ],
             "correct_tag_ours": [
                 "process_data",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -231,8 +232,7 @@
             ],
             "tag_pred": [
                 "setup_notebook",
-                "visualize_data",
-                "process_data"
+                "visualize_data"
             ],
             "correct_tag_ours": [
                 "setup_notebook",
@@ -264,12 +264,12 @@
                 "ASSIGN.head()"
             ],
             "tag_pred": [
-                "check_results",
+                "validate_data",
                 "process_data"
             ],
             "correct_tag_ours": [
                 "process_data",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Feature Engineering",
@@ -362,10 +362,10 @@
                 "df_supervised.head()"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -388,7 +388,7 @@
             ],
             "content_processed": [
                 "SETUP",
-                "CHECKPOINT",
+                "VALIDATION",
                 "ASSIGN = smf.ols(formula='diff ~ lag_1', data=df_supervised)",
                 "ASSIGN = model.fit()",
                 "ASSIGN = model_fit.rsquared_adj",
@@ -396,13 +396,12 @@
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results",
                 "train_model"
             ],
             "correct_tag_ours": [
                 "setup_notebook",
                 "train_model",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Model Building and Training",
@@ -427,7 +426,7 @@
             ],
             "content_processed": [
                 "SETUP",
-                "CHECKPOINT",
+                "VALIDATION",
                 "ASSIGN = smf.ols(formula='diff ~ lag_1+lag_2+lag_3+lag_4+lag_5+lag_6+lag_7+lag_8+lag_9+lag_10+lag_11+lag_12', data=df_supervised)",
                 "ASSIGN = model.fit()",
                 "ASSIGN = model_fit.rsquared_adj",
@@ -435,13 +434,12 @@
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results",
                 "train_model"
             ],
             "correct_tag_ours": [
                 "setup_notebook",
                 "train_model",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Model Building and Training",
@@ -489,14 +487,14 @@
                 "test_set"
             ],
             "content_processed": [
-                "CHECKPOINT",
+                "VALIDATION",
                 "test_set"
             ],
             "tag_pred": [
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Data Preparation"
@@ -720,6 +718,7 @@
                 "df_result.to_csv(\"Predict.csv\")"
             ],
             "tag_pred": [
+                "validate_data",
                 "transfer_results"
             ],
             "correct_tag_ours": [

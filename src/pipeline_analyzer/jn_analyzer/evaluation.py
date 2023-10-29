@@ -5,6 +5,7 @@ from pipeline_analyzer.jn_analyzer.utils import (
     preprocess_source_cell_nlp,
     load_pre_trained_models,
 )
+from pipeline_analyzer.jn_analyzer.hybrid_workflow import create_cli_inference_file
 from pipeline_analyzer.jn_analyzer.constants import (
     CLASSIFIERS,
     VECTORIZERS,
@@ -16,6 +17,7 @@ from pipeline_analyzer.jn_analyzer.constants import (
     ACTIVITY,
     ALL_TAGS,
     EXPLICIT_MODELS,
+    KEYWORDS,
 )
 import warnings
 
@@ -23,16 +25,15 @@ warnings.filterwarnings("ignore")
 import xgboost as xgb
 import joblib
 import pandas as pd
-from datetime import datetime
 from sklearn.metrics import classification_report
 
 
-def checkpoint_activity_heuristic_hybrid(content: str):
-    if "CHECKPOINT" in content:
+def validate_data_activity_heuristic_hybrid(content: str):
+    if KEYWORDS.VALIDATION in content:
         return 1
     else:
-        classifier = CLASSIFIERS[ACTIVITY.CHECK_RESULTS]
-        vectorizer = VECTORIZERS[ACTIVITY.CHECK_RESULTS]
+        classifier = CLASSIFIERS[ACTIVITY.VALIDATE_DATA]
+        vectorizer = VECTORIZERS[ACTIVITY.VALIDATE_DATA]
         vectorized_cell = vectorizer.transform([content])
         prediction = classifier.predict(vectorized_cell)
         if prediction == 1:
@@ -41,7 +42,7 @@ def checkpoint_activity_heuristic_hybrid(content: str):
             return 0
 
 
-def data_visualization_heuristic_hybrid(content: str, output_type: str):
+def visualize_data_heuristic_hybrid(content: str, output_type: str):
     if output_type == "display_data":
         return 1
     else:
@@ -55,8 +56,8 @@ def data_visualization_heuristic_hybrid(content: str, output_type: str):
             return 0
 
 
-def setup_phase_heuristic_hybrid(content: str) -> int:
-    if "SETUP" in content:
+def setup_notebook_heuristic_hybrid(content: str) -> int:
+    if KEYWORDS.SETUP in content:
         return 1
     else:
         classifier = CLASSIFIERS[ACTIVITY.SETUP_NOTEBOOK]
@@ -113,178 +114,63 @@ def print_total_positive_report(list_values, name):
 
 
 def new_preprocessing_training():
+    """Applies pre-processing to the 120 training notebooks and creates a new json file (training_json_with_pre_processing.json)."""
     print("Creating new jsons from 120 training notebooks with new pre-processing...")
-    for i in range(1, 3):
-        with open(
-            PATH_TO_TRAINING_DIR
-            + "/training/json_processed_part1_b"
-            + str(i)
-            + ".json",
-            "r",
-            encoding="utf-8",
-        ) as f:
-            file_as_json = json.load(f)
-
-        for cell in file_as_json["content"]:
-            cell["source_orig"] = cell["source"]
-            cell["source"] = preprocess_source_cell_nlp(cell["source"])
-
-        with open(
-            PATH_TO_TRAINING_DIR
-            + "/training/"
-            + "json_processed_part1_with_pre_processing_"
-            + str(i)
-            + ".json",
-            "w",
-            encoding="utf-8",
-        ) as f:
-            json.dump(file_as_json, f, ensure_ascii=False, indent=4)
-
-    print("Creating new jsons from validation notebooks with new pre-processing...")
     with open(
-        PATH_TO_VALIDATION_DIR + "/ML_DATA_HYBRID_FINAL_COMPLETE.json",
+        PATH_TO_TRAINING_DIR + "/training/training_json.json",
         "r",
         encoding="utf-8",
     ) as f:
         file_as_json = json.load(f)
 
-        for cell in file_as_json["source"]:
-            cell["content_old"] = preprocess_source_cell_nlp(cell["content_old"])
+    for cell in file_as_json["content"]:
+        cell["source_orig"] = cell["source"]
+        cell["source"] = preprocess_source_cell_nlp(cell["source"])
+
     with open(
-        PATH_TO_VALIDATION_DIR
-        + str(datetime.now().strftime("%Y-%m-%d"))
-        + "_"
-        + "ML_DATA_HYBRID_FINAL_COMPLETE_NEW_PROCESSED.json",
+        PATH_TO_TRAINING_DIR + "/training/training_json_with_pre_processing.json",
         "w",
         encoding="utf-8",
     ) as f:
         json.dump(file_as_json, f, ensure_ascii=False, indent=4)
 
 
-def update_pre_processing_in_ML():
-    with open(
-        PATH_TO_VALIDATION_DIR + "ML_DATA_HYBRID_FINAL_COMPLETE.json",
-        "r",
-    ) as f:
-        json_long = json.load(f)
-    for cell in json_long["source"]:
-        cell["content"] = preprocess_source_cell_nlp(cell["content_old"])
-    with open(
-        PATH_TO_VALIDATION_DIR + "ML_DATA_HYBRID_FINAL_COMPLETE.json",
-        "w",
-    ) as f:
-        json.dump(json_long, f, indent=4, ensure_ascii=False)
-
-    with open(
-        PATH_TO_VALIDATION_DIR + "ML_DATA_HYBRID_FINAL.json",
-        "r",
-    ) as f:
-        json_long = json.load(f)
-    for cell in json_long["source"]:
-        cell["content"] = preprocess_source_cell_nlp(cell["content_old"])
-    with open(
-        PATH_TO_VALIDATION_DIR + "ML_DATA_HYBRID_FINAL.json",
-        "w",
-    ) as f:
-        json.dump(json_long, f, indent=4, ensure_ascii=False)
-
-
 def create_merged():
+    """Uses source of truth of the 120 Evaluation Notebooks (ML_DATA_HYBRID_FINAL_SHORT).
+    It then generates the ML_DATA_HYBRID_FINAL_COMPLETE.json file."""
     with open(
         PATH_TO_VALIDATION_DIR + "ML_DATA_HYBRID_FINAL_SHORT.json",
         "r",
     ) as f:
         json_short = json.load(f)
 
-    with open(
-        PATH_TO_VALIDATION_DIR + "ML_DATA_HYBRID_FINAL.json",
-        "r",
-    ) as f:
-        json_long = json.load(f)
-    print(len(json_long["source"]))
-    print(len(json_short["source"]))
-    assert len(json_long["source"]) == len(json_short["source"]), (
-        "Length of: "
-        + str(len(json_long["source"]))
-        + " and "
-        + str(len(json_short["source"]))
-        + " not equal."
-    )
-
-    for i in range(len(json_long["source"])):
-        assert (
-            json_long["source"][i]["content_old"] == json_short["source"][i]["content"]
-        )
-        json_long["source"][i]["tags"] = json_short["source"][i]["tags"]
-        json_long["source"][i]["output_type"] = json_short["source"][i]["output_type"]
+    for cell in json_short["source"]:
+        cell["content_old"] = cell["content"]
+        cell["content"] = preprocess_source_cell_nlp(cell["content"])
 
     with open(
         PATH_TO_VALIDATION_DIR + "ML_DATA_HYBRID_FINAL_COMPLETE.json",
         "w",
     ) as f:
-        json.dump(json_long, f, indent=4, ensure_ascii=False)
-
-
-def update_final():
-    with open(
-        PATH_TO_VALIDATION_DIR + "ML_DATA_HYBRID_FINAL_SHORT.json",
-        "r",
-    ) as f:
-        json_small = json.load(f)
-    with open(
-        PATH_TO_VALIDATION_DIR + "ML_DATA_HYBRID_FINAL.json",
-        "r",
-    ) as f:
-        json_big = json.load(f)
-
-    for i in range(len(json_small["source"])):
-        assert (
-            json_small["source"][i]["content"] == json_big["source"][i]["content_old"]
-        )
-        json_big["source"][i]["tags"] = json_small["source"][i]["tags"]
-        json_big["source"][i]["output_type"] = json_small["source"][i]["output_type"]
-    with open(
-        PATH_TO_VALIDATION_DIR + "ML_DATA_HYBRID_FINAL.json",
-        "w",
-    ) as f:
-        json.dump(json_big, f, indent=4, ensure_ascii=False)
+        json.dump(json_short, f, indent=4, ensure_ascii=False)
 
 
 def create_new_trainings_csvs():
-    """Uses the 120 training notebooks."""
+    """Uses the 120 training notebooks and creates the corresponding CSV files using our source of truth (training_json_with_pre_processing)."""
     random_seed = 42
     np.random.seed(random_seed)
     print("Creating new training data..")
     with open(
-        PATH_TO_TRAINING_DIR
-        + "training/json_processed_part1_with_pre_processing_"
-        + str(1)
-        + ".json",
+        PATH_TO_TRAINING_DIR + "training/training_json_with_pre_processing.json",
         "r",
         encoding="utf-8",
     ) as f:
         file_as_json = json.load(f)
 
-    with open(
-        PATH_TO_TRAINING_DIR
-        + "training/json_processed_part1_with_pre_processing_"
-        + str(2)
-        + ".json",
-        "r",
-        encoding="utf-8",
-    ) as f2:
-        file_as_json2 = json.load(f2)
-
     for tag in ALL_TAGS.keys():
         df = pd.DataFrame(columns=["content", "tag", "content_original"])
         index = 0
         for cell in file_as_json["content"]:
-            if tag in cell["tags"]:
-                df.loc[index] = (" ".join(cell["source"]), 1, cell["source_orig"])
-            else:
-                df.loc[index] = (" ".join(cell["source"]), 0, cell["source_orig"])
-            index += 1
-        for cell in file_as_json2["content"]:
             if tag in cell["tags"]:
                 df.loc[index] = (" ".join(cell["source"]), 1, cell["source_orig"])
             else:
@@ -305,15 +191,13 @@ def create_new_trainings_csvs():
             PATH_TO_TRAINING_DIR
             + "training/csvs/"
             + tag.replace("-", "_").replace(" ", "_")
-            + "_shuffled_b1_b2_concat"
-            + "-"
-            + str(datetime.now().strftime("%Y-%m-%d"))
-            + ".csv",
+            + "_shuffled.csv",
             index=False,
         )
 
 
 def create_final_validation_csv():
+    """Creates the validation csvs from our evaluation notebooks (ML_DATA_HYBRID_FINAL_COMPLETE)."""
     np.random.seed(42)
     with open(
         PATH_TO_VALIDATION_DIR + "ML_DATA_HYBRID_FINAL_COMPLETE.json",
@@ -327,14 +211,14 @@ def create_final_validation_csv():
         for cell in json_final["source"]:
             if tag in cell["tags"]:
                 df.loc[len(df)] = [
-                    " ".join(preprocess_source_cell_nlp(cell["content_old"])),
+                    " ".join(cell["content"]),
                     1,
                     cell["output_type"],
                     " ".join(cell["content_old"]),
                 ]
             else:
                 df.loc[len(df)] = [
-                    " ".join(preprocess_source_cell_nlp(cell["content_old"])),
+                    " ".join(cell["content"]),
                     0,
                     cell["output_type"],
                     " ".join(cell["content_old"]),
@@ -352,237 +236,220 @@ def create_final_validation_csv():
 
 
 def create_percentage_distribution():
+    """Calculates the percentage of each tag in the evaluation notebooks."""
     ######################################
     number_of_code_cells_global = 0
     number_of_none_cells_global = 0
-    number_of_checkpoints_cells_global = 0
-    number_of_visualization_cells_global = 0
-    number_of_evaluation_cells_global = 0
-    number_of_training_cells_global = 0
-    number_of_preprocessing_cells_global = 0
-    number_of_validation_cells_global = 0
-    number_of_ingestion_cells_global = 0
-    number_of_setup_cells_global = 0
-    number_of_post_development_cells_global = 0
+    number_of_visualize_data_cells_global = 0
+    number_of_evaluate_model_cells_global = 0
+    number_of_train_model_cells_global = 0
+    number_of_process_model_cells_global = 0
+    number_of_validate_data_cells_global = 0
+    number_of_ingest_data_cells_global = 0
+    number_of_setup_notebook_cells_global = 0
+    number_of_transfer_results_cells_global = 0
     ######################################
     percentage_of_none_cells_per_notebook = []
-    percentage_of_setup_cells_per_notebook = []
-    percentage_of_ingestion_cells_per_notebook = []
-    percentage_of_validation_cells_per_notebook = []
-    percentage_of_preprocessing_cells_per_notebook = []
-    percentage_of_training_cells_per_notebook = []
-    percentage_of_evaluation_cells_per_notebook = []
-    percentage_of_visualization_cells_per_notebook = []
-    percentage_of_checkpoints_cells_per_notebook = []
-    percentage_of_post_development_cells_per_notebook = []
+    percentage_of_setup_notebook_per_notebook = []
+    percentage_of_ingest_data_cells_per_notebook = []
+    percentage_of_validate_data_cells_per_notebook = []
+    percentage_of_process_data_cells_per_notebook = []
+    percentage_of_train_model_cells_per_notebook = []
+    percentage_of_evaluate_model_cells_per_notebook = []
+    percentage_of_visualize_data_cells_per_notebook = []
+    percentage_of_transfer_results_cells_per_notebook = []
 
     with open(
-        "./analysis_per_notebook_with_sot_tags.json",
+        "cli_run_dist.json",
         "r",
         encoding="utf-8",
     ) as f:
         notebooks = json.load(f)
-    number_of_code_cells = 0
     for notebook in notebooks["notebooks"]:
-        number_of_code_cells = 0
+        number_of_code_cells_global += len(notebook["source"])
+    print("Number of code cells global: ", number_of_code_cells_global)
+    for notebook in notebooks["notebooks"]:
+        number_of_code_cells = len(notebook["source"])
         number_of_none_cells = 0
-        number_of_setup_cells = 0
-        number_of_ingestion_cells = 0
-        number_of_validation_cells = 0
-        number_of_preprocessing_cells = 0
-        number_of_training_cells = 0
-        number_of_evaluation_cells = 0
-        number_of_visualization_cells = 0
-        number_of_checkpoints_cells = 0
-        number_of_post_development_cells = 0
+        number_of_setup_notebook_cells = 0
+        number_of_ingest_data_cells = 0
+        number_of_validate_data_cells = 0
+        number_of_process_data_cells = 0
+        number_of_train_model_cells = 0
+        number_of_evaluate_model_cells = 0
+        number_of_visualize_data_cells = 0
+        number_of_transfer_results_cells = 0
         for cell in notebook["source"]:
-            number_of_code_cells += 1
+            # number_of_code_cells += 1
             number_of_code_cells_global += 1
-            if "Setup Activity" in cell["tags"]:
-                number_of_setup_cells += 1
-                number_of_setup_cells_global += 1
-            if "Data Ingestion Activity" in cell["tags"]:
-                number_of_ingestion_cells += 1
-                number_of_ingestion_cells_global += 1
-            if "Data Validation Activity" in cell["tags"]:
-                number_of_validation_cells += 1
-                number_of_validation_cells_global += 1
-            if "Data Pre-Processing Activity" in cell["tags"]:
-                number_of_preprocessing_cells += 1
-                number_of_preprocessing_cells_global += 1
-            if "Model Training Activity" in cell["tags"]:
-                number_of_training_cells += 1
-                number_of_training_cells_global += 1
-            if "Model Evaluation Activity" in cell["tags"]:
-                number_of_evaluation_cells += 1
-                number_of_evaluation_cells_global += 1
-            if "Data Visualization Phase" in cell["tags"]:
-                number_of_visualization_cells += 1
-                number_of_visualization_cells_global += 1
-            if "Checkpoint Activity" in cell["tags"]:
-                number_of_checkpoints_cells += 1
-                number_of_checkpoints_cells_global += 1
-            if "Post Development Phase" in cell["tags"]:
-                number_of_post_development_cells += 1
-                number_of_post_development_cells_global += 1
+            if ACTIVITY.SETUP_NOTEBOOK in cell["tags"]:
+                number_of_setup_notebook_cells += 1
+                number_of_setup_notebook_cells_global += 1
+            if ACTIVITY.INGEST_DATA in cell["tags"]:
+                number_of_ingest_data_cells += 1
+                number_of_ingest_data_cells_global += 1
+            if ACTIVITY.VALIDATE_DATA in cell["tags"]:
+                number_of_validate_data_cells += 1
+                number_of_validate_data_cells_global += 1
+            if ACTIVITY.PROCESS_DATA in cell["tags"]:
+                number_of_process_data_cells += 1
+                number_of_process_model_cells_global += 1
+            if ACTIVITY.TRAIN_MODEL in cell["tags"]:
+                number_of_train_model_cells += 1
+                number_of_train_model_cells_global += 1
+            if ACTIVITY.EVALUATE_MODEL in cell["tags"]:
+                number_of_evaluate_model_cells += 1
+                number_of_evaluate_model_cells_global += 1
+            if ACTIVITY.VISUALIZE_DATA in cell["tags"]:
+                number_of_visualize_data_cells += 1
+                number_of_visualize_data_cells_global += 1
+            if ACTIVITY.TRANSFER_RESULTS in cell["tags"]:
+                number_of_transfer_results_cells += 1
+                number_of_transfer_results_cells_global += 1
             if "None" in cell["tags"] or len(cell["tags"]) == 0:
                 number_of_none_cells += 1
                 number_of_none_cells_global += 1
-        percentage_of_none_cells_per_notebook.append(
-            number_of_none_cells / number_of_code_cells
-        )
-        percentage_of_setup_cells_per_notebook.append(
-            number_of_setup_cells / number_of_code_cells
-        )
-        percentage_of_ingestion_cells_per_notebook.append(
-            number_of_ingestion_cells / number_of_code_cells
-        )
-        percentage_of_validation_cells_per_notebook.append(
-            number_of_validation_cells / number_of_code_cells
-        )
-        percentage_of_preprocessing_cells_per_notebook.append(
-            number_of_preprocessing_cells / number_of_code_cells
-        )
-        percentage_of_training_cells_per_notebook.append(
-            number_of_training_cells / number_of_code_cells
-        )
-        percentage_of_evaluation_cells_per_notebook.append(
-            number_of_evaluation_cells / number_of_code_cells
-        )
-        percentage_of_visualization_cells_per_notebook.append(
-            number_of_visualization_cells / number_of_code_cells
-        )
-        percentage_of_checkpoints_cells_per_notebook.append(
-            number_of_checkpoints_cells / number_of_code_cells
-        )
-        percentage_of_post_development_cells_per_notebook.append(
-            number_of_post_development_cells / number_of_code_cells
-        )
+        if number_of_evaluate_model_cells != 0:
+            percentage_of_none_cells_per_notebook.append(
+                number_of_none_cells / number_of_code_cells
+            )
+            percentage_of_setup_notebook_per_notebook.append(
+                number_of_setup_notebook_cells / number_of_code_cells
+            )
+            percentage_of_ingest_data_cells_per_notebook.append(
+                number_of_ingest_data_cells / number_of_code_cells
+            )
+            percentage_of_validate_data_cells_per_notebook.append(
+                number_of_validate_data_cells / number_of_code_cells
+            )
+            percentage_of_process_data_cells_per_notebook.append(
+                number_of_process_data_cells / number_of_code_cells
+            )
+            percentage_of_train_model_cells_per_notebook.append(
+                number_of_train_model_cells / number_of_code_cells
+            )
+            percentage_of_evaluate_model_cells_per_notebook.append(
+                number_of_evaluate_model_cells / number_of_code_cells
+            )
+            percentage_of_visualize_data_cells_per_notebook.append(
+                number_of_visualize_data_cells / number_of_code_cells
+            )
+            percentage_of_transfer_results_cells_per_notebook.append(
+                number_of_transfer_results_cells / number_of_code_cells
+            )
     print(
         "Average percentage of none cells per notebook: ",
-        sum(percentage_of_none_cells_per_notebook)
-        / len(percentage_of_none_cells_per_notebook),
+        (
+            sum(percentage_of_none_cells_per_notebook)
+            / len(percentage_of_none_cells_per_notebook)
+        )
+        * 100,
     )
     print(
         "Average percentage of setup cells per notebook: ",
-        sum(percentage_of_setup_cells_per_notebook)
-        / len(percentage_of_setup_cells_per_notebook),
+        (
+            sum(percentage_of_setup_notebook_per_notebook)
+            / len(percentage_of_setup_notebook_per_notebook)
+        )
+        * 100,
     )
     print(
         "Average percentage of ingestion cells per notebook: ",
-        sum(percentage_of_ingestion_cells_per_notebook)
-        / len(percentage_of_ingestion_cells_per_notebook),
+        (
+            sum(percentage_of_ingest_data_cells_per_notebook)
+            / len(percentage_of_ingest_data_cells_per_notebook)
+        )
+        * 100,
     )
     print(
         "Average percentage of validation cells per notebook: ",
-        sum(percentage_of_validation_cells_per_notebook)
-        / len(percentage_of_validation_cells_per_notebook),
+        (
+            sum(percentage_of_validate_data_cells_per_notebook)
+            / len(percentage_of_validate_data_cells_per_notebook)
+        )
+        * 100,
     )
     print(
         "Average percentage of preprocessing cells per notebook: ",
-        sum(percentage_of_preprocessing_cells_per_notebook)
-        / len(percentage_of_preprocessing_cells_per_notebook),
+        (
+            sum(percentage_of_process_data_cells_per_notebook)
+            / len(percentage_of_process_data_cells_per_notebook)
+        )
+        * 100,
     )
     print(
         "Average percentage of training cells per notebook: ",
-        sum(percentage_of_training_cells_per_notebook)
-        / len(percentage_of_training_cells_per_notebook),
+        (
+            sum(percentage_of_train_model_cells_per_notebook)
+            / len(percentage_of_train_model_cells_per_notebook)
+        )
+        * 100,
     )
     print(
         "Average percentage of evaluation cells per notebook: ",
-        sum(percentage_of_evaluation_cells_per_notebook)
-        / len(percentage_of_evaluation_cells_per_notebook),
+        (
+            sum(percentage_of_evaluate_model_cells_per_notebook)
+            / len(percentage_of_evaluate_model_cells_per_notebook)
+        )
+        * 100,
     )
     print(
         "Average percentage of visualization cells per notebook: ",
-        sum(percentage_of_visualization_cells_per_notebook)
-        / len(percentage_of_visualization_cells_per_notebook),
-    )
-    print(
-        "Average percentage of checkpoints cells per notebook: ",
-        sum(percentage_of_checkpoints_cells_per_notebook)
-        / len(percentage_of_checkpoints_cells_per_notebook),
+        (
+            sum(percentage_of_visualize_data_cells_per_notebook)
+            / len(percentage_of_visualize_data_cells_per_notebook)
+        )
+        * 100,
     )
     print(
         "Average percentage of post development cells per notebook: ",
-        sum(percentage_of_post_development_cells_per_notebook)
-        / len(percentage_of_post_development_cells_per_notebook),
+        (
+            sum(percentage_of_transfer_results_cells_per_notebook)
+            / len(percentage_of_transfer_results_cells_per_notebook)
+        )
+        * 100,
     )
     print("---" * 30)
     print(
         "Average percentage of none cells global: ",
-        number_of_none_cells_global / number_of_code_cells_global,
+        (number_of_none_cells_global / number_of_code_cells_global) * 100,
     )
     print(
         "Average percentage of setup cells global: ",
-        number_of_setup_cells_global / number_of_code_cells_global,
+        (number_of_setup_notebook_cells_global / number_of_code_cells_global) * 100,
     )
     print(
         "Average percentage of ingestion cells global: ",
-        number_of_ingestion_cells_global / number_of_code_cells_global,
+        (number_of_ingest_data_cells_global / number_of_code_cells_global) * 100,
     )
     print(
         "Average percentage of validation cells global: ",
-        number_of_validation_cells_global / number_of_code_cells_global,
+        (number_of_validate_data_cells_global / number_of_code_cells_global) * 100,
     )
     print(
         "Average percentage of preprocessing cells global: ",
-        number_of_preprocessing_cells_global / number_of_code_cells_global,
+        (number_of_process_model_cells_global / number_of_code_cells_global) * 100,
     )
     print(
         "Average percentage of training cells global: ",
-        number_of_training_cells_global / number_of_code_cells_global,
+        (number_of_train_model_cells_global / number_of_code_cells_global) * 100,
     )
     print(
         "Average percentage of evaluation cells global: ",
-        number_of_evaluation_cells_global / number_of_code_cells_global,
+        (number_of_evaluate_model_cells_global / number_of_code_cells_global) * 100,
     )
     print(
         "Average percentage of visualization cells global: ",
-        number_of_visualization_cells_global / number_of_code_cells_global,
-    )
-    print(
-        "Average percentage of checkpoints cells global: ",
-        number_of_checkpoints_cells_global / number_of_code_cells_global,
+        (number_of_visualize_data_cells_global / number_of_code_cells_global) * 100,
     )
     print(
         "Average percentage of post development cells global: ",
-        number_of_post_development_cells_global / number_of_code_cells_global,
+        (number_of_transfer_results_cells_global / number_of_code_cells_global) * 100,
     )
 
 
-def create_headergen_csvs():
-    with open(
-        PATH_TO_HEADERGEN_EVALUATION_DIR + "eval/evaluation_file.json",
-        "r",
-    ) as f:
-        json_long = json.load(f)
-    for tag in ALL_TAGS.keys():
-        df = pd.DataFrame(columns=["content", "output_type", "tag"])
-        for cell in json_long["source"]:
-            if tag in cell["correct_tag_ours"]:
-                df.loc[len(df.index)] = [
-                    " ".join(cell["content_processed"]),
-                    "not_existent",
-                    1,
-                ]
-            else:
-                df.loc[len(df.index)] = [
-                    " ".join(cell["content_processed"]),
-                    "not_existent",
-                    0,
-                ]
-        with open(
-            PATH_TO_HEADERGEN_EVALUATION_DIR
-            + "eval/csvs/"
-            + tag.replace("-", "_").replace(" ", "_")
-            + "_headergen.csv",
-            "w",
-        ) as f:
-            df.to_csv(f, index=False)
-
-
 def test_on_final_validation_notebooks_hybrid_macro(regex: str):
+    """Tests the final validation notebooks using our generated CSV files."""
     load_pre_trained_models()
     print("Testing on final validation ...")
     with open("final_validation_results_macro.txt", "w") as file:
@@ -597,7 +464,7 @@ def test_on_final_validation_notebooks_hybrid_macro(regex: str):
     for tag in ALL_TAGS.keys():
         if (
             tag != ACTIVITY.SETUP_NOTEBOOK
-            and tag != ACTIVITY.CHECK_RESULTS
+            and tag != ACTIVITY.VALIDATE_DATA
             and tag != ACTIVITY.VISUALIZE_DATA
         ):
             print("Starting with " + tag + " ...")
@@ -644,7 +511,7 @@ def test_on_final_validation_notebooks_hybrid_macro(regex: str):
                 PATH_TO_VALIDATION_DIR
                 + "/errors/"
                 + tag.replace(" ", "_")
-                + "_final_validation_errors.csv",
+                + "_errors_validation.csv",
                 index=False,
             )
 
@@ -773,14 +640,12 @@ def test_on_final_validation_notebooks_hybrid_macro(regex: str):
             y_pred = []
             for curr_content, curr_tag, curr_output_type in data:
                 if tag == ACTIVITY.SETUP_NOTEBOOK:
-                    y_pred.append(setup_phase_heuristic_hybrid(curr_content))
-                elif tag == ACTIVITY.CHECK_RESULTS:
-                    y_pred.append(checkpoint_activity_heuristic_hybrid(curr_content))
+                    y_pred.append(setup_notebook_heuristic_hybrid(curr_content))
+                elif tag == ACTIVITY.VALIDATE_DATA:
+                    y_pred.append(validate_data_activity_heuristic_hybrid(curr_content))
                 elif tag == ACTIVITY.VISUALIZE_DATA:
                     y_pred.append(
-                        data_visualization_heuristic_hybrid(
-                            curr_content, curr_output_type
-                        )
+                        visualize_data_heuristic_hybrid(curr_content, curr_output_type)
                     )
 
             # Add the predictions to the DataFrame
@@ -797,7 +662,7 @@ def test_on_final_validation_notebooks_hybrid_macro(regex: str):
                 PATH_TO_VALIDATION_DIR
                 + "/errors/"
                 + tag.replace(" ", "_")
-                + "_errors_hybrid.csv",
+                + "_errors_validation.csv",
                 index=False,
             )
 
@@ -988,6 +853,7 @@ def test_on_final_validation_notebooks_hybrid_macro(regex: str):
 
 
 def test_on_headergen_notebooks_hybrid(regex: str):
+    """Tests the HeaderGen notebooks using our generated CSV files."""
     load_pre_trained_models()
     print("Testing on headergen data hybrid ...")
     with open("headergen_hybrid_results.txt", "w") as file:
@@ -1002,7 +868,7 @@ def test_on_headergen_notebooks_hybrid(regex: str):
     for tag in ALL_TAGS.keys():
         if (
             tag != ACTIVITY.SETUP_NOTEBOOK
-            and tag != ACTIVITY.CHECK_RESULTS
+            and tag != ACTIVITY.VALIDATE_DATA
             and tag != ACTIVITY.VISUALIZE_DATA
         ):
             print("Starting with " + tag + " ...")
@@ -1135,31 +1001,36 @@ def test_on_headergen_notebooks_hybrid(regex: str):
             y_pred = []
             if tag == ACTIVITY.SETUP_NOTEBOOK:
                 for _, row in df.iterrows():
-                    if setup_phase_heuristic_hybrid(str(row["content"])) != row["tag"]:
-                        print(row["content"])
-                        print(
-                            "Predicted: "
-                            + str(setup_phase_heuristic_hybrid(row["content"]))
-                        )
-                        print(row["tag"])
-                        print("#######################")
-            elif tag == ACTIVITY.CHECK_RESULTS:
-                for _, row in df.iterrows():
                     if (
-                        checkpoint_activity_heuristic_hybrid(str(row["content"]))
+                        setup_notebook_heuristic_hybrid(str(row["content"]))
                         != row["tag"]
                     ):
                         print(row["content"])
                         print(
                             "Predicted: "
-                            + str(checkpoint_activity_heuristic_hybrid(row["content"]))
+                            + str(setup_notebook_heuristic_hybrid(row["content"]))
+                        )
+                        print(row["tag"])
+                        print("#######################")
+            elif tag == ACTIVITY.VALIDATE_DATA:
+                for _, row in df.iterrows():
+                    if (
+                        validate_data_activity_heuristic_hybrid(str(row["content"]))
+                        != row["tag"]
+                    ):
+                        print(row["content"])
+                        print(
+                            "Predicted: "
+                            + str(
+                                validate_data_activity_heuristic_hybrid(row["content"])
+                            )
                         )
                         print(row["tag"])
                         print("#######################")
             elif tag == ACTIVITY.VISUALIZE_DATA:
                 for idx, row in df.iterrows():
                     if (
-                        data_visualization_heuristic_hybrid(
+                        visualize_data_heuristic_hybrid(
                             str(row["content"]), str(row["output_type"])
                         )
                         != row["tag"]
@@ -1168,7 +1039,7 @@ def test_on_headergen_notebooks_hybrid(regex: str):
                         print(
                             "Predicted: "
                             + str(
-                                data_visualization_heuristic_hybrid(
+                                visualize_data_heuristic_hybrid(
                                     row["content"], str(row["output_type"])
                                 )
                             )
@@ -1177,14 +1048,12 @@ def test_on_headergen_notebooks_hybrid(regex: str):
                         print("#######################")
             for curr_content, _, curr_output_type in data:
                 if tag == ACTIVITY.SETUP_NOTEBOOK:
-                    y_pred.append(setup_phase_heuristic_hybrid(curr_content))
-                elif tag == ACTIVITY.CHECK_RESULTS:
-                    y_pred.append(checkpoint_activity_heuristic_hybrid(curr_content))
+                    y_pred.append(setup_notebook_heuristic_hybrid(curr_content))
+                elif tag == ACTIVITY.VALIDATE_DATA:
+                    y_pred.append(validate_data_activity_heuristic_hybrid(curr_content))
                 elif tag == ACTIVITY.VISUALIZE_DATA:
                     y_pred.append(
-                        data_visualization_heuristic_hybrid(
-                            curr_content, curr_output_type
-                        )
+                        visualize_data_heuristic_hybrid(curr_content, curr_output_type)
                     )
 
             # Add the predictions to the DataFrame
@@ -1334,8 +1203,8 @@ def test_on_headergen_notebooks_hybrid(regex: str):
     }
 
 
-def assert_eval_json_is_equal():
-    """Asserts the the content in the eval json is equal to the provided data by headergen in seperated files."""
+def assert_len_eval_json_is_equal():
+    """Asserts the the number of cells in our source of truth and the headergen notebooks is the same."""
     sum = 0
     with open(
         PATH_TO_HEADERGEN_EVALUATION_DIR + "/eval/source_of_truth_jupylabel.json",
@@ -1369,6 +1238,8 @@ def assert_eval_json_is_equal():
 
 
 def create_headergen_eval_json_raw():
+    """Creates a JSON file that contains the raw and pre-processed content of the headergen notebooks as well as the name.
+    Furthermore we add additional fields that will be filled later."""
     path_to_headergen_notebooks = (
         PATH_TO_HEADERGEN_EVALUATION_DIR + "notebooks_headergen_json/"
     )
@@ -1425,18 +1296,19 @@ def create_headergen_eval_json_raw():
 
 
 def return_predictions(text_as_list, output_type):
+    """Returns the predictions for a given text."""
     tags = []
     sentence = " ".join(text_as_list)
 
     if sentence == "":
         return ["None"]
 
-    if setup_phase_heuristic_hybrid(sentence) == 1:
+    if setup_notebook_heuristic_hybrid(sentence) == 1:
         tags.append(ACTIVITY.SETUP_NOTEBOOK)
-    if data_visualization_heuristic_hybrid(sentence, output_type) == 1:
+    if visualize_data_heuristic_hybrid(sentence, output_type) == 1:
         tags.append(ACTIVITY.VISUALIZE_DATA)
-    if checkpoint_activity_heuristic_hybrid(sentence) == 1:
-        tags.append(ACTIVITY.CHECK_RESULTS)
+    if validate_data_activity_heuristic_hybrid(sentence) == 1:
+        tags.append(ACTIVITY.VALIDATE_DATA)
     sentence = " ".join(text_as_list)
     for tag in EXPLICIT_MODELS:
         sentence_transformed = VECTORIZERS[tag].transform([sentence])
@@ -1449,9 +1321,10 @@ def return_predictions(text_as_list, output_type):
 
 
 def insert_our_sot_labels_into_json():
+    """Inserts our source of truth labels into the JSON files as well as the prediction of the model."""
     load_pre_trained_models()
     sum = 0
-    assert_eval_json_is_equal()
+    assert_len_eval_json_is_equal()
     with open(
         PATH_TO_HEADERGEN_EVALUATION_DIR + "eval/source_of_truth_jupylabel.json",
         "r",
@@ -1484,6 +1357,7 @@ def insert_our_sot_labels_into_json():
 
 
 def insert_headergen_sot():
+    """Inserts the headergen source of truth labels into the JSON files."""
     for file in os.listdir(PATH_TO_HEADERGEN_EVALUATION_DIR + "eval/"):
         if file.endswith("_our_labels.json"):
             with open(
@@ -1509,6 +1383,8 @@ def insert_headergen_sot():
 
 
 def create_big_eval():
+    """Creates a big JSON file (evaluation_file.json) that contains all the cells of the headergen notebooks
+    as well as all the needed information to make an evaluation."""
     sum = 0
     big_json = {"source": []}
     for file in os.listdir(PATH_TO_HEADERGEN_EVALUATION_DIR + "/eval/"):
@@ -1529,8 +1405,44 @@ def create_big_eval():
         json.dump(big_json, f, indent=4, ensure_ascii=False)
 
 
+def create_headergen_csvs():
+    """Creates CSVS out of the HeaderGen notebooks using our source of truth (evaluation_file.json)."""
+    with open(
+        PATH_TO_HEADERGEN_EVALUATION_DIR + "eval/evaluation_file.json",
+        "r",
+    ) as f:
+        json_long = json.load(f)
+    for tag in ALL_TAGS.keys():
+        df = pd.DataFrame(columns=["content", "output_type", "tag"])
+        for cell in json_long["source"]:
+            if tag in cell["correct_tag_ours"]:
+                df.loc[len(df.index)] = [
+                    " ".join(cell["content_processed"]),
+                    "not_existent",
+                    1,
+                ]
+            else:
+                df.loc[len(df.index)] = [
+                    " ".join(cell["content_processed"]),
+                    "not_existent",
+                    0,
+                ]
+        with open(
+            PATH_TO_HEADERGEN_EVALUATION_DIR
+            + "eval/csvs/"
+            + tag.replace("-", "_").replace(" ", "_")
+            + "_headergen.csv",
+            "w",
+        ) as f:
+            df.to_csv(f, index=False)
+
+
 def evaluate_after_executing_cli():
+    """Makes a big evaluation, which asserts that the predictions in our generated files for the evaluation
+    equal the prediction when running the JupyLab as CLI tool right now on particular cells. This ensures that we would get the same results
+    when using JupyLab normally in the CLI."""
     load_pre_trained_models()
+    create_cli_inference_file()
     with open("eval.txt", "w") as f:
         f.write("")
     with open("cli_run.json", "r") as f:
@@ -1620,12 +1532,12 @@ def evaluate_after_executing_cli():
             if (
                 tag == ACTIVITY.SETUP_NOTEBOOK
                 or tag == ACTIVITY.VISUALIZE_DATA
-                or tag == ACTIVITY.CHECK_RESULTS
+                or tag == ACTIVITY.VALIDATE_DATA
             ):
                 if tag == ACTIVITY.SETUP_NOTEBOOK:
                     df_explicit.loc[len(df_explicit)] = (
                         " ".join(cell["content"]),
-                        setup_phase_heuristic_hybrid(" ".join(cell["content"])),
+                        setup_notebook_heuristic_hybrid(" ".join(cell["content"])),
                         cell["output_type"],
                         " ".join(cell["content_old"]),
                     )
@@ -1633,16 +1545,18 @@ def evaluate_after_executing_cli():
                 elif tag == ACTIVITY.VISUALIZE_DATA:
                     df_explicit.loc[len(df_explicit)] = (
                         " ".join(cell["content"]),
-                        data_visualization_heuristic_hybrid(
+                        visualize_data_heuristic_hybrid(
                             " ".join(cell["content"]), cell["output_type"]
                         ),
                         cell["output_type"],
                         " ".join(cell["content_old"]),
                     )
-                elif tag == ACTIVITY.CHECK_RESULTS:
+                elif tag == ACTIVITY.VALIDATE_DATA:
                     df_explicit.loc[len(df_explicit)] = (
                         " ".join(cell["content"]),
-                        checkpoint_activity_heuristic_hybrid(" ".join(cell["content"])),
+                        validate_data_activity_heuristic_hybrid(
+                            " ".join(cell["content"])
+                        ),
                         cell["output_type"],
                         " ".join(cell["content_old"]),
                     )
@@ -1757,7 +1671,12 @@ def evaluate_after_executing_cli():
         df_test_against_validation_csvs = df_test_against_validation_csvs.sort_values(
             by="original_content"
         ).reset_index(drop=True)
-        assert len(df_test_against_validation_csvs) == len(df_explicit)
+        assert len(df_test_against_validation_csvs) == len(df_explicit), (
+            "Length of df_test_against_validation_csvs was: "
+            + str(len(df_test_against_validation_csvs))
+            + " and length of df_explicit was: "
+            + str(len(df_explicit))
+        )
         df_explicit = df_explicit.sort_values(by="original_content").reset_index(
             drop=True
         )
@@ -1810,9 +1729,7 @@ def evaluate_after_executing_cli():
 
 
 def update_ml_hybrid_files():
-    update_pre_processing_in_ML()
     create_merged()
-    update_final()
 
 
 def new_preprocessing_training_and_validation_data():
@@ -1838,5 +1755,6 @@ def evaluate_on_headergen():
 
 def big_evaluation():
     update_ml_hybrid_files()
+    create_final_validation_csv()
     test_on_final_validation_notebooks_hybrid_macro(REGEX)
     evaluate_after_executing_cli()

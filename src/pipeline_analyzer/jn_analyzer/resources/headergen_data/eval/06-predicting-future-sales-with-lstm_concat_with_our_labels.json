@@ -20,16 +20,16 @@
             ],
             "content_processed": [
                 "SETUP",
-                "CHECKPOINT",
+                "VALIDATION",
                 "print(os.listdir())"
             ],
             "tag_pred": [
                 "setup_notebook",
-                "check_results"
+                "validate_data"
             ],
             "correct_tag_ours": [
                 "setup_notebook",
-                "check_results"
+                "validate_data"
             ],
             "headergen_tag": [
                 "Library Loading"
@@ -184,7 +184,7 @@
             "content_processed": [
                 "SETUP",
                 "SETUP",
-                "CHECKPOINT",
+                "VALIDATION",
                 "ASSIGN= time.time()",
                 "ASSIGN = pd.read_csv('..path', parse_dates=['date'], infer_datetime_format=True, dayfirst=True)",
                 "ASSIGN = pd.read_csv('..path')",
@@ -276,7 +276,7 @@
             "tag_pred": [
                 "setup_notebook",
                 "visualize_data",
-                "check_results",
+                "validate_data",
                 "ingest_data",
                 "process_data",
                 "train_model",
@@ -289,7 +289,7 @@
                 "process_data",
                 "train_model",
                 "evaluate_model",
-                "check_results",
+                "validate_data",
                 "transfer_results",
                 "visualize_data"
             ],
