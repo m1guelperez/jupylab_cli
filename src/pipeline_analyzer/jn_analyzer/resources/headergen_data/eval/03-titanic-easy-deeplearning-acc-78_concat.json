@@ -1,0 +1,169 @@
+{
+    "source": [
+        {
+            "content": [
+                "import numpy as np",
+                "import pandas as pd",
+                "import tensorflow as tf",
+                "from tensorflow import keras",
+                "train = pd.read_csv('/kaggle/input/titanic/train.csv')",
+                "train['Sec_Name'] = train['Name'].astype(str).str.split().str[1]",
+                "#print(train)",
+                "Y_train = np.array(train['Survived'])",
+                "X_train = train[['Pclass', 'Sex', 'Age', 'Embarked', 'Sec_Name']]",
+                "X_train = X_train.replace('male', 0)",
+                "X_train = X_train.replace('female', 1)",
+                "X_train['Embarked'] = X_train['Embarked'].replace('S',1)",
+                "X_train['Embarked'] = X_train['Embarked'].replace('C',2)",
+                "X_train['Embarked'] = X_train['Embarked'].replace('Q',3)",
+                "X_train = X_train.replace(np.nan, X_train['Age'].mean())",
+                "X_train['Sec_Name'] = X_train['Sec_Name'].replace('Mr.',1)",
+                "X_train['Sec_Name'] = X_train['Sec_Name'].replace('Mrs.',2)",
+                "X_train['Sec_Name'] = X_train['Sec_Name'].replace('Miss.',3)",
+                "X_train['Sec_Name'] = X_train['Sec_Name'].replace('Master.',4)",
+                "X_train['Sec_Name'] = pd.to_numeric(X_train['Sec_Name'], errors = 'coerce')",
+                "X_train['Sec_Name'] = X_train['Sec_Name'].replace(np.nan,0)",
+                "X_train = np.array(X_train)",
+                "print(X_train)"
+            ],
+            "content_processed": [
+                "SETUP",
+                "CHECKPOINT",
+                "ASSIGN = pd.read_csv('path')",
+                "ASSIGN['Sec_Name'] = ASSIGN['Name'].astype(str).str.split().str[1]",
+                "ASSIGN = np.array(train['Survived'])",
+                "ASSIGN = train[['Pclass', 'Sex', 'Age', 'Embarked', 'Sec_Name']]",
+                "ASSIGN = ASSIGN.replace('male', 0)",
+                "ASSIGN = ASSIGN.replace('female', 1)",
+                "ASSIGN['Embarked'] = ASSIGN['Embarked'].replace('S',1)",
+                "ASSIGN['Embarked'] = ASSIGN['Embarked'].replace('C',2)",
+                "ASSIGN['Embarked'] = ASSIGN['Embarked'].replace('Q',3)",
+                "ASSIGN = ASSIGN.replace(np.nan, ASSIGN['Age'].mean())",
+                "ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Mr.',1)",
+                "ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Mrs.',2)",
+                "ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Miss.',3)",
+                "ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Master.',4)",
+                "ASSIGN['Sec_Name'] = pd.to_numeric(ASSIGN['Sec_Name'], errors = 'coerce')",
+                "ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace(np.nan,0)",
+                "ASSIGN = np.array(ASSIGN)",
+                "print(print)"
+            ],
+            "tag_pred": [],
+            "headergen_tag": [
+                "Library Loading",
+                "Feature Engineering",
+                "Data Preparation"
+            ],
+            "correct_tag": []
+        },
+        {
+            "content": [
+                "class myCallback(tf.keras.callbacks.Callback):",
+                "    def on_epoch_end(self, epoch, logs={}):",
+                "        if(logs.get('accuracy') > 0.82):",
+                "            self.model.stop_training = True",
+                "callbacks = myCallback();"
+            ],
+            "content_processed": [
+                "class myCallback(tf.keras.callbacks.Callback):",
+                "def on_epoch_end(self, epoch, logs={}):",
+                "if(logs.get('accuracy') > 0.82):",
+                "self.model.stop_training = True",
+                "ASSIGN = myCallback();"
+            ],
+            "tag_pred": [],
+            "headergen_tag": [
+                "Model Building and Training"
+            ],
+            "correct_tag": []
+        },
+        {
+            "content": [
+                "model = tf.keras.Sequential([keras.layers.Dense(5, input_dim = 5, activation = tf.nn.relu), tf.keras.layers.Dense(4, activation = tf.nn.relu), tf.keras.layers.Dense(3, activation = tf.nn.relu), tf.keras.layers.Dense(2, activation = tf.nn.relu), tf.keras.layers.Dense(1, activation = tf.nn.sigmoid)])",
+                "model.compile(optimizer=\"Adam\", loss = 'binary_crossentropy', metrics = ['accuracy'])",
+                "model.fit(X_train, Y_train, validation_split=0.15,epochs = 100,batch_size=5, callbacks = [callbacks])"
+            ],
+            "content_processed": [
+                "ASSIGN = tf.keras.Sequential([keras.layers.Dense(5, input_dim = 5, activation = tf.nn.relu), tf.keras.layers.Dense(4, activation = tf.nn.relu), tf.keras.layers.Dense(3, activation = tf.nn.relu), tf.keras.layers.Dense(2, activation = tf.nn.relu), tf.keras.layers.Dense(1, activation = tf.nn.sigmoid)])",
+                "ASSIGN.compile(optimizer=\"Adam\", loss = 'binary_crossentropy', metrics = ['accuracy'])",
+                "ASSIGN.fit(X_train, Y_train, validation_split=0.15,epochs = 100,batch_size=5, callbacks = [callbacks])"
+            ],
+            "tag_pred": [],
+            "headergen_tag": [
+                "Model Building and Training"
+            ],
+            "correct_tag": []
+        },
+        {
+            "content": [
+                "test = pd.read_csv('/kaggle/input/titanic/test.csv')",
+                "test['Sec_Name'] = test['Name'].astype(str).str.split().str[1]",
+                "X_test = test[['Pclass', 'Sex', 'Age', 'Embarked', 'Sec_Name']]",
+                "X_test = X_test.replace('male', 0)",
+                "X_test = X_test.replace('female', 1)",
+                "X_test = X_test.replace(np.nan, X_test['Age'].mean())",
+                "X_test['Embarked'] = X_test['Embarked'].replace('S',1)",
+                "X_test['Embarked'] = X_test['Embarked'].replace('C',2)",
+                "X_test['Embarked'] = X_test['Embarked'].replace('Q',3)",
+                "X_test['Sec_Name'] = X_test['Sec_Name'].replace('Mr.',1)",
+                "X_test['Sec_Name'] = X_test['Sec_Name'].replace('Mrs.',2)",
+                "X_test['Sec_Name'] = X_test['Sec_Name'].replace('Miss.',3)",
+                "X_test['Sec_Name'] = X_test['Sec_Name'].replace('Master.',4)",
+                "X_test['Sec_Name'] = pd.to_numeric(X_test['Sec_Name'], errors = 'coerce')",
+                "X_test['Sec_Name'] = X_test['Sec_Name'].replace(np.nan,0)",
+                "X_test = np.array(X_test)",
+                "p = model.predict(X_test)",
+                "p = np.where(p >= 0.5, 1, 0)",
+                "#model.evaluate(x_test, y_test)",
+                "#np.savetxt(\"test_ans4.csv\", p, delimiter=\",\")",
+                "df_sub = pd.DataFrame()",
+                "df_sub['PassengerId'] = test['PassengerId']",
+                "df_sub['Survived'] = p.astype(np.int)",
+                "",
+                "df_sub.to_csv('submission4.csv', index=False)"
+            ],
+            "content_processed": [
+                "ASSIGN = pd.read_csv('path')",
+                "ASSIGN['Sec_Name'] = ASSIGN['Name'].astype(str).str.split().str[1]",
+                "ASSIGN = test[['Pclass', 'Sex', 'Age', 'Embarked', 'Sec_Name']]",
+                "ASSIGN = ASSIGN.replace('male', 0)",
+                "ASSIGN = ASSIGN.replace('female', 1)",
+                "ASSIGN = ASSIGN.replace(np.nan, ASSIGN['Age'].mean())",
+                "ASSIGN['Embarked'] = ASSIGN['Embarked'].replace('S',1)",
+                "ASSIGN['Embarked'] = ASSIGN['Embarked'].replace('C',2)",
+                "ASSIGN['Embarked'] = ASSIGN['Embarked'].replace('Q',3)",
+                "ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Mr.',1)",
+                "ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Mrs.',2)",
+                "ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Miss.',3)",
+                "ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Master.',4)",
+                "ASSIGN['Sec_Name'] = pd.to_numeric(ASSIGN['Sec_Name'], errors = 'coerce')",
+                "ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace(np.nan,0)",
+                "ASSIGN = np.array(ASSIGN)",
+                "ASSIGN = model.predict(X_test)",
+                "ASSIGN = np.where(ASSIGN >= 0.5, 1, 0)",
+                "ASSIGN = pd.DataFrame()",
+                "ASSIGN['PassengerId'] = ASSIGN['PassengerId']",
+                "ASSIGN['Survived'] = ASSIGN.astype(np.int)",
+                "ASSIGN.to_csv('submission4.csv', index=False)"
+            ],
+            "tag_pred": [],
+            "headergen_tag": [
+                "Model Building and Training",
+                "Feature Engineering",
+                "Data Preparation"
+            ],
+            "correct_tag": []
+        },
+        {
+            "content": [
+                ""
+            ],
+            "content_processed": [],
+            "tag_pred": [],
+            "headergen_tag": [
+                ""
+            ],
+            "correct_tag": []
+        }
+    ]
+}

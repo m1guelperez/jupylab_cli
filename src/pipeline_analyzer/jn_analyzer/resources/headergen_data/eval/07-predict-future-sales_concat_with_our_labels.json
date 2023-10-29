@@ -1,0 +1,755 @@
+{
+    "source": [
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "import numpy as np # linear algebra",
+                "import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)",
+                "import random as rd # generating random numbers",
+                "import datetime # manipulating date formats",
+                "import matplotlib.pyplot as plt # basic plotting",
+                "import seaborn as sns # for prettier plots",
+                "from statsmodels.tsa.arima_model import ARIMA",
+                "from statsmodels.tsa.statespace.sarimax import SARIMAX",
+                "from pandas.plotting import autocorrelation_plot",
+                "from statsmodels.tsa.stattools import adfuller, acf, pacf,arma_order_select_ic",
+                "import statsmodels.formula.api as smf",
+                "import statsmodels.tsa.api as smt",
+                "import statsmodels.api as sm",
+                "import scipy.stats as scs",
+                "import warnings",
+                "warnings.filterwarnings(\"ignore\")"
+            ],
+            "content_processed": [
+                "SETUP",
+                "warnings.filterwarnings(\"ignore\")"
+            ],
+            "tag_pred": [
+                "setup_notebook"
+            ],
+            "correct_tag_ours": [
+                "setup_notebook"
+            ],
+            "headergen_tag": [
+                "Library Loading"
+            ],
+            "headergen_sot": [
+                "Library Loading"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "sales=pd.read_csv(\"../input/competitive-data-science-predict-future-sales/sales_train.csv\")",
+                "item_cat=pd.read_csv(\"../input/competitive-data-science-predict-future-sales/item_categories.csv\")",
+                "item=pd.read_csv(\"../input/competitive-data-science-predict-future-sales/items.csv\")",
+                "sub=pd.read_csv(\"../input/competitive-data-science-predict-future-sales/sample_submission.csv\")",
+                "shops=pd.read_csv(\"../input/competitive-data-science-predict-future-sales/shops.csv\")",
+                "test=pd.read_csv(\"../input/competitive-data-science-predict-future-sales/test.csv\")",
+                ""
+            ],
+            "content_processed": [
+                "ASSIGN=pd.read_csv(\"..path\")",
+                "ASSIGN=pd.read_csv(\"..path\")",
+                "ASSIGN=pd.read_csv(\"..path\")",
+                "ASSIGN=pd.read_csv(\"..path\")",
+                "ASSIGN=pd.read_csv(\"..path\")",
+                "ASSIGN=pd.read_csv(\"..path\")"
+            ],
+            "tag_pred": [
+                "ingest_data"
+            ],
+            "correct_tag_ours": [
+                "ingest_data"
+            ],
+            "headergen_tag": [
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "sales.date=sales.date.apply(lambda x:datetime.datetime.strptime(x, '%d.%m.%Y'))"
+            ],
+            "content_processed": [
+                "sales.date=sales.date.apply(lambda x:datetime.datetime.strptime(x, '%d.%m.%Y'))"
+            ],
+            "tag_pred": [
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "process_data"
+            ],
+            "headergen_tag": [
+                "Feature Engineering",
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Feature Engineering",
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "monthly_sales=sales.groupby([\"date_block_num\",\"shop_id\",\"item_id\"])[\"date\",\"item_price\",\"item_cnt_day\"].agg({\"date\":[\"min\",'max'],\"item_price\":\"mean\",\"item_cnt_day\":\"sum\"})"
+            ],
+            "content_processed": [
+                "ASSIGN=sales.groupby([\"date_block_num\",\"shop_id\",\"item_id\"])[\"date\",\"item_price\",\"item_cnt_day\"].agg({\"date\":[\"min\",'max'],\"item_price\":\"mean\",\"item_cnt_day\":\"sum\"})"
+            ],
+            "tag_pred": [
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "process_data"
+            ],
+            "headergen_tag": [
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "x=item.groupby(['item_category_id']).count()",
+                "x=x.sort_values(by='item_id',ascending=False)",
+                "x=x.iloc[0:10].reset_index()",
+                "# #plot",
+                "plt.figure(figsize=(8,4))",
+                "ax= sns.barplot(x.item_category_id, x.item_id, alpha=0.8)",
+                "plt.title(\"Items per Category\")",
+                "plt.ylabel('# of items', fontsize=12)",
+                "plt.xlabel('Category', fontsize=12)",
+                "plt.show()"
+            ],
+            "content_processed": [
+                "ASSIGN=item.groupby(['item_category_id']).count()",
+                "ASSIGN=ASSIGN.sort_values(by='item_id',ascending=False)",
+                "ASSIGN=ASSIGN.iloc[0:10].reset_index()",
+                "plt.figure(figsize=(8,4))",
+                "ASSIGN= sns.barplot(x.item_category_id, x.item_id, alpha=0.8)",
+                "plt.title(\"Items per Category\")",
+                "plt.ylabel('",
+                "plt.xlabel('Category', fontsize=12)",
+                "plt.show()"
+            ],
+            "tag_pred": [
+                "visualize_data"
+            ],
+            "correct_tag_ours": [
+                "visualize_data"
+            ],
+            "headergen_tag": [
+                "Visualization",
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Visualization",
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "sales.head()"
+            ],
+            "content_processed": [
+                "sales.head()"
+            ],
+            "tag_pred": [
+                "check_results"
+            ],
+            "correct_tag_ours": [
+                "check_results"
+            ],
+            "headergen_tag": [
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "df_sales = sales.groupby('date').item_cnt_day.sum().reset_index()",
+                "df_sales.head()"
+            ],
+            "content_processed": [
+                "ASSIGN = sales.groupby('date').item_cnt_day.sum().reset_index()",
+                "ASSIGN.head()"
+            ],
+            "tag_pred": [
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "process_data",
+                "check_results"
+            ],
+            "headergen_tag": [
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "import plotly.offline as pyoff",
+                "import plotly.graph_objs as go",
+                "plot_data = [",
+                "    go.Scatter(",
+                "        x=df_sales['date'],",
+                "        y=df_sales['item_cnt_day'],",
+                "    )",
+                "]",
+                "plot_layout = go.Layout(",
+                "        title=' Sales'",
+                "    )",
+                "fig = go.Figure(data=plot_data, layout=plot_layout)",
+                "pyoff.iplot(fig)"
+            ],
+            "content_processed": [
+                "SETUP",
+                "ASSIGN = [",
+                "go.Scatter(",
+                "ASSIGN=df_sales['date'],",
+                "ASSIGN=df_sales['item_cnt_day'],",
+                ")",
+                "]",
+                "ASSIGN = go.Layout(",
+                "ASSIGN=' Sales'",
+                ")",
+                "ASSIGN = go.Figure(data=plot_data, layout=plot_layout)",
+                "pyoff.iplot(ASSIGN)"
+            ],
+            "tag_pred": [
+                "setup_notebook",
+                "visualize_data",
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "setup_notebook",
+                "visualize_data"
+            ],
+            "headergen_tag": [
+                "Visualization",
+                "Library Loading"
+            ],
+            "headergen_sot": [
+                "Visualization",
+                "Library Loading"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "df_diff = df_sales.copy()",
+                "df_diff['prev_sales'] = df_diff['item_cnt_day'].shift(1)",
+                "df_diff = df_diff.dropna()",
+                "df_diff['diff'] = (df_diff['item_cnt_day'] - df_diff['prev_sales'])",
+                "df_diff.head()"
+            ],
+            "content_processed": [
+                "ASSIGN = df_sales.copy()",
+                "ASSIGN['prev_sales'] = ASSIGN['item_cnt_day'].shift(1)",
+                "ASSIGN = ASSIGN.dropna()",
+                "ASSIGN['diff'] = (ASSIGN['item_cnt_day'] - ASSIGN['prev_sales'])",
+                "ASSIGN.head()"
+            ],
+            "tag_pred": [
+                "check_results",
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "process_data",
+                "check_results"
+            ],
+            "headergen_tag": [
+                "Feature Engineering",
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Feature Engineering",
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "plot_data = [",
+                "    go.Scatter(",
+                "        x=df_diff['date'],",
+                "        y=df_diff['diff'],",
+                "    )",
+                "]",
+                "plot_layout = go.Layout(",
+                "        title='Montly Sales Diff'",
+                "    )",
+                "fig = go.Figure(data=plot_data, layout=plot_layout)",
+                "pyoff.iplot(fig)"
+            ],
+            "content_processed": [
+                "ASSIGN = [",
+                "go.Scatter(",
+                "ASSIGN=df_diff['date'],",
+                "ASSIGN=df_diff['diff'],",
+                ")",
+                "]",
+                "ASSIGN = go.Layout(",
+                "ASSIGN='Montly Sales Diff'",
+                ")",
+                "ASSIGN = go.Figure(data=plot_data, layout=plot_layout)",
+                "pyoff.iplot(ASSIGN)"
+            ],
+            "tag_pred": [
+                "visualize_data",
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "visualize_data"
+            ],
+            "headergen_tag": [
+                "Visualization"
+            ],
+            "headergen_sot": [
+                "Visualization"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "df_supervised = df_diff.drop(['prev_sales'],axis=1)",
+                "for inc in range(1,13):",
+                "    field_name = 'lag_' + str(inc)",
+                "    df_supervised[field_name] = df_supervised['diff'].shift(inc)",
+                "df_supervised = df_supervised.dropna().reset_index(drop=True)"
+            ],
+            "content_processed": [
+                "ASSIGN = df_diff.drop(['prev_sales'],axis=1)",
+                "for inc in range(1,13):",
+                "ASSIGN = 'lag_' + str(inc)",
+                "ASSIGN[ASSIGN] = ASSIGN['diff'].shift(inc)",
+                "ASSIGN = ASSIGN.dropna().reset_index(drop=True)"
+            ],
+            "tag_pred": [
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "process_data"
+            ],
+            "headergen_tag": [
+                "Feature Engineering",
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Feature Engineering",
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "df_supervised.head()"
+            ],
+            "content_processed": [
+                "df_supervised.head()"
+            ],
+            "tag_pred": [
+                "check_results"
+            ],
+            "correct_tag_ours": [
+                "check_results"
+            ],
+            "headergen_tag": [
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "import statsmodels.formula.api as smf",
+                "# Define the regression formula",
+                "model = smf.ols(formula='diff ~ lag_1', data=df_supervised)",
+                "# Fit the regression",
+                "model_fit = model.fit()",
+                "# Extract the adjusted r-squared",
+                "regression_adj_rsq = model_fit.rsquared_adj",
+                "print(regression_adj_rsq)"
+            ],
+            "content_processed": [
+                "SETUP",
+                "CHECKPOINT",
+                "ASSIGN = smf.ols(formula='diff ~ lag_1', data=df_supervised)",
+                "ASSIGN = model.fit()",
+                "ASSIGN = model_fit.rsquared_adj",
+                "print(ASSIGN)"
+            ],
+            "tag_pred": [
+                "setup_notebook",
+                "check_results",
+                "train_model"
+            ],
+            "correct_tag_ours": [
+                "setup_notebook",
+                "train_model",
+                "check_results"
+            ],
+            "headergen_tag": [
+                "Model Building and Training",
+                "Library Loading"
+            ],
+            "headergen_sot": [
+                "Model Building and Training",
+                "Library Loading"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "import statsmodels.formula.api as smf",
+                "# Define the regression formula",
+                "model = smf.ols(formula='diff ~ lag_1+lag_2+lag_3+lag_4+lag_5+lag_6+lag_7+lag_8+lag_9+lag_10+lag_11+lag_12', data=df_supervised)",
+                "# Fit the regression",
+                "model_fit = model.fit()",
+                "# Extract the adjusted r-squared",
+                "regression_adj_rsq = model_fit.rsquared_adj",
+                "print(regression_adj_rsq)"
+            ],
+            "content_processed": [
+                "SETUP",
+                "CHECKPOINT",
+                "ASSIGN = smf.ols(formula='diff ~ lag_1+lag_2+lag_3+lag_4+lag_5+lag_6+lag_7+lag_8+lag_9+lag_10+lag_11+lag_12', data=df_supervised)",
+                "ASSIGN = model.fit()",
+                "ASSIGN = model_fit.rsquared_adj",
+                "print(ASSIGN)"
+            ],
+            "tag_pred": [
+                "setup_notebook",
+                "check_results",
+                "train_model"
+            ],
+            "correct_tag_ours": [
+                "setup_notebook",
+                "train_model",
+                "check_results"
+            ],
+            "headergen_tag": [
+                "Model Building and Training",
+                "Library Loading"
+            ],
+            "headergen_sot": [
+                "Model Building and Training",
+                "Library Loading"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "from sklearn.preprocessing import MinMaxScaler",
+                "df_model = df_supervised.drop(['item_cnt_day','date'],axis=1)",
+                "train_set, test_set = df_model[0:-6].values, df_model[-6:].values"
+            ],
+            "content_processed": [
+                "SETUP",
+                "ASSIGN = df_supervised.drop(['item_cnt_day','date'],axis=1)",
+                "ASSIGN = df_model[0:-6].values, df_model[-6:].values"
+            ],
+            "tag_pred": [
+                "setup_notebook",
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "setup_notebook",
+                "process_data"
+            ],
+            "headergen_tag": [
+                "Library Loading",
+                "Feature Engineering",
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Library Loading",
+                "Feature Engineering",
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "test_set"
+            ],
+            "content_processed": [
+                "CHECKPOINT",
+                "test_set"
+            ],
+            "tag_pred": [
+                "check_results"
+            ],
+            "correct_tag_ours": [
+                "check_results"
+            ],
+            "headergen_tag": [
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "scaler = MinMaxScaler(feature_range=(-1, 1))",
+                "scaler = scaler.fit(train_set)",
+                "",
+                "train_set = train_set.reshape(train_set.shape[0], train_set.shape[1])",
+                "train_set_scaled = scaler.transform(train_set)",
+                "",
+                "test_set = test_set.reshape(test_set.shape[0], test_set.shape[1])",
+                "test_set_scaled = scaler.transform(test_set)"
+            ],
+            "content_processed": [
+                "ASSIGN = MinMaxScaler(feature_range=(-1, 1))",
+                "ASSIGN = ASSIGN.fit(train_set)",
+                "ASSIGN = ASSIGN.reshape(ASSIGN.shape[0], ASSIGN.shape[1])",
+                "ASSIGN = scaler.transform(train_set)",
+                "ASSIGN = ASSIGN.reshape(ASSIGN.shape[0], ASSIGN.shape[1])",
+                "ASSIGN = scaler.transform(test_set)"
+            ],
+            "tag_pred": [
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "process_data"
+            ],
+            "headergen_tag": [
+                "Feature Engineering"
+            ],
+            "headergen_sot": [
+                "Feature Engineering"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "X_train, y_train = train_set_scaled[:, 1:], train_set_scaled[:, 0:1]",
+                "X_train = X_train.reshape(X_train.shape[0], 1, X_train.shape[1])",
+                "X_test, y_test = test_set_scaled[:, 1:], test_set_scaled[:, 0:1]",
+                "X_test = X_test.reshape(X_test.shape[0], 1, X_test.shape[1])"
+            ],
+            "content_processed": [
+                "ASSIGN = train_set_scaled[:, 1:], train_set_scaled[:, 0:1]",
+                "ASSIGN = ASSIGN.reshape(ASSIGN.shape[0], 1, ASSIGN.shape[1])",
+                "ASSIGN = test_set_scaled[:, 1:], test_set_scaled[:, 0:1]",
+                "ASSIGN = ASSIGN.reshape(ASSIGN.shape[0], 1, ASSIGN.shape[1])"
+            ],
+            "tag_pred": [
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "process_data"
+            ],
+            "headergen_tag": [
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "import keras",
+                "from keras.layers import Dense",
+                "from keras.models import Sequential",
+                "from keras.optimizers import Adam ",
+                "from keras.callbacks import EarlyStopping",
+                "from keras.utils import np_utils",
+                "from keras.layers import LSTM",
+                "from sklearn.model_selection import KFold, cross_val_score, train_test_split",
+                "model = Sequential()",
+                "model.add(LSTM(4, batch_input_shape=(1, X_train.shape[1], X_train.shape[2]), stateful=True))",
+                "model.add(Dense(1))",
+                "model.compile(loss='mean_squared_error', optimizer='adam')",
+                "model.fit(X_train, y_train, nb_epoch=50, batch_size=1, verbose=1, shuffle=False)"
+            ],
+            "content_processed": [
+                "SETUP",
+                "ASSIGN = Sequential()",
+                "ASSIGN.add(LSTM(4, batch_input_shape=(1, X_train.shape[1], X_train.shape[2]), stateful=True))",
+                "ASSIGN.add(Dense(1))",
+                "ASSIGN.compile(loss='mean_squared_error', optimizer='adam')",
+                "ASSIGN.fit(X_train, y_train, nb_epoch=50, batch_size=1, verbose=1, shuffle=False)"
+            ],
+            "tag_pred": [
+                "setup_notebook",
+                "train_model"
+            ],
+            "correct_tag_ours": [
+                "setup_notebook",
+                "train_model"
+            ],
+            "headergen_tag": [
+                "Model Building and Training",
+                "Library Loading"
+            ],
+            "headergen_sot": [
+                "Model Building and Training",
+                "Library Loading"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "y_pred = model.predict(X_test,batch_size=1)"
+            ],
+            "content_processed": [
+                "ASSIGN = model.predict(X_test,batch_size=1)"
+            ],
+            "tag_pred": [
+                "evaluate_model"
+            ],
+            "correct_tag_ours": [
+                "evaluate_model"
+            ],
+            "headergen_tag": [
+                "Model Building and Training"
+            ],
+            "headergen_sot": [
+                "Model Building and Training"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "import numpy as np",
+                "y_pred = y_pred.reshape(y_pred.shape[0], 1, y_pred.shape[1])",
+                "",
+                "pred_test_set = []",
+                "for index in range(0,len(y_pred)):",
+                "    print (np.concatenate([y_pred[index],X_test[index]],axis=1))",
+                "    pred_test_set.append(np.concatenate([y_pred[index],X_test[index]],axis=1))",
+                "",
+                "pred_test_set = np.array(pred_test_set)",
+                "pred_test_set = pred_test_set.reshape(pred_test_set.shape[0], pred_test_set.shape[2])",
+                "",
+                "pred_test_set_inverted = scaler.inverse_transform(pred_test_set)"
+            ],
+            "content_processed": [
+                "SETUP",
+                "ASSIGN = ASSIGN.reshape(ASSIGN.shape[0], 1, ASSIGN.shape[1])",
+                "ASSIGN = []",
+                "for index in range(0,len(ASSIGN)):",
+                "print (np.concatenate([ASSIGN[index],X_test[index]],axis=1))",
+                "ASSIGN.append(np.concatenate([ASSIGN[index],X_test[index]],axis=1))",
+                "ASSIGN = np.array(ASSIGN)",
+                "ASSIGN = ASSIGN.reshape(ASSIGN.shape[0], ASSIGN.shape[2])",
+                "ASSIGN = scaler.inverse_transform(pred_test_set)"
+            ],
+            "tag_pred": [
+                "setup_notebook",
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "setup_notebook",
+                "process_data"
+            ],
+            "headergen_tag": [
+                "Library Loading",
+                "Feature Engineering"
+            ],
+            "headergen_sot": [
+                "Library Loading",
+                "Feature Engineering"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "result_list = []",
+                "sales_dates = list(sales[-7:].date)",
+                "act_sales = list(sales[-7:].item_cnt_day)",
+                "for index in range(0,len(pred_test_set_inverted)):",
+                "    result_dict = {}",
+                "    result_dict['pred_value'] = int(pred_test_set_inverted[index][0] + act_sales[index])",
+                "    result_dict['date'] = sales_dates[index+1]",
+                "    result_list.append(result_dict)",
+                "df_result = pd.DataFrame(result_list)"
+            ],
+            "content_processed": [
+                "ASSIGN = []",
+                "ASSIGN = list(sales[-7:].date)",
+                "ASSIGN = list(sales[-7:].item_cnt_day)",
+                "for index in range(0,len(pred_test_set_inverted)):",
+                "ASSIGN = {}",
+                "ASSIGN['pred_value'] = int(pred_test_set_inverted[index][0] + ASSIGN[index])",
+                "ASSIGN['date'] = ASSIGN[index+1]",
+                "ASSIGN.append(ASSIGN)",
+                "ASSIGN = pd.DataFrame(result_list)"
+            ],
+            "tag_pred": [
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "process_data"
+            ],
+            "headergen_tag": [
+                "",
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "",
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                "df_result.to_csv(\"Predict.csv\")"
+            ],
+            "content_processed": [
+                "df_result.to_csv(\"Predict.csv\")"
+            ],
+            "tag_pred": [
+                "transfer_results"
+            ],
+            "correct_tag_ours": [
+                "transfer_results"
+            ],
+            "headergen_tag": [
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "07-predict-future-sales",
+            "content": [
+                ""
+            ],
+            "content_processed": [],
+            "tag_pred": [
+                "None"
+            ],
+            "correct_tag_ours": [
+                "None"
+            ],
+            "headergen_tag": [
+                ""
+            ],
+            "headergen_sot": [
+                ""
+            ]
+        }
+    ]
+}

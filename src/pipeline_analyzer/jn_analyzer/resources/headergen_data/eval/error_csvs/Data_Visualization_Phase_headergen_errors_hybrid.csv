@@ -1,0 +1,4 @@
+content,output_type,tag,y_pred
+bar_chart('Sex'),not_existent,1,0
+bar_chart('Pclass'),not_existent,1,0
+bar_chart('Embarked'),not_existent,1,0

@@ -1,0 +1,143 @@
+#############################
+(?u)\b\w\w+\b
+###############################################
+Setup Activity
+Accuracy: 0.9995654063450674
+Average macro F1: 0.9992077769380803
+Average macro Precision: 0.9997401247401247
+Average macro Recall: 0.9986772486772486
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+Positive F1: 0.9986754966887418
+Positive Precision: 1.0
+Positive Recall: 0.9973544973544973
+Average macro f1 score total: 0.9992077769380803
+Average accuracy score total: 0.9995654063450674
+Average macro recall score total: 0.9986772486772486
+Average macro precision score total: 0.9997401247401247
+###############################################
+Data Ingestion
+Accuracy: 0.9878313776618861
+Average macro F1: 0.9552965795930148
+Average macro Precision: 0.9654834865509023
+Average macro Recall: 0.9456272545525664
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+Positive F1: 0.9171597633136096
+Positive Precision: 0.9393939393939394
+Positive Recall: 0.8959537572254336
+Average macro f1 score total: 0.9772521782655476
+Average accuracy score total: 0.9936983920034768
+Average macro recall score total: 0.9721522516149075
+Average macro precision score total: 0.9826118056455135
+###############################################
+###############################################
+Data Validation
+Accuracy: 0.9991308126901347
+Average macro F1: 0.49978260869565216
+Average macro Precision: 0.5
+Average macro Recall: 0.49956540634506735
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+Positive F1: 0.0
+Positive Precision: 0.0
+Positive Recall: 0.0
+Average macro f1 score total: 0.8180956550755824
+Average accuracy score total: 0.9955091988990294
+Average macro recall score total: 0.8146233031916275
+Average macro precision score total: 0.8217412037636757
+###############################################
+###############################################
+Data Pre-Processing
+Accuracy: 0.8930899608865711
+Average macro F1: 0.8780953931556341
+Average macro Precision: 0.8775734484467262
+Average macro Recall: 0.8786248511930437
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+Positive F1: 0.8353413654618475
+Positive Precision: 0.8331108144192256
+Positive Recall: 0.8375838926174497
+Average macro f1 score total: 0.8330955895955954
+Average accuracy score total: 0.9699043893959148
+Average macro recall score total: 0.8306236901919815
+Average macro precision score total: 0.8356992649344384
+###############################################
+###############################################
+Model Training
+Accuracy: 0.973489787049109
+Average macro F1: 0.918153844718494
+Average macro Precision: 0.9561580111339891
+Average macro Recall: 0.8872471374251717
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+Positive F1: 0.8508557457212713
+Positive Precision: 0.9354838709677419
+Positive Recall: 0.7802690582959642
+Average macro f1 score total: 0.8501072406201751
+Average accuracy score total: 0.9706214689265537
+Average macro recall score total: 0.8419483796386196
+Average macro precision score total: 0.8597910141743486
+###############################################
+###############################################
+Model Evaluation
+Accuracy: 0.9678400695349848
+Average macro F1: 0.8837523348662435
+Average macro Precision: 0.9390796137820913
+Average macro Recall: 0.8428300094966761
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+Positive F1: 0.7848837209302325
+Positive Precision: 0.9060402684563759
+Positive Recall: 0.6923076923076923
+Average macro f1 score total: 0.8557147563278531
+Average accuracy score total: 0.9701579023612922
+Average macro recall score total: 0.8420953179482957
+Average macro precision score total: 0.873005780775639
+###############################################
+###############################################
+Checkpoint Activity
+Accuracy: 0.9361147327249022
+Average macro F1: 0.9345117261351934
+Average macro Precision: 0.9350722311396469
+Average macro Recall: 0.9339819004524887
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+Positive F1: 0.9242658423493044
+Positive Precision: 0.9285714285714286
+Positive Recall: 0.92
+Average macro f1 score total: 0.8669714663003303
+Average accuracy score total: 0.9652945924132365
+Average macro recall score total: 0.8552219725917519
+Average macro precision score total: 0.8818724165419258
+###############################################
+Post Development Phase
+Accuracy: 0.984354628422425
+Average macro F1: 0.8352768055997455
+Average macro Precision: 0.7742422471559919
+Average macro Recall: 0.9349959832739407
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+Positive F1: 0.6785714285714286
+Positive Precision: 0.5507246376811594
+Positive Recall: 0.8837209302325582
+Average macro f1 score total: 0.8630096337127572
+Average accuracy score total: 0.967677096914385
+Average macro recall score total: 0.8651937239270255
+Average macro precision score total: 0.8684186453686841
+###############################################
+###############################################
+Data Visualization Phase
+Accuracy: 0.9834854411125598
+Average macro F1: 0.9765556628056629
+Average macro Precision: 0.9824669402644779
+Average macro Recall: 0.970953116753464
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+Positive F1: 0.9638095238095238
+Positive Precision: 0.9806201550387597
+Positive Recall: 0.947565543071161
+Average macro f1 score total: 0.8756258591675246
+Average accuracy score total: 0.9694335796030712
+Average macro recall score total: 0.8769447675744075
+Average macro precision score total: 0.8810906781348833
+
+AVERAGE MACRO F1 SCORE TOTAL: 0.8756258591675246
+AVERAGE MACRO PRECISION SCORE TOTAL: 0.8810906781348833
+AVERAGE MACRO ACCURACY SCORE TOTAL: 0.9694335796030712
+AVERAGE MACRO RECALL SCORE TOAL: 0.8769447675744075
+AVERAGE PRECISION POSITIVE: 0.7859939016142924
+AVERAGE RECALL POSITIVE: 0.7727505967894174
+AVERAGE F1 POSITIVE: 0.77261809853844
+###############################################

@@ -1,0 +1,2 @@
+[console_scripts]
+analyze = pipeline_analyzer.jn_analyzer.cli.main_cli:cli

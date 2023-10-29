@@ -1,0 +1,343 @@
+content,output_type,tag
+"SETUP SETUP CHECKPOINT os.environ['CUDA_VISIBLE_DEVICES'] = '0' warnings.filterwarnings('ignore') ASSIGN = pd.read_csv('..path',index_col='ID_code') ASSIGN = pd.read_csv('..path',index_col='ID_code') ASSIGN = np.load('..path') ASSIGN=np.full(len(test_df),True,dtype=bool) ASSIGN[ASSIGN]=False ASSIGN = test_df.iloc[mask].reset_index(drop=True).copy() ASSIGN = train_df.pop('target') ASSIGN = y ASSIGN = pd.concat([train_df,test_df]) ASSIGN = [c for c in train_df.columns] for f in tqdm(ASSIGN): ASSIGN[f+'_counts'] = ASSIGN[f].map(pd.concat([ASSIGN[f], ASSIGN[f]], axis=0).value_counts().to_dict(), na_action='ignore') ASSIGN[f+'_counts'] = ASSIGN[f+'_counts'].fillna(1) ASSIGN = [f+'_counts' for f in num_cols] def rankgauss(x): ASSIGN = (rankdata(x) - 1) path(x) ASSIGN = 2 * ASSIGN - 1 ASSIGN = np.clip(ASSIGN, -0.99, 0.99) ASSIGN = erfinv(r) return r2 print('scaling ASSIGN') for col in ASSIGN + ASSIGN: print('scaling {}'.format(col)) ASSIGN = tr_te[col].mean() ASSIGN = tr_te[col].std() ASSIGN[col].fillna(ASSIGN, inplace=True) ASSIGN[col] = rankgauss(ASSIGN[col].values) ASSIGN = tr_te[0:ASSIGN.shape[0]] ASSIGN = tr_te[train_df.shape[0]:] ASSIGN = np.stack([train_df[num_cols].values,train_df[count_cols].values],axis = -1) ASSIGN = np.stack([test_df[num_cols].values,test_df[count_cols].values],axis = -1) def augment_counts(x, ASSIGN, t_pos, t_neg): ASSIGN = [],[] for i in range(t_pos): ASSIGN = y>0 ASSIGN = x[mask].copy() ASSIGN = np.arange(x1.shape[0]) for c in range(200): np.random.shuffle(ASSIGN) ASSIGN[:,c] = ASSIGN[ASSIGN][:,c] xs.append(ASSIGN) for i in range(t_neg): ASSIGN = y==0 ASSIGN = x[mask].copy() ASSIGN = np.arange(x1.shape[0]) for c in range(200): np.random.shuffle(ASSIGN) ASSIGN[:,c] = ASSIGN[ASSIGN][:,c] xn.append(ASSIGN) ASSIGN = np.vstack(ASSIGN) ASSIGN = np.vstack(ASSIGN) ASSIGN = np.ones(xs.shape[0]) ASSIGN = np.zeros(xn.shape[0]) ASSIGN = np.vstack([ASSIGN,xs,xn]) ASSIGN = np.concatenate([ASSIGN,ys,yn]) return x,y def build_model(): ASSIGN = L.Input((200,2)) ASSIGN = L.Dense(64)(inp) ASSIGN = L.PReLU()(ASSIGN) ASSIGN = L.BatchNormalization()(ASSIGN) ASSIGN = L.Dropout(0.2)(ASSIGN) ASSIGN = L.Dense(8)(ASSIGN) ASSIGN = L.PReLU()(ASSIGN) ASSIGN = L.Flatten()(ASSIGN) ASSIGN = L.Dense(1,activation='sigmoid')(x) ASSIGN = Model(inp,out) print(ASSIGN.summary()) return m ASSIGN = 5 ASSIGN = StratifiedKFold(n_splits=num_folds, shuffle=True, random_state=42) ASSIGN = list(folds.split(train_df.values, target.values)) ASSIGN = np.zeros(y.shape) ASSIGN = np.zeros(X_test.shape[0]) for fold_ in [0, 1, 2, 3, 4]: ASSIGN = splits[fold_] ASSIGN = X[trn_idx], y[trn_idx] ASSIGN = X[val_idx], y[val_idx] ASSIGN = augment_counts(ASSIGN, 2, 1) ASSIGN = build_model() ASSIGN = ModelCheckpoint(MODEL_PATH + 'nn{}.hdf5'.format(fold_), save_best_only=True, verbose=True) ASSIGN = ReduceLROnPlateau(factor=0.5,patience=5) ASSIGN.compile(optimizer=Adam(), loss=binary_crossentropy) ASSIGN.fit(ASSIGN, validation_data=(ASSIGN), epochs=20, verbose=1, callbacks=[ASSIGN,ASSIGN], batch_size = 256) ASSIGN.load_weights(MODEL_PATH + 'nn{}.hdf5'.format(fold_)) ASSIGN[val_idx] = ASSIGN.predict(X_valid)[:, 0] ASSIGN += ASSIGN.predict(ASSIGN)[:,0] ASSIGN= 5 np.save(MODEL_PATH + 'oof_NN13b_aug.npy',ASSIGN) np.save(MODEL_PATH + 'sub_NN13b_aug.npy',ASSIGN)",not_existent,1
+"ASSIGN = pd.read_csv('..path') ASSIGN = test_preds ASSIGN.to_csv(MODEL_PATH + 'ASSIGN.csv',index=False)",not_existent,1
+,not_existent,0
+SETUP,not_existent,0
+"ASSIGN = pd.read_csv(""..path"") ASSIGN = pd.read_csv(""..path"")",not_existent,1
+"train_df['Age'].fillna((train_df['Age'].mean()),inplace=True) test_df['Age'].fillna((test_df['Age'].mean()),inplace=True) train_df['Sex'] = train_df['Sex'].replace('male',value = 1) train_df['Sex'] = train_df['Sex'].replace('female',value = 0) test_df['Sex'] = test_df['Sex'].replace('male',value = 1) test_df['Sex'] = test_df['Sex'].replace('female',value = 0)",not_existent,0
+train_df.describe(),not_existent,0
+"ASSIGN = 700 ASSIGN = train_df[""Pclass""].values.reshape(-1,1) ASSIGN = train_df[""Sex""].values.reshape(-1,1) ASSIGN = train_df[""Age""].values.reshape(-1,1) ASSIGN = train_df[""SibSp""].values.reshape(-1,1) ASSIGN = train_df[""Parch""].values.reshape(-1,1) ASSIGN = train_df[""Survived""].values.T",not_existent,0
+"ASSIGN = np.hstack((X_train_sex[:n_train,:],X_train_class[:n_train,:],X_train_sib[:n_train,:],X_train_age[:n_train,:],X_train_par[:n_train,:])) ASSIGN = np.hstack((X_train_sex[n_train:,:],X_train_class[n_train:,:],X_train_sib[n_train:,:],X_train_age[n_train:,:],X_train_par[n_train:,:])) ASSIGN, ASSIGN = tf.convert_to_tensor(ASSIGN.astype(np.float64)),tf.convert_to_tensor(ASSIGN.astype(np.float64)) ASSIGN = y[:n_train], y[n_train:]",not_existent,0
+"ASSIGN = Sequential() ASSIGN.add(Dense(300,input_dim=5,activation='relu')) ASSIGN.add(Dropout(0.2)) ASSIGN.add(Dense(150,activation='relu')) ASSIGN.add(Dropout(0.2)) ASSIGN.add(Dense(100,activation='relu')) ASSIGN.add(Dropout(0.2)) ASSIGN.add(Dense(50,activation='relu')) ASSIGN.add(Dropout(0.2)) ASSIGN.add(Dense(25,activation='relu')) ASSIGN.add(Dropout(0.2)) ASSIGN.add(Dense(1,activation='sigmoid')) ASSIGN.compile(loss='binary_crossentropy', optimizer=Adam(learning_rate=0.01,beta_1=0.99,beta_2=0.999), metrics=['accuracy'])",not_existent,0
+"ASSIGN = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs = 300, verbose = 0)",not_existent,0
+"CHECKPOINT ASSIGN = model.evaluate(X_train, y_train, verbose=2) ASSIGN = model.evaluate(X_test, y_test, verbose=2) print('Train: %.3f, Test: %.3f' % (train_acc, test_acc)) plt.plot(history.history['accuracy'], label='train') plt.plot(history.history['val_accuracy'], label='test') plt.legend() plt.show()",not_existent,0
+model.save('model_' + str(1) + '.h5'),not_existent,0
+"ASSIGN = load_model("".path"") ASSIGN.summary()",not_existent,1
+"ASSIGN = test_df[""Pclass""].values.reshape(-1,1) ASSIGN = test_df[""Sex""].values.reshape(-1,1) ASSIGN = test_df[""Age""].values.reshape(-1,1) ASSIGN = test_df[""SibSp""].values.reshape(-1,1) ASSIGN = test_df[""Parch""].values.reshape(-1,1) ASSIGN = np.hstack((X_test_sex,X_test_class,X_test_sib,X_test_age,X_test_par)).astype(np.float64)",not_existent,0
+ASSIGN =[] ASSIGN = model.predict(x_test).ravel().tolist() ASSIGN += ASSIGN,not_existent,0
+"for i in range(0,len(y_pred)): if y_pred[i] > 0.8: y_pred[i] = 1 else: y_pred[i] = 0",not_existent,0
+"ASSIGN = pd.read_csv('..path') ASSIGN = y_pred ASSIGN.to_csv('ASSIGN.csv',index=False)",not_existent,1
+,not_existent,0
+"SETUP CHECKPOINT for dirname, _, filenames in os.walk('path'): for filename in filenames: print(os.path.join(dirname, filename))",not_existent,0
+ASSIGN = pd.read_csv('path') ASSIGN.head(2),not_existent,1
+ASSIGN = pd.read_csv('path') ASSIGN.head(2),not_existent,1
+ASSIGN = pd.read_csv('path') ASSIGN.head(2),not_existent,1
+ASSIGN = pd.read_csv('path') ASSIGN.head(2),not_existent,1
+ASSIGN = pd.read_csv('path') ASSIGN.head(2),not_existent,1
+train.head(),not_existent,0
+CHECKPOINT test.shape,not_existent,0
+ASSIGN = pd.read_csv('path') ASSIGN.head(2),not_existent,1
+CHECKPOINT submission.shape,not_existent,0
+CHECKPOINT train.shape,not_existent,0
+ASSIGN = ASSIGN[ASSIGN.item_id.isin (test.item_id)] ASSIGN = ASSIGN[ASSIGN.shop_id.isin (test.shop_id)],not_existent,0
+train.info(),not_existent,0
+train.head(),not_existent,0
+"train.drop(['date'],axis=1,inplace=True)",not_existent,0
+test.head(),not_existent,0
+train['date_block_num'],not_existent,0
+"test['date_block_num'] = 34 ASSIGN = ASSIGN[['date_block_num','shop_id','item_id']] ASSIGN.head(2)",not_existent,0
+ASSIGN = dict(train.groupby('item_id')['ASSIGN'].last().reset_index().values),not_existent,0
+test['item_price'] = test.item_id.map(item_price) test.head(),not_existent,0
+test.isnull().sum(),not_existent,0
+"train.shape, test.shape",not_existent,0
+ASSIGN = ASSIGN[ASSIGN.item_id.isin (test.item_id)] ASSIGN = ASSIGN[ASSIGN.shop_id.isin (test.shop_id)],not_existent,0
+"train.shape, test.shape",not_existent,0
+test.isnull().sum(),not_existent,0
+train['shop*item'] = train.shop_id *train.item_id test['shop*item'] = test.shop_id *test.item_id,not_existent,0
+"item.head() item.drop('item_name',axis=1,inplace = True)",not_existent,0
+ASSIGN = dict(item.values) train['ASSIGN'] = train.item_id.map(ASSIGN) test['ASSIGN'] = test.item_id.map(ASSIGN),not_existent,0
+train.head(2),not_existent,0
+train.info(),not_existent,0
+SETUP,not_existent,0
+"ASSIGN = pd.concat([train,test])",not_existent,0
+sns.histplot(df['item_price']);,not_existent,0
+"ASSIGN = pd.concat([train,test]) ASSIGN.item_price = np.log1p(ASSIGN.item_price) ASSIGN.item_price = ASSIGN.item_price.fillna(ASSIGN.item_price.mean()) ASSIGN.item_cnt_day = ASSIGN.item_cnt_day.apply(lambda x : 10 if x>10 else x)",not_existent,0
+ASSIGN = df[df.item_cnt_day.notnull()] ASSIGN = df[df.item_cnt_day.isnull()],not_existent,0
+CHECKPOINT train.shape,not_existent,0
+test.isnull().sum(),not_existent,0
+"test.drop('item_cnt_day',axis = 1,inplace  = True)",not_existent,0
+CHECKPOINT test.shape,not_existent,0
+"ASSIGN = train.drop('item_cnt_day',axis = 1).values ASSIGN = train.item_cnt_day.values",not_existent,0
+ASSIGN = test,not_existent,0
+SETUP ASSIGN = MinMaxScaler() ASSIGN = SC.fit_transform(ASSIGN) ASSIGN = SC.transform(ASSIGN),not_existent,0
+SETUP,not_existent,0
+"ASSIGN = Sequential() ASSIGN.add(Dense(9, kernel_initializer = 'uniform', activation = 'relu', input_dim = 6)) ASSIGN.add(Dense(9, kernel_initializer = 'uniform', activation = 'relu')) ASSIGN.add(Dense(5, kernel_initializer = 'uniform', activation = 'relu')) ASSIGN.add(Dense(1, kernel_initializer = 'uniform', activation = 'linear')) ASSIGN.summary()",not_existent,0
+"model.compile(optimizer = 'adam', loss = 'mean_absolute_error', metrics = ['mse','mae'])",not_existent,0
+"ASSIGN = model.fit(x_train, y_train, epochs=32, validation_split=0.2)",not_existent,0
+"SETUP CHECKPOINT ASSIGN= model.predict(x_train) print(np.sqrt(mean_squared_error(y_train,ASSIGN)))",not_existent,0
+ASSIGN = model.predict(x_test).flatten(),not_existent,0
+"ASSIGN = pd.DataFrame({'ID': submission['ID'], 'item_cnt_month': y_pred}) ASSIGN.to_csv('submission1.csv', index=False)",not_existent,0
+"ASSIGN=pd.DataFrame(y_pred) ASSIGN=pd.concat([submission['ID'],pred],axis=1) ASSIGN.columns=['ID','item_cnt_day'] ASSIGN.to_csv('new_submission.csv',index=False)",not_existent,0
+,not_existent,0
+SETUP CHECKPOINT print(os.listdir()),not_existent,0
+ASSIGN = False ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv('..path') if ASSIGN: ASSIGN = ASSIGN[0:300] ASSIGN = ASSIGN[0:300],not_existent,1
+"ASSIGN = train_df.drop(['target', 'ID_code'], axis=1) ASSIGN = test_df.drop(['ID_code'], axis=1)",not_existent,0
+ASSIGN = StandardScaler() ASSIGN = sc.fit_transform(X_test + X_train),not_existent,0
+ASSIGN = sc.fit_transform(X_train) ASSIGN = sc.fit_transform(X_test),not_existent,0
+ASSIGN = train_df[['target']],not_existent,0
+"CHECKPOINT CHECKPOINT class roc_auc_callback(Callback): def __init__(self,training_data,validation_data): self.x = training_data[0] self.y = training_data[1] self.x_val = validation_data[0] self.y_val = validation_data[1] def on_train_begin(self, logs={}): return def on_train_end(self, logs={}): return def on_epoch_begin(self, epoch, logs={}): return def on_epoch_end(self, epoch, logs={}): ASSIGN = self.model.predict_proba(self.x, verbose=0) ASSIGN = roc_auc_score(self.y, y_pred) logs['roc_auc'] = roc_auc_score(self.y, ASSIGN) logs['norm_gini'] = ( roc_auc_score(self.y, ASSIGN) * 2 ) - 1 ASSIGN = self.model.predict_proba(self.x_val, verbose=0) ASSIGN = roc_auc_score(self.y_val, y_pred_val) logs['roc_auc_val'] = roc_auc_score(self.y_val, ASSIGN) logs['norm_gini_val'] = ( roc_auc_score(self.y_val, ASSIGN) * 2 ) - 1 print('\rroc_auc: %s - roc_auc_val: %s - norm_gini: %s - norm_gini_val: %s' % (str(round(ASSIGN,5)),str(round(ASSIGN,5)),str(round((ASSIGN*2-1),5)),str(round((ASSIGN*2-1),5))), end=10*' '+'\n') return def on_batch_begin(self, batch, logs={}): return def on_batch_end(self, batch, logs={}): return",not_existent,0
+"def build_model(): ASSIGN = Sequential() ASSIGN.add(Dense(units=64, input_dim=len(X_train.columns))) ASSIGN.add(Dense(units=1, activation='sigmoid')) ASSIGN.compile(loss='binary_crossentropy', ASSIGN='adam', ASSIGN=['accuracy']) return model",not_existent,0
+ASSIGN = 5 ASSIGN = 10 ASSIGN = 10,not_existent,0
+"ASSIGN = np.zeros((len(test_df))) ASSIGN = np.zeros((len(X_train_std))) ASSIGN = list(StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=10).split(X_train_std, Y)) for i, (train_idx, valid_idx) in enumerate(ASSIGN): ASSIGN = X_train_std[train_idx] ASSIGN = Y.loc[train_idx] ASSIGN = X_train_std[valid_idx] ASSIGN = Y.loc[valid_idx] ASSIGN = build_model() ASSIGN = [ roc_auc_callback(training_data=(ASSIGN, ASSIGN),validation_data=(ASSIGN, ASSIGN)), EarlyStopping(monitor='norm_gini_val', patience=patience, mode='max', verbose=1), ] ASSIGN.fit(ASSIGN, ASSIGN, epochs=n_epochs, batch_size=256, ASSIGN=ASSIGN) ASSIGN = model.predict(x_val_fold) ASSIGN[valid_idx] = ASSIGN.reshape(ASSIGN.shape[0]) ASSIGN = model.predict(X_test_std) ASSIGN += ASSIGN.reshape(ASSIGN.shape[0]) ASSIGN = ASSIGN path",not_existent,0
+"roc_auc_score(Y, y_train)",not_existent,0
+"ASSIGN = test_df[['ID_code']].copy() ASSIGN = y_test ASSIGN.to_csv('ASSIGN.csv', index=False)",not_existent,0
+SETUP,not_existent,0
+SETUP,not_existent,0
+ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv('..path'),not_existent,1
+ASSIGN = train_df.columns ASSIGN[2:],not_existent,0
+SETUP,not_existent,0
+"def gaussian_estimation(vector): ASSIGN = np.mean(vector) ASSIGN = np.std(vector) return mu, sig def gaussian_normalization(vector, char = None): if char is None: ASSIGN = gaussian_estimation(vector) else: ASSIGN = char[0] ASSIGN = char[1] ASSIGN = (vector-mu)path return normalized def CDF(x, max_i = 100): ASSIGN = x ASSIGN = x for i in np.arange(max_i)+1: ASSIGN = ASSIGN*x*xpath(2.0*i+1) ASSIGN = ASSIGN + value return 0.5 + (sumpath(2*np.pi))*np.exp(-1*(x*x)path) def gaussian_to_uniform(vector, if_normal = False): if (if_normal == False): ASSIGN = gaussian_normalization(ASSIGN) ASSIGN = np.apply_along_axis(CDF, 0, vector) return uni",not_existent,0
+,not_existent,0
+"SETUP class DataGenerator(Sequence): def __init__(self, x, y, batch_size=256): self.x = x self.y = y self.batch_size = batch_size self.pos_x = x[y==1] self.neg_x = x[y==0] self.pos_idx = list(range(len(self.pos_x))) self.neg_idx = list(range(len(self.neg_x))) def __len__(self): return int(len(self.y)path) def __getitem__(self, indx): ASSIGN = [], [], [] for _ in range(self.batch_size): if random.uniform(0, 1) > 0.5: ASSIGN = random.choice(self.pos_idx) ASSIGN = random.choice(self.neg_idx) ASSIGN = random.choice(self.pos_idx) ASSIGN = self.pos_x[p_i] ASSIGN = self.neg_x[n_i] ASSIGN = self.pos_x[a_i] else: ASSIGN = random.choice(self.neg_idx) ASSIGN = random.choice(self.pos_idx) ASSIGN = random.choice(self.neg_idx) ASSIGN = self.neg_x[p_i] ASSIGN = self.pos_x[n_i] ASSIGN = self.neg_x[a_i] if random.uniform(0, 1) > 0.5: ASSIGN = [0, 1] np.random.shuffle(ASSIGN) ASSIGN = np.array([p_x, a_x]) ASSIGN = np.array([p_x, a_x]) for c in range(ASSIGN.shape[1]): np.random.shuffle(ASSIGN) ASSIGN[:,c] = ASSIGN[ASSIGN][:,c] ASSIGN = _x1[0], _x[1] poss_b.append(ASSIGN) neg_b.append(ASSIGN) anch_b.append(ASSIGN) return [np.array(poss_b), np.array(neg_b), np.array(anch_b)], np.zeros((self.batch_size, 2))",not_existent,0
+"class CyclicLR(Callback): """"""This callback implements a cyclical learning rate policy (CLR). The method cycles the learning rate between two boundaries with some constant frequency, as detailed in this paper (https:path). The amplitude of the cycle can be scaled on a per-iteration or per-cycle basis. This class has three built-in policies, as put forth in the paper. ""triangular"": A basic triangular cycle wpath ""triangular2"": A basic triangular cycle that scales initial amplitude by half each cycle. ""exp_range"": A cycle that scales initial amplitude by gamma**(cycle iterations) at each cycle iteration. For more detail, please see paper. ```python ASSIGN = CyclicLR(base_lr=0.001, max_lr=0.006, ASSIGN=2000., mode='triangular') model.fit(X_train, Y_train, callbacks=[ASSIGN]) ``` Class also supports custom scaling functions: ```python ASSIGN = lambda x: 0.5*(1+np.sin(x*np.pipath)) ASSIGN = CyclicLR(base_lr=0.001, max_lr=0.006, ASSIGN=2000., scale_fn=clr_fn, ASSIGN='cycle') model.fit(X_train, Y_train, callbacks=[ASSIGN]) ``` base_lr: initial learning rate which is the lower boundary in the cycle. max_lr: upper boundary in the cycle. Functionally, it defines the cycle amplitude (max_lr - base_lr). The lr at any cycle is the sum of base_lr and some scaling of the amplitude; therefore max_lr may not actually be reached depending on scaling function. step_size: number of training iterations per half cycle. Authors suggest setting step_size 2-8 x training iterations in epoch. mode: one of {triangular, triangular2, exp_range}. Default 'triangular'. Values correspond to policies detailed above. If scale_fn is not None, this argument is ignored. gamma: constant in 'exp_range' scaling function: gamma**(cycle iterations) scale_fn: Custom scaling policy defined by a single argument lambda function, where 0 <= scale_fn(x) <= 1 for all x >= 0. mode paramater is ignored ASSIGN: {'cycle', 'iterations'}. Defines whether scale_fn is evaluated on cycle number or cycle iterations (training iterations since start of cycle). Default is 'cycle'. """""" def __init__(self, base_lr=0.001, max_lr=0.006, ASSIGN=2000., mode='triangular', ASSIGN=1., scale_fn=None, scale_mode='cycle', decay=0.1): super(CyclicLR, self).__init__() self.base_lr = base_lr self.max_lr = max_lr self.ASSIGN = ASSIGN self.mode = mode self.ASSIGN = ASSIGN ASSIGN == None: if self.mode == 'triangular': self.scale_fn = lambda x: 1. self.ASSIGN = 'cycle' elif self.mode == 'triangular2': self.scale_fn = lambda x: 1path(2.**(x-1)) self.ASSIGN = 'cycle' elif self.mode == 'exp_range': self.scale_fn = lambda x: ASSIGN**(x) self.ASSIGN = 'iterations' else: self.scale_fn = scale_fn self.ASSIGN = ASSIGN self.clr_iterations = 0. self.trn_iterations = 0. self.history = {} self.decay = decay self._reset() def _reset(self, new_base_lr=None, new_max_lr=None, ASSIGN=None): """"""Resets cycle iterations. Optional boundarypath """""" if new_base_lr != None: self.base_lr = new_base_lr if new_max_lr != None: self.max_lr = new_max_lr if ASSIGN != None: self.ASSIGN = ASSIGN self.clr_iterations = 0. def ASSIGN(self): ASSIGN = np.floor(1+self.clr_iterationspath(2*self.step_size)) ASSIGN = np.abs(self.clr_iterationspath*cycle + 1) if self.ASSIGN == 'ASSIGN': return self.base_lr + (self.max_lr-self.base_lr)*np.maximum(0, (1-ASSIGN))*self.scale_fn(ASSIGN) else: return self.base_lr + (self.max_lr-self.base_lr)*np.maximum(0, (1-ASSIGN))*self.scale_fn(self.clr_iterations) def on_train_begin(self, logs={}): ASSIGN = ASSIGN or {} if self.clr_iterations == 0: K.set_value(self.model.optimizer.lr, self.base_lr) else: K.set_value(self.model.optimizer.lr, self.ASSIGN()) def on_batch_end(self, epoch, ASSIGN=None): ASSIGN = ASSIGN or {} self.trn_iterations += 1 self.clr_iterations += 1 self.history.setdefault('lr', []).append(K.get_value(self.model.optimizer.lr)) self.history.setdefault('iterations', []).append(self.trn_iterations) for k, v in ASSIGN.items(): self.history.setdefault(k, []).append(v) K.set_value(self.model.optimizer.lr, self.ASSIGN()) def on_epoch_end(self, epoch, ASSIGN=None): self.base_lr = self.base_lr*np.exp(-epoch*self.decay) self.max_lr = self.max_lr*np.exp(-epoch*self.decay)",not_existent,0
+SETUP,not_existent,0
+SETUP,not_existent,0
+"SETUP ASSIGN=OUTPUT_SIZE ASSIGN=1e-4 def triplet_loss_distance(y_true, y_pred): ASSIGN = K.sigmoid(ASSIGN) ASSIGN = y_pred[..., :OUTPUT_SIZE] ASSIGN = y_pred[..., OUTPUT_SIZE:2*OUTPUT_SIZE] ASSIGN = y_pred[..., 2*OUTPUT_SIZE:] ASSIGN = K.tf.reduce_sum(K.tf.square(K.tf.subtract(anchor,positive)),1) ASSIGN = K.tf.reduce_sum(K.tf.square(K.tf.subtract(anchor,negative)),1) ASSIGN = -K.tf.log(-K.tf.divide((ASSIGN),beta)+1+epsilon) ASSIGN = -K.tf.log(-K.tf.divide((OUTPUT_SIZE-ASSIGN),beta)+1+epsilon) return pos_dist + neg_dist",not_existent,0
+"def get_model(shape=(200,)): ASSIGN = Input(shape) ASSIGN = GaussianNoise(0.01)(inp) ASSIGN = Dense(128, kernel_initializer='glorot_normal')(ASSIGN) ASSIGN = BatchNormalization()(ASSIGN) ASSIGN = Activation('relu')(ASSIGN) ASSIGN = Dense(128, kernel_initializer='glorot_normal')(ASSIGN) ASSIGN = BatchNormalization()(ASSIGN) ASSIGN = Activation('relu')(ASSIGN) ASSIGN = Dense(64, kernel_initializer='glorot_normal')(ASSIGN) ASSIGN = BatchNormalization()(ASSIGN) ASSIGN = Activation('relu')(ASSIGN) ASSIGN = Dense(64, kernel_initializer='glorot_normal')(ASSIGN) ASSIGN = BatchNormalization()(ASSIGN) ASSIGN = Activation('relu')(ASSIGN) ASSIGN = Dense(32)(ASSIGN) ASSIGN = Model(inp, x) return model",not_existent,0
+ASSIGN = get_model(),not_existent,0
+"ASSIGN = Input((200,)), Input((200,)), Input((200,)) ASSIGN = emb_model(p_inp), emb_model(n_inp), emb_model(a_inp) ASSIGN = Concatenate()([ao, po, no]) ASSIGN = Model(inputs=[p_inp, n_inp, a_inp], outputs=out) ASSIGN.compile(optimizer=Nadam(1e-3), loss=triplet_loss_distance)",not_existent,0
+"ASSIGN = train_df.iloc[:, 2:].values ASSIGN = train_df.loc[:, 'target'].values",not_existent,0
+"model.fit_generator(DataGenerator(x_train, y, batch_size=1024), ASSIGN=1000, ASSIGN=15, ASSIGN=[CyclicLR(base_lr=1*1e-3, max_lr=7*1e-3, step_size=500)])",not_existent,0
+"ASSIGN = emb_model.predict(x_train, verbose=1) ASSIGN = emb_model.predict(test_df.iloc[:, 1:].values, verbose=1) np.savez('emb.npz', x=ASSIGN, xt=ASSIGN)",not_existent,0
+SETUP,not_existent,0
+SETUP,not_existent,0
+ASSIGN = PCA(n_components=2) ASSIGN = pca.fit_transform(x_emb),not_existent,0
+pca.explained_variance_ratio_,not_existent,0
+ASSIGN = x_pca[y==1] ASSIGN = x_pca[y==0],not_existent,0
+"plt.figure(figsize=(10,10)) plt.scatter(xep[:, 0], xep[:, 1], alpha=0.9) plt.scatter(xen[:, 0], xen[:, 1], alpha=0.3)",not_existent,0
+,not_existent,0
+,not_existent,0
+SETUP CHECKPOINT print(os.listdir()),not_existent,0
+"SETUP SETUP CHECKPOINT ASSIGN= time.time() ASSIGN = pd.read_csv('..path', parse_dates=['date'], infer_datetime_format=True, dayfirst=True) ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv('..path') ASSIGN = sales.groupby([sales.date.apply(lambda x: x.strftime('%Y-%m')),'item_id','shop_id']).sum().reset_index() ASSIGN = ASSIGN[['date','item_id','shop_id','item_cnt_day']] ASSIGN[""item_cnt_day""].clip(0.,20.,inplace=True) ASSIGN = ASSIGN.pivot_table(index=['item_id','shop_id'], columns='date',values='item_cnt_day',fill_value=0).reset_index() ASSIGN = pd.merge(val,df,on=['item_id','shop_id'], how='left').fillna(0) ASSIGN = ASSIGN.drop(labels=['ID','item_id','shop_id'],axis=1) ASSIGN = MinMaxScaler(feature_range=(0, 1)) ASSIGN[""item_price""] = ASSIGN.fit_transform(ASSIGN[""item_price""].values.reshape(-1,1)) ASSIGN = sales.groupby([sales.date.apply(lambda x: x.strftime('%Y-%m')),'item_id','shop_id']).mean().reset_index() ASSIGN = ASSIGN[['date','item_id','shop_id','item_price']].pivot_table(index=['item_id','shop_id'], columns='date',values='item_price',fill_value=0).reset_index() ASSIGN = pd.merge(val,df2,on=['item_id','shop_id'], how='left').fillna(0) ASSIGN = ASSIGN.drop(labels=['ID','item_id','shop_id'],axis=1) ASSIGN = test['2015-10'] ASSIGN = test.drop(labels=['2015-10'],axis=1) ASSIGN = ASSIGN.values.reshape((ASSIGN.shape[0], ASSIGN.shape[1], 1)) ASSIGN = price.drop(labels=['2015-10'],axis=1) ASSIGN= ASSIGN.values.reshape((ASSIGN.shape[0], ASSIGN.shape[1], 1)) ASSIGN = np.append(x_sales,x_prices,axis=2) ASSIGN = y_train.values.reshape((214200, 1)) print(,ASSIGN.shape) print(,ASSIGN.shape) del ASSIGN, ASSIGN; gc.collect() ASSIGN = ASSIGN.drop(labels=['2013-01'],axis=1) ASSIGN = test.values.reshape((test.shape[0], test.shape[1], 1)) ASSIGN = price.drop(labels=['2013-01'],axis=1) ASSIGN = ASSIGN.values.reshape((ASSIGN.shape[0], ASSIGN.shape[1], 1)) ASSIGN = np.append(x_test_sales,x_test_prices,axis=2) del ASSIGN,ASSIGN, ASSIGN; gc.collect() print(,ASSIGN.shape) print() ASSIGN = Sequential() ASSIGN.add(LSTM(16, input_shape=(ASSIGN.shape[1], ASSIGN.shape[2]),return_sequences=True)) ASSIGN.add(Dropout(0.5)) ASSIGN.add(LSTM(32)) ASSIGN.add(Dropout(0.5)) ASSIGN.add(Dense(1)) ASSIGN.compile(optimizer=""adam"", loss='mse', metrics=[""mse""]) print(ASSIGN.summary()) print() ""verbose"":2, ""epochs"":10} ASSIGN = time.time() if VALID is True: X_train, X_valid, ASSIGN, y_valid = train_test_split(ASSIGN, ASSIGN, test_size=0.10, random_state=1, shuffle=False) print(,X_train.shape) print(,X_valid.shape) print(,ASSIGN.shape) print(,y_valid.shape) ASSIGN=[EarlyStopping(monitor=""val_loss"",min_delta=.001, patience=3,mode='auto')] ASSIGN = model_lstm.fit(X_train, y_train, ASSIGN=(X_valid, y_valid), ASSIGN=callbacks_list, **LSTM_PARAM) ASSIGN = model_lstm.predict(test) ASSIGN = np.argmin(hist.history[""val_loss""]) print(,ASSIGN) print(.format(ASSIGN.history[][ASSIGN],ASSIGN.history[][ASSIGN])) plt.plot(ASSIGN.history['loss'], label='train') plt.plot(ASSIGN.history['val_loss'], label='validation') plt.xlabel(""Epochs"") plt.ylabel(""Mean Square Error"") plt.legend() plt.show() plt.savefig(""Train and Validation MSE Progression.png"") if VALID is False: print(,ASSIGN.shape) print(,ASSIGN.shape) ASSIGN = model_lstm.fit(X,y,**LSTM_PARAM) ASSIGN = model_lstm.predict(X) plt.plot(ASSIGN.history['loss'], label='Training Loss') plt.xlabel(""Epochs"") plt.ylabel(""Mean Square Error"") plt.legend() plt.show() plt.savefig(""Training Loss Progression.png"") print() ASSIGN = pd.DataFrame(pred,columns=['item_cnt_month']) ASSIGN.to_csv('ASSIGN.csv',index_label='ID') print(ASSIGN.head()) print(%((time.time() - ASSIGN)path)) print(%((time.time() - ASSIGN)path))",not_existent,1
+,not_existent,0
+"SETUP CHECKPOINT ASSIGN = pd.read_csv('path') ASSIGN['Sec_Name'] = ASSIGN['Name'].astype(str).str.split().str[1] ASSIGN = np.array(train['Survived']) ASSIGN = train[['Pclass', 'Sex', 'Age', 'Embarked', 'Sec_Name']] ASSIGN = ASSIGN.replace('male', 0) ASSIGN = ASSIGN.replace('female', 1) ASSIGN['Embarked'] = ASSIGN['Embarked'].replace('S',1) ASSIGN['Embarked'] = ASSIGN['Embarked'].replace('C',2) ASSIGN['Embarked'] = ASSIGN['Embarked'].replace('Q',3) ASSIGN = ASSIGN.replace(np.nan, ASSIGN['Age'].mean()) ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Mr.',1) ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Mrs.',2) ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Miss.',3) ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Master.',4) ASSIGN['Sec_Name'] = pd.to_numeric(ASSIGN['Sec_Name'], errors = 'coerce') ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace(np.nan,0) ASSIGN = np.array(ASSIGN) print(ASSIGN)",not_existent,1
+"class myCallback(tf.keras.callbacks.Callback): def on_epoch_end(self, epoch, logs={}): if(logs.get('accuracy') > 0.82): self.model.stop_training = True ASSIGN = myCallback();",not_existent,0
+"ASSIGN = tf.keras.Sequential([keras.layers.Dense(5, input_dim = 5, activation = tf.nn.relu), tf.keras.layers.Dense(4, activation = tf.nn.relu), tf.keras.layers.Dense(3, activation = tf.nn.relu), tf.keras.layers.Dense(2, activation = tf.nn.relu), tf.keras.layers.Dense(1, activation = tf.nn.sigmoid)]) ASSIGN.compile(optimizer=""Adam"", loss = 'binary_crossentropy', metrics = ['accuracy']) ASSIGN.fit(X_train, Y_train, validation_split=0.15,epochs = 100,batch_size=5, callbacks = [callbacks])",not_existent,0
+"ASSIGN = pd.read_csv('path') ASSIGN['Sec_Name'] = ASSIGN['Name'].astype(str).str.split().str[1] ASSIGN = test[['Pclass', 'Sex', 'Age', 'Embarked', 'Sec_Name']] ASSIGN = ASSIGN.replace('male', 0) ASSIGN = ASSIGN.replace('female', 1) ASSIGN = ASSIGN.replace(np.nan, ASSIGN['Age'].mean()) ASSIGN['Embarked'] = ASSIGN['Embarked'].replace('S',1) ASSIGN['Embarked'] = ASSIGN['Embarked'].replace('C',2) ASSIGN['Embarked'] = ASSIGN['Embarked'].replace('Q',3) ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Mr.',1) ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Mrs.',2) ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Miss.',3) ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace('Master.',4) ASSIGN['Sec_Name'] = pd.to_numeric(ASSIGN['Sec_Name'], errors = 'coerce') ASSIGN['Sec_Name'] = ASSIGN['Sec_Name'].replace(np.nan,0) ASSIGN = np.array(ASSIGN) ASSIGN = model.predict(X_test) ASSIGN = np.where(ASSIGN >= 0.5, 1, 0) ASSIGN = pd.DataFrame() ASSIGN['PassengerId'] = ASSIGN['PassengerId'] ASSIGN['Survived'] = ASSIGN.astype(np.int) ASSIGN.to_csv('submission4.csv', index=False)",not_existent,1
+,not_existent,0
+"SETUP warnings.filterwarnings(""ignore"", category=DeprecationWarning) ASSIGN = pd.read_csv(""..path"", header=0) ASSIGN = pd.read_csv(""..path"", header=0) ASSIGN.head()",not_existent,1
+train_orj.info(),not_existent,0
+"def preprocess(data): data.Cabin.fillna('9', inplace=True) data.loc[data.Cabin.str[0] == 'A', 'Cabin'] = 1 data.loc[data.Cabin.str[0] == 'B', 'Cabin'] = 2 data.loc[data.Cabin.str[0] == 'C', 'Cabin'] = 3 data.loc[data.Cabin.str[0] == 'D', 'Cabin'] = 4 data.loc[data.Cabin.str[0] == 'E', 'Cabin'] = 5 data.loc[data.Cabin.str[0] == 'F', 'Cabin'] = 6 data.loc[data.Cabin.str[0] == 'G', 'Cabin'] = 7 data.loc[data.Cabin.str[0] == 'T', 'Cabin'] = 8 ASSIGN = ASSIGN.drop([""Cabin""],axis=1) ASSIGN['Sex'].replace('female', 1, inplace=True) ASSIGN['Sex'].replace('male', 2, inplace=True) ASSIGN['Embarked'].replace('S', 1, inplace=True) ASSIGN['Embarked'].replace('C', 2, inplace=True) ASSIGN['Embarked'].replace('Q', 3, inplace=True) ASSIGN['Age'].fillna(ASSIGN['Age'].median(), inplace=True) ASSIGN['Fare'].fillna(ASSIGN['Fare'].median(), inplace=True) ASSIGN['Embarked'].fillna(ASSIGN['Embarked'].median(), inplace=True) ASSIGN = ASSIGN.drop([""Ticket""],axis=1) ASSIGN = ASSIGN.drop([""Fare""],axis=1) ASSIGN['SibSp'].replace(0, 9, inplace=True) ASSIGN['Parch'].replace(0, 9, inplace=True) return data def group_titles(ASSIGN): ASSIGN = ASSIGN.map(lambda x: re.search(', (.+?) ', x).group(1)) ASSIGN['Title'].replace('Master.', 1, inplace=True) ASSIGN['Title'].replace('Mr.', 2, inplace=True) ASSIGN['Title'].replace(['Ms.','Mlle.', 'Miss.'], 3, inplace=True) ASSIGN['Title'].replace(['Mme.', 'Mrs.'], 4, inplace=True) ASSIGN['Title'].replace(['Dona.', 'Lady.', 'the Countess.', 'Capt.', 'Col.', 'Don.', 'Dr.', 'Major.', 'Rev.', 'Sir.', 'Jonkheer.', 'the'], 5, inplace=True) return data",not_existent,0
+"ASSIGN = train_orj.copy().drop([""PassengerId""],axis=1) ASSIGN=preprocess(ASSIGN) ASSIGN=group_titles(ASSIGN) ASSIGN = ASSIGN.drop([""Name""],axis=1) ASSIGN.head()",not_existent,0
+train.info(),not_existent,0
+"plt.figure(figsize=(10,5)) sns.countplot(train.Age, palette=""icefire"")",not_existent,0
+"SETUP CHECKPOINT ASSIGN = train.iloc[:,1:train.shape[1]].values ASSIGN = train.Survived.values X_train, X_val, Y_train, Y_val = train_test_split(ASSIGN, ASSIGN, test_size = 0.1, random_state=2) print(,X_train.shape) print(,X_val.shape) print(,Y_train.shape) print(,Y_val.shape)",not_existent,0
+"plt.figure(figsize=(10,5)) sns.countplot(Y_train, palette=""icefire"") plt.title(""Number of Survived classes"")",not_existent,0
+"''' ASSIGN = 200 ASSIGN = 32 ASSIGN = Sequential() ASSIGN.add(Dense(64, input_dim=input_length-1, activation='softplus')) ASSIGN.add(Dense(32, activation='softplus')) ASSIGN.add(Dense(16, activation='softplus')) ASSIGN.add(Dense(8, activation='softplus')) ASSIGN.add(Dense(1, activation='softplus')) ASSIGN = .001 ASSIGN = Adam(lr = lr) ASSIGN.compile(loss='binary_crossentropy', optimizer=ASSIGN, metrics=['accuracy']) ASSIGN = 'weights.best.hdf5' ASSIGN = ModelCheckpoint(filepath, monitor='acc', verbose=1, save_best_only=True, mode='max') ASSIGN = [checkpoint] ASSIGN = model.fit(X_train, Y_train, callbacks=callbacks_list, epochs=num_epochs, batch_size=batch_size, verbose=0) '''",not_existent,0
+"CHECKPOINT ASSIGN = Sequential() ASSIGN.add(Dense(units = 128, kernel_initializer = 'uniform', activation = 'relu', input_dim = X_train.shape[1])) ASSIGN.add(BatchNormalization()) ASSIGN.add(Dropout(0.5)) ASSIGN.add(Dense(units = 64, kernel_initializer = 'uniform', activation = 'relu')) ASSIGN.add(BatchNormalization()) ASSIGN.add(Dropout(0.5)) ASSIGN.add(Dense(units = 32, kernel_initializer = 'uniform', activation = 'relu')) ASSIGN.add(BatchNormalization()) ASSIGN.add(Dropout(0.5)) ASSIGN.add(Dense(units = 16, kernel_initializer = 'uniform', activation = 'relu')) ASSIGN.add(Dropout(0.3)) ASSIGN.add(Dense(units = 1, kernel_initializer = 'uniform', activation = 'sigmoid')) ASSIGN = Adam(lr=0.001, beta_1=0.9, beta_2=0.999) ASSIGN.compile(ASSIGN = ASSIGN, loss = 'binary_crossentropy', metrics = ['accuracy']) ASSIGN = model.fit(X_train, Y_train, batch_size = 32, epochs = 300, validation_data = (X_val,Y_val)) ASSIGN = model.evaluate(X_train, Y_train, verbose=0) print( % (ASSIGN.metrics_names[1], ASSIGN[1]*100))",not_existent,0
+"plt.plot(history.history['val_loss'], color='b', label=""validation loss"") plt.xlabel(""Number of Epochs"") plt.ylabel(""Loss"") plt.legend() plt.show()",not_existent,0
+"SETUP ASSIGN = model.predict(X_val) ASSIGN = (y_pred > 0.5).astype(int).reshape(X_val.shape[0]) ASSIGN = confusion_matrix(Y_val, y_final) ASSIGN = plt.subplots(figsize=(8, 8)) sns.heatmap(ASSIGN, annot=True, linewidths=0.01,cmap=""Greens"",linecolor=""gray"", fmt= '.1f',ax=ax) plt.xlabel(""Predicted Label"") plt.ylabel(""True Label"") plt.title(""Confusion Matrix"") plt.show()",not_existent,0
+"SETUP CHECKPOINT ''' def DenseNet(X_train): ASSIGN = Input(shape=(X_train.shape[1],)) ASSIGN = [ip] ASSIGN = Dense(128, use_bias=False)(ip) ASSIGN = BatchNormalization()(ASSIGN) ASSIGN = Activation('relu')(ASSIGN) ASSIGN = Dropout(0.5)(ASSIGN) ASSIGN.append(ASSIGN) ASSIGN = keras.layers.concatenate(x_list) ASSIGN = Dense(128, use_bias=False)(ASSIGN) ASSIGN = BatchNormalization()(ASSIGN) ASSIGN = Activation('relu')(ASSIGN) ASSIGN = Dropout(0.5)(ASSIGN) ASSIGN.append(ASSIGN) ASSIGN = keras.layers.concatenate(x_list) ASSIGN = Dense(64, use_bias=False)(ASSIGN) ASSIGN = BatchNormalization()(ASSIGN) ASSIGN = Activation('relu')(ASSIGN) ASSIGN = Dropout(0.5)(ASSIGN) ASSIGN.append(ASSIGN) ASSIGN = keras.layers.concatenate(x_list) ASSIGN = Dense(64, use_bias=False)(ASSIGN) ASSIGN = BatchNormalization()(ASSIGN) ASSIGN = Activation('relu')(ASSIGN) ASSIGN = Dropout(0.5)(ASSIGN) ASSIGN.append(ASSIGN) ASSIGN = keras.layers.concatenate(x_list) ASSIGN = Dense(32, use_bias=False)(ASSIGN) ASSIGN = BatchNormalization()(ASSIGN) ASSIGN = Activation('relu')(ASSIGN) ASSIGN = Dropout(0.5)(ASSIGN) ASSIGN.append(ASSIGN) ASSIGN = keras.layers.concatenate(x_list) ASSIGN = Dense(32, use_bias=False)(ASSIGN) ASSIGN = BatchNormalization()(ASSIGN) ASSIGN = Activation('relu')(ASSIGN) ASSIGN = Dropout(0.5)(ASSIGN) ASSIGN.append(ASSIGN) ASSIGN = keras.layers.concatenate(x_list) ASSIGN = Dense(16, use_bias=False)(ASSIGN) ASSIGN = BatchNormalization()(ASSIGN) ASSIGN = Activation('relu')(ASSIGN) ASSIGN = Dropout(0.5)(ASSIGN) ASSIGN.append(ASSIGN) ASSIGN = keras.layers.concatenate(x_list) ASSIGN = Dense(16, use_bias=False)(ip) ASSIGN = BatchNormalization()(ASSIGN) ASSIGN = Activation('relu')(ASSIGN) ASSIGN = Dropout(0.5)(ASSIGN) ASSIGN = Dense(1, activation='sigmoid')(x) ASSIGN = Model(inputs=ip, outputs=op) ASSIGN = Adam(lr=0.05,) ASSIGN.compile(loss='binary_crossentropy', optimizer=ASSIGN, metrics=['accuracy']) return model ASSIGN = DenseNet(X_train) ASSIGN=model.fit(X_train, Y_train, epochs=32, batch_size=200, verbose=0, ASSIGN=0.1) ASSIGN = model.evaluate(X_train, Y_train, verbose=0) print( % (ASSIGN.metrics_names[1], ASSIGN[1]*100)) '''",not_existent,0
+"ASSIGN = test_orj.copy() ASSIGN=preprocess(ASSIGN) ASSIGN=group_titles(ASSIGN) ASSIGN = ASSIGN.drop([""Name""],axis=1) ASSIGN.head() ASSIGN.info()",not_existent,0
+"sns.countplot(test.Age, palette=""icefire"")",not_existent,0
+"ASSIGN = test.iloc[:,0].values ASSIGN = test.iloc[:,1:test.shape[1]].values ASSIGN =testdata ASSIGN = model.predict(X_test) ASSIGN = (y_pred > 0.5).astype(int).reshape(X_test.shape[0]) ASSIGN = pd.DataFrame({'PassengerId': test_orj['PassengerId'], 'Survived': y_final}) ASSIGN.to_csv('prediction-ann_0150.csv', index=False) plt.figure(figsize=(10,5)) sns.countplot(ASSIGN, palette=""icefire"") plt.title(""(Test data) Number of Survived classes"")",not_existent,0
+"SETUP ASSIGN = pd.read_csv(""..path"") ASSIGN = pd.read_csv(""..path"") ASSIGN.Pclass = ASSIGN.Pclass.values.astype('str') ASSIGN.Pclass = ASSIGN.Pclass.values.astype('str') ASSIGN.SibSp = ASSIGN.SibSp.values.astype('str') ASSIGN.SibSp = ASSIGN.SibSp.values.astype('str') ASSIGN.Parch = ASSIGN.Parch.values.astype('str') ASSIGN.Parch = ASSIGN.Parch.values.astype('str') ASSIGN = ['Survived', 'Pclass', 'Sex', 'Age', 'SibSp','Parch','Fare', 'Embarked'] ASSIGN = train.Age.fillna(30.).values ASSIGN = test.Age.fillna(30.).values ASSIGN.Fare[152]=np.mean(ASSIGN.Fare) ASSIGN = ASSIGN[use_col] ASSIGN = test[use_col[1:]] ASSIGN = ASSIGN.dropna() ASSIGN = train[use_col[0]].values ASSIGN = train[use_col[1:]].copy()",not_existent,1
+"SETUP CHECKPOINT def pandas_type(inp): if str(type(inp)) != ""<class 'pandas.core.frame.DataFrame'>"": print() return False else: if np.any(inp.isnull()==True)==True: print() return False else: pass def pandas_enc_str(inp,m_co_var=True): ASSIGN = pd.DataFrame() ASSIGN = inp.astype try: ASSIGN = zw.unique() except: ASSIGN = pd.Series(inp) ASSIGN = zw.unique() ASSIGN == True: for i in ASSIGN[1:]: try: ASSIGN = eval('zw=='+str(i)).replace({True : 1 , False : 0}) except: ASSIGN = eval('zw==""'+str(i)+'""').replace({True : 1 , False : 0}) SLICE=ASSIGN return out else: for i in ASSIGN: try: ASSIGN = eval('zw=='+str(i)).replace({True : 1 , False : 0}) except: ASSIGN = eval('zw==""'+str(i)+'""').replace({True : 1 , False : 0}) SLICE=ASSIGN return out def get_split_len(inp): ASSIGN = str(np.float32(np.mean(inp))-min(inp)).split(""."")[0] ASSIGN = str(np.float32(min(inp))).split(""."")[1] if ASSIGN != ""0"": return -len(nn1)+3 else: return len(ASSIGN) def categorize_cat(inp,bins): ASSIGN = get_split_len(inp) ASSIGN = (max(inp)-min(inp))path ASSIGN = [] for i in range(bins): ASSIGN.append(min(inp)+ASSIGN*(i+1)) return np.around(ASSIGN,ASSIGN) def categorize_(inp,bins): ASSIGN = inp.values ASSIGN = categorize_cat(inp,bins) ASSIGN = np.ones(len(out))*bins_[0] for i in range(len(ASSIGN[:-1])): for j in range(len(ASSIGN)): if ASSIGN[j] > ASSIGN[i]: SLICE=ASSIGN[i+1] return zw def cat_str(inp): ASSIGN = pd.Series(inp) ASSIGN = np.sort(zw.unique()) ASSIGN={} for i in range(1,len(ASSIGN)-1): ASSIGN.update({ASSIGN[i] : str(ASSIGN[i])+""-""+str(ASSIGN[i+1])}) ASSIGN.update({ASSIGN[-1] : ""> ""+str(ASSIGN[-1])}) ASSIGN.update({ASSIGN[0] : "" <""+str(ASSIGN[0])}) return pd.Series(zw),cat_dic def pandas_enc(inp,col,bins=5,m_co_var=True): ASSIGN = inp[inp.columns[inp.columns!=col]] ASSIGN = inp[col] if pandas_type(inp)!=False: pass else: return None if ASSIGN.dtype==float: ASSIGN = categorize_(ASSIGN,bins) ASSIGN = cat_str(zw) ASSIGN = pandas_enc_str(zw,m_co_var) ASSIGN = ASSIGN[np.sort(ASSIGN.columns)] ASSIGN = ASSIGN.rename(columns=cat_dic) elif ASSIGN.dtype==int: print() elif ASSIGN.dtype==""O"": ASSIGN=str(col)+""_""+ASSIGN ASSIGN = pandas_enc_str(zw,m_co_var) else: print() return pd.concat([ASSIGN,ASSIGN], axis=1) def pandas_multi_enc(inp,col,bins=5,m_co_var=True): ASSIGN = inp for i in col: ASSIGN = pandas_enc(ASSIGN,str(i)) return out",not_existent,0
+"ASSIGN = train_x.append(test_x) ASSIGN = pandas_multi_enc(zw,['Pclass', 'Sex', 'SibSp', 'Parch', 'Embarked']) ASSIGN = zzw.iloc[:len(ASSIGN)].values ASSIGN = zzw.iloc[len(train_x):].values",not_existent,0
+"ASSIGN=Sequential() ASSIGN.add(Dense(512,input_dim=zzw.shape[1],activation='linear')) ASSIGN.add(Dense(2048,activation='sigmoid')) ASSIGN.add(Dense(512,activation='sigmoid')) ASSIGN.add(Dense(16,activation='linear')) ASSIGN.add(Dense(1,activation='linear')) ASSIGN=keras.optimizers.SGD(lr=.0001) ASSIGN.compile(optimizer=ASSIGN,loss='mse') ASSIGN = model.fit(train_x,train_y, batch_size=32, epochs=100)",not_existent,0
+"ASSIGN = model.predict(test_x) ASSIGN=pd.DataFrame() ASSIGN[""PassengerId""]=test.PassengerId ASSIGN[""Survived""]=np.rint(ASSIGN).astype(int)",not_existent,0
+"result_csv.to_csv(""my_titanic_res.csv"",index=False)",not_existent,0
+SETUP,not_existent,0
+ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv('..path'),not_existent,1
+CHECKPOINT train.shape,not_existent,0
+CHECKPOINT test.shape,not_existent,0
+CHECKPOINT print(train.target.value_counts()) print(train.target.value_counts()[1]path()[0]),not_existent,0
+"ASSIGN = train.drop(['target', 'ID_code'], axis=1) ASSIGN = train['target'] ASSIGN = test.drop(['ID_code'], axis=1)",not_existent,0
+"X_train, X_test, y_train, y_test = train_test_split(train_features, train_targets, test_size = 0.25, random_state = 50)",not_existent,0
+SETUP ASSIGN = StandardScaler() ASSIGN = sc.fit_transform(ASSIGN) ASSIGN = sc.transform(ASSIGN) ASSIGN = sc.transform(ASSIGN),not_existent,0
+"def auc(y_true, y_pred): ASSIGN = tf.metrics.ASSIGN(y_true, y_pred)[1] K.get_session().run(tf.local_variables_initializer()) return auc",not_existent,0
+CHECKPOINT ASSIGN = X_train.shape[1] input_dim,not_existent,0
+,not_existent,0
+"ASSIGN = Sequential() ASSIGN.add(Dense(units = 200, activation = ""relu"", input_dim = input_dim, kernel_initializer = ""normal"", kernel_regularizer=regularizers.l2(0.005), ASSIGN = max_norm(5.))) ASSIGN.add(Dropout(rate=0.2)) ASSIGN.add(Dense(units = 200, activation='relu', kernel_regularizer=regularizers.l2(0.005), ASSIGN=max_norm(5))) ASSIGN.add(Dropout(rate=0.1)) ASSIGN.add(Dense(100, activation='relu', kernel_regularizer=regularizers.l2(0.005), ASSIGN=max_norm(5))) ASSIGN.add(Dropout(rate=0.1)) ASSIGN.add(Dense(50, activation='tanh', kernel_regularizer=regularizers.l2(0.005), ASSIGN=max_norm(5))) ASSIGN.add(Dropout(rate=0.1)) ASSIGN.add(layers.Dense(units = 1, activation='sigmoid')) ASSIGN.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy', auc]) ASSIGN.summary()",not_existent,0
+"model.fit(X_train, y_train, batch_size = 16384, epochs = 125, validation_data = (X_test, y_test))",not_existent,0
+"ASSIGN = model.predict_proba(X_test) roc_auc_score(y_test, ASSIGN)",not_existent,0
+"ASSIGN = test['ID_code'] ASSIGN = model.predict(test_features) ASSIGN = pred[:,0]",not_existent,0
+pred_,not_existent,0
+"ASSIGN = pd.DataFrame({""ID_code"" : id_code_test, ""target"" : pred_})",not_existent,0
+CHECKPOINT my_submission,not_existent,0
+"my_submission.to_csv('submission.csv', index = False, header = True)",not_existent,0
+,not_existent,0
+"SETUP CHECKPOINT print(os.listdir()) warnings.filterwarnings(""ignore"")",not_existent,0
+"def auc(y_true, y_pred): ASSIGN = ASSIGN.ravel() ASSIGN = ASSIGN.ravel() return roc_auc_score(ASSIGN, ASSIGN) def auc_2(ASSIGN, ASSIGN): return tf.py_func(roc_auc_score, (ASSIGN, ASSIGN), tf.double) def plot_history(histories, key='binary_crossentropy'): plt.figure(figsize=(16,10)) for name, history in histories: ASSIGN = plt.plot(history.epoch, history.history['val_'+key], '--', label=name.title()+' Val') plt.plot(history.epoch, history.history[key], color=ASSIGN[0].get_color(), label=name.title()+' Train') plt.xlabel('Epochs') plt.ylabel(key.replace('_',' ').title()) plt.legend() plt.xlim([0,max(history.epoch)]) plt.ylim([0, 0.4]) plt.show()",not_existent,0
+"ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv(""..path"") ASSIGN = [x for x in train_df.columns.values.tolist() if x.startswith('var_')]",not_existent,1
+"train_df['real'] = 1 for col in base_features: test_df[col] = test_df[col].map(test_df[col].value_counts()) ASSIGN = test_df[base_features].min(axis=1) ASSIGN = pd.read_csv('..path') ASSIGN['real'] = (ASSIGN == 1).astype('int') ASSIGN = train_df.append(test_df).reset_index(drop=True) del ASSIGN, train_df; gc.collect()",not_existent,1
+"for col in tqdm(base_features): train[col + 'size'] = train[col].map(train.loc[train.real==1, col].value_counts()) ASSIGN = [col + 'size' for col in base_features]",not_existent,0
+"for col in tqdm(base_features): train.loc[train[col+'size']>1,col+'no_noise'] = train.loc[train[col+'size']>1,col] ASSIGN = [col + 'no_noise' for col in base_features]",not_existent,0
+train[noise1_features] = train[noise1_features].fillna(train[noise1_features].mean()),not_existent,0
+"for col in tqdm(base_features): train.loc[train[col+'size']>2,col+'no_noise2'] = train.loc[train[col+'size']>2,col] ASSIGN = [col + 'no_noise2' for col in base_features]",not_existent,0
+train[noise2_features] = train[noise2_features].fillna(train[noise2_features].mean()),not_existent,0
+ASSIGN = train[train['target'].notnull()] ASSIGN = train[train['target'].isnull()] ASSIGN = base_features + noise1_features + noise2_features,not_existent,0
+"ASSIGN = preprocessing.StandardScaler().fit(train_df[all_features].values) ASSIGN = pd.DataFrame(scaler.transform(train_df[all_features].values), columns=all_features) ASSIGN = pd.DataFrame(scaler.transform(test_df[all_features].values), columns=all_features) ASSIGN = train_df['target'].values",not_existent,0
+"def get_keras_data(dataset, cols_info): ASSIGN = {} base_feats, noise_feats, noise2_feats = cols_info ASSIGN = np.reshape(np.array(ASSIGN.values), (-1, len(base_feats), 1)) ASSIGN['noise1'] = np.reshape(np.array(dataset[noise_feats].values), (-1, len(noise_feats), 1)) ASSIGN['noise2'] = np.reshape(np.array(dataset[noise2_feats].values), (-1, len(noise2_feats), 1)) return X",not_existent,0
+"ASSIGN = [base_features, noise1_features, noise2_features] ASSIGN = get_keras_data(df_tst[all_features], cols_info)",not_existent,0
+"def Convnet(cols_info, classes=1): base_feats, noise1_feats, noise2_feats = cols_info ASSIGN = Input(shape=(len(base_feats), 1), name='base') ASSIGN = Dense(16)(X_base_input) ASSIGN = Activation('relu')(ASSIGN) ASSIGN = Flatten(name='base_last')(ASSIGN) X_noise1_input = Input(shape=(len(noise1_feats), 1), name='noise1') X_noise1 = Dense(16)(X_noise1_input) X_noise1 = Activation('relu')(X_noise1) X_noise1 = Flatten(name='nose1_last')(X_noise1) X_noise2_input = Input(shape=(len(noise2_feats), 1), name='noise2') X_noise2 = Dense(16)(X_noise2_input) X_noise2 = Activation('relu')(X_noise2) X_noise2 = Flatten(name='nose2_last')(X_noise2) ASSIGN = concatenate([X_base, X_noise1, X_noise2]) ASSIGN = Dense(classes, activation='sigmoid')(ASSIGN) ASSIGN = Model(inputs=[X_base_input, X_noise1_input, X_noise2_input],outputs=X) return model ASSIGN = Convnet(cols_info) ASSIGN.summary()",not_existent,0
+try: del df_tst except: pass gc.collect(),not_existent,0
+"SETUP ASSIGN = 5 ASSIGN = True ASSIGN = 5 ASSIGN = StratifiedKFold(n_splits=n_folds, shuffle=True, random_state=SEED)",not_existent,0
+"ASSIGN = 0 ASSIGN = pd.DataFrame({""ID_code"": test_df.ID_code.values}) ASSIGN = [] ASSIGN = train_df[['target']] ASSIGN['predict'] = 0 for train_idx, val_idx in skf.split(df_trn, y): ASSIGN == folds: break ASSIGN += 1 ASSIGN = df_trn.iloc[train_idx], y[train_idx] ASSIGN = df_trn.iloc[val_idx], y[val_idx] ASSIGN = get_keras_data(ASSIGN, cols_info) ASSIGN = get_keras_data(ASSIGN, cols_info) ASSIGN = 'NN_fold{}.h5'.format(str(i)) ASSIGN = Convnet(cols_info) ASSIGN.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy', 'binary_crossentropy', auc_2]) ASSIGN = ModelCheckpoint(model_name, monitor='val_auc_2', verbose=1, ASSIGN=True, mode='max', save_weights_only = True) ASSIGN = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=4, ASSIGN=1, mode='min', epsilon=0.0001) ASSIGN = EarlyStopping(monitor='val_auc_2', mode='max', patience=10, verbose=1) ASSIGN = model.fit(X_train, y_train, ASSIGN=300, ASSIGN=1024 * 2, ASSIGN=(X_valid, y_valid), ASSIGN=[checkpoint, reduceLROnPlat, earlystop]) ASSIGN = pd.DataFrame(history.history) ASSIGN.to_csv('train_profile_fold{}.csv'.format(str(ASSIGN)), index=None) ASSIGN.load_weights(ASSIGN) ASSIGN = model.predict(X_valid).ravel() ASSIGN['predict'].iloc[val_idx] = ASSIGN ASSIGN = roc_curve(y_valid, y_pred_keras) ASSIGN = roc_auc_score(y_valid, y_pred_keras) ASSIGN.append(ASSIGN) ASSIGN = model.predict(X_test) ASSIGN[""fold{}"".format(str(ASSIGN))] = ASSIGN",not_existent,1
+"CHECKPOINT for i in range(len(val_aucs)): print('Fold_%d AUC: %.6f' % (i+1, val_aucs[i]))",not_existent,0
+"CHECKPOINT ASSIGN = np.mean(val_aucs) ASSIGN = np.std(val_aucs) ASSIGN = roc_auc_score(valid_X.target, valid_X.predict) print('%d-fold auc mean: %.9f, std: %.9f. All auc: %6f.' % (n_folds, ASSIGN, ASSIGN, ASSIGN))",not_existent,0
+"ASSIGN = result.values[:, 1:] ASSIGN = np.mean(y_all, axis = 1) ASSIGN = result[['ID_code', 'target']] ASSIGN.to_csv('NN_submission.csv', index=None) result.to_csv('NN_all_prediction.csv', index=None) valid_X['ID_code'] = train_df['ID_code'] ASSIGN = ASSIGN[['ID_code', 'target', 'predict']].to_csv('NN_oof.csv', index=None)",not_existent,0
+,not_existent,0
+"SETUP CHECKPOINT for dirname, _, filenames in os.walk('path'): for filename in filenames: print(os.path.join(dirname, filename))",not_existent,0
+SETUP,not_existent,0
+ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv('..path'),not_existent,1
+CHECKPOINT def basic_eda(df): print() print(df.head(5)) print() print(df.info()) print() print(df.describe()) print() print(df.columns) print() print(df.dtypes) print() print(df.isnull().sum()) print() print(df.isna().sum()) print() print(df.shape),not_existent,0
+"sales_data['date'] = pd.to_datetime(sales_data['date'],format = '%d.%m.%Y')",not_existent,0
+"ASSIGN = sales_data.pivot_table(index = ['shop_id','item_id'],values = ['item_cnt_day'],columns = ['date_block_num'],fill_value = 0,aggfunc='sum')",not_existent,0
+CHECKPOINT dataset,not_existent,0
+dataset.reset_index(inplace = True),not_existent,0
+CHECKPOINT dataset,not_existent,0
+"ASSIGN = pd.merge(test_data,ASSIGN,on = ['item_id','shop_id'],how = 'left')",not_existent,0
+CHECKPOINT dataset,not_existent,0
+"dataset.fillna(0,inplace = True)",not_existent,0
+"dataset.drop(['shop_id','item_id','ID'],inplace = True, axis = 1) dataset.head()",not_existent,0
+"CHECKPOINT ASSIGN = np.expand_dims(dataset.values[:,:-1],axis = 2) ASSIGN = dataset.values[:,-1:] ASSIGN = np.expand_dims(dataset.values[:,1:],axis = 2) print(ASSIGN.shape,ASSIGN.shape,ASSIGN.shape)",not_existent,0
+SETUP,not_existent,0
+"ASSIGN = Sequential() ASSIGN.add(LSTM(units = 64,input_shape = (33,1))) ASSIGN.add(Dropout(0.4)) ASSIGN.add(Dense(1)) ASSIGN.compile(loss = 'mse',optimizer = 'adam', metrics = ['mean_squared_error']) ASSIGN.summary()",not_existent,0
+,not_existent,0
+,not_existent,0
+"ASSIGN = Sequential() ASSIGN.add(LSTM(units = 32,input_shape = (33,1), return_sequences=True)) ASSIGN.add(LSTM(units = 64, return_sequences=True)) ASSIGN.add(LSTM(units = 128, return_sequences=True)) ASSIGN.add(Dropout(0.4)) ASSIGN.add(LSTM(units = 128, return_sequences=True)) ASSIGN.add(LSTM(units = 64, return_sequences=True)) ASSIGN.add(LSTM(units = 32)) ASSIGN.add(Dropout(0.4)) ASSIGN.add(Dense(1)) ASSIGN.compile(loss = 'mse',optimizer = 'adam', metrics = ['mean_squared_error']) ASSIGN.summary()",not_existent,0
+"my_model2.fit(X_train,y_train,batch_size = 4096,epochs = 10)",not_existent,0
+"ASSIGN = my_model2.predict(X_test) ASSIGN = ASSIGN.clip(0,20) ASSIGN = pd.DataFrame({'ID':test_data['ID'],'item_cnt_month':submission_pfs.ravel()}) ASSIGN.to_csv('sub_pfs2.csv',index = False)",not_existent,0
+,not_existent,0
+,not_existent,0
+"SETUP CHECKPOINT for dirname, _, filenames in os.walk('path'): for filename in filenames: print(os.path.join(dirname, filename))",not_existent,0
+ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv('..path'),not_existent,1
+df.head(),not_existent,0
+sample.head(),not_existent,0
+ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv('..path') ASSIGN = pd.read_csv('..path'),not_existent,1
+items.head(),not_existent,0
+CHECKPOINT items.shape,not_existent,0
+CHECKPOINT items_category.shape,not_existent,0
+items.head(5),not_existent,0
+"ASSIGN = ASSIGN.drop(columns = ['item_name','item_name'])",not_existent,0
+items_category.head(),not_existent,0
+shops.head(),not_existent,0
+CHECKPOINT shops.shape,not_existent,0
+ASSIGN = [] for i in df['item_id']: ASSIGN.append(items['item_category_id'][i]),not_existent,0
+CHECKPOINT print(category[0:20]),not_existent,0
+"items.iloc[22154,:]",not_existent,0
+df['item_category_id'] = category,not_existent,0
+df.head(),not_existent,0
+ASSIGN = df[df['item_cnt_day']<=50],not_existent,0
+ASSIGN = ASSIGN[ASSIGN['item_cnt_day']>-3],not_existent,0
+CHECKPOINT data.shape,not_existent,0
+CHECKPOINT df.shape,not_existent,0
+len(data['item_cnt_day'].unique()),not_existent,0
+"ASSIGN = data.drop(columns = ['item_cnt_day','item_id','date'])",not_existent,0
+ASSIGN = data['item_cnt_day'],not_existent,0
+CHECKPOINT print(target.value_counts()),not_existent,0
+,not_existent,0
+CHECKPOINT data.shape,not_existent,0
+data.head(),not_existent,0
+"data.drop(columns = ['date','item_id'],inplace = True)",not_existent,0
+ASSIGN = [] for i in data['date_block_num']: ASSIGN.append(i%12),not_existent,0
+data['date_block_engineered'] = date_block,not_existent,0
+data['date_block_engineered'].unique(),not_existent,0
+"data.drop(columns = ['date_block_num'],inplace = True)",not_existent,0
+data.head(),not_existent,0
+SETUP,not_existent,0
+ASSIGN = data['item_cnt_day'],not_existent,0
+len(labels.unique()),not_existent,0
+,not_existent,0
+labels.head(),not_existent,0
+CHECKPOINT labels.shape,not_existent,0
+data.head(),not_existent,0
+ASSIGN = ASSIGN.drop(columns = ['item_cnt_day']),not_existent,0
+CHECKPOINT data.shape,not_existent,0
+CHECKPOINT labels.shape,not_existent,0
+ASSIGN = labels.transpose(),not_existent,0
+"keras.backend.clear_session() ASSIGN = keras.models.Sequential([ keras.layers.Dense(3,input_dim = 2,activation = 'relu'), keras.layers.Dense(1,activation = 'relu') ]) ASSIGN = keras.callbacks.EarlyStopping(patience = 5) ASSIGN = keras.callbacks.ModelCheckpoint('model.h5',save_best_only = True) ASSIGN.compile(loss = 'mse',optimizer = 'adam',metrics = ['accuracy'])",not_existent,0
+data.head(),not_existent,0
+"ASSIGN = data.drop(columns = ['date_block_engineered','item_price'])",not_existent,0
+data_x.head(),not_existent,0
+"model.fit(data_x,labels,epochs = 500,validation_split = 0.2,callbacks = [early,model_check],batch_size = 64)",not_existent,0
+ASSIGN = pd.read_csv('..path'),not_existent,1
+ASSIGN = [] for i in test['item_id']: ASSIGN.append(items['item_category_id'][i]),not_existent,0
+test['item_category_id'] = item_category,not_existent,0
+test.head(),not_existent,0
+,not_existent,0
+,not_existent,0
+"ASSIGN = ASSIGN.drop(columns = ['ID','item_id'])",not_existent,0
+ASSIGN = model.predict(test),not_existent,0
+ASSIGN = pd.DataFrame(ASSIGN),not_existent,0
+predictions.head(),not_existent,0
+ASSIGN = [] for i in predictions[0]: ASSIGN.append(round(i)),not_existent,0
+predictions['item_cnt_day'] = pred,not_existent,0
+predictions.head(),not_existent,0
+ASSIGN = pd.read_csv('..path'),not_existent,1
+ASSIGN = ASSIGN,not_existent,0
+predictions.head(),not_existent,0
+ASSIGN = ASSIGN.drop(columns = [0]),not_existent,0
+predictions.head(),not_existent,0
+"predictions.to_csv('Submit_1.csv',index = False)",not_existent,0
+"predictions.columns = ['item_cnt_month','ID']",not_existent,0
+"predictions.to_csv('Submit_2.csv',index = False)",not_existent,0
+,not_existent,0
+"SETUP CHECKPOINT for dirname, _, filenames in os.walk('path'): for filename in filenames: print(os.path.join(dirname, filename))",not_existent,0
+SETUP,not_existent,0
+ASSIGN=pd.read_csv('path') ASSIGN=pd.read_csv('path'),not_existent,1
+df_Train.head(),not_existent,0
+df_Test.head(),not_existent,0
+df_Train.isnull().sum(),not_existent,0
+df_Test.isnull().sum(),not_existent,0
+"def bar_chart(feature): ASSIGN = df_Train[df_Train['Survived']==1][feature].value_counts() ASSIGN = df_Train[df_Train['Survived']==0][feature].value_counts() ASSIGN = pd.DataFrame([survived,dead]) ASSIGN.index = ['Survived','Dead'] ASSIGN.plot(kind='bar',stacked=True, figsize=(10,5))",not_existent,0
+bar_chart('Sex'),not_existent,0
+bar_chart('Pclass'),not_existent,0
+bar_chart('Embarked'),not_existent,0
+"df_Train.drop('Name', axis=1, inplace=True) df_Test.drop('Name', axis=1, inplace=True)",not_existent,0
+df_Train.head(),not_existent,0
+df_Test.head(),not_existent,0
+df_Train.Sex[df_Train.Sex == 'male'] = 1 df_Train.Sex[df_Train.Sex == 'female'] = 2 df_Test.Sex[df_Test.Sex == 'male'] = 1 df_Test.Sex[df_Test.Sex == 'female'] = 2,not_existent,0
+df_Train.Embarked[df_Train.Embarked == 'Q'] = 1 df_Train.Embarked[df_Train.Embarked == 'S'] = 2 df_Train.Embarked[df_Train.Embarked == 'C'] = 3 df_Test.Embarked[df_Test.Embarked == 'Q'] = 1 df_Test.Embarked[df_Test.Embarked == 'S'] = 2 df_Test.Embarked[df_Test.Embarked == 'C'] = 3,not_existent,0
+df_Train['Age']=df_Train['Age'].fillna(df_Train['Age'].mode()[0]) df_Test['Age']=df_Test['Age'].fillna(df_Test['Age'].mode()[0]) df_Train['Embarked']=df_Train['Embarked'].fillna(df_Train['Embarked'].mode()[0]) df_Test['Fare']=df_Test['Fare'].fillna(df_Test['Fare'].mode()[0]),not_existent,0
+"sns.heatmap(df_Train.isnull(),yticklabels=False,cbar=False)",not_existent,0
+"sns.heatmap(df_Test.isnull(),yticklabels=False,cbar=False)",not_existent,0
+"df_Train.drop(['Cabin'],axis=1,inplace=True) df_Test.drop(['Cabin'],axis=1,inplace=True) df_Train.drop(['Ticket'],axis=1,inplace=True) df_Test.drop(['Ticket'],axis=1,inplace=True)",not_existent,0
+df_Train.head(),not_existent,0
+df_Test.head(),not_existent,0
+df_Train.Fare[df_Train.Fare <= 17] = 1 df_Train.Fare[(df_Train.Fare > 17) & (df_Train.Fare <= 30)] = 2 df_Train.Fare[(df_Train.Fare > 30) & (df_Train.Fare <= 100)] = 3 df_Train.Fare[df_Train.Fare > 100] = 4 df_Test.Fare[df_Test.Fare <= 17] = 1 df_Test.Fare[(df_Test.Fare > 17) & (df_Test.Fare <= 30)] = 2 df_Test.Fare[(df_Test.Fare > 30) & (df_Test.Fare <= 100)] = 3 df_Test.Fare[df_Test.Fare > 100] = 4,not_existent,0
+df_Train.Age[df_Train.Age <= 16] = 0 df_Train.Age[(df_Train.Age > 16) & (df_Train.Age <= 26)] = 1 df_Train.Age[(df_Train.Age > 26) & (df_Train.Age <= 36)] = 2 df_Train.Age[(df_Train.Age > 36) & (df_Train.Age <= 62)] = 3 df_Train.Age[df_Train.Age > 62] = 4 df_Test.Age[df_Test.Age <= 16] = 0 df_Test.Age[(df_Test.Age > 16) & (df_Test.Age <= 26)] = 1 df_Test.Age[(df_Test.Age > 26) & (df_Test.Age <= 36)] = 2 df_Test.Age[(df_Test.Age > 36) & (df_Test.Age <= 62)] = 3 df_Test.Age[df_Test.Age > 62] = 4,not_existent,0
+df_Train.head(),not_existent,0
+df_Test.head(),not_existent,0
+"X=df_Train[['PassengerId','Pclass','Sex','Age','SibSp','Parch','Fare','Embarked']] ASSIGN=df_Train[['Survived']]",not_existent,0
+"SETUP X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)",not_existent,0
+df_Train.isnull().sum(),not_existent,0
+CHECKPOINT df_Test.dtypes,not_existent,0
+CHECKPOINT df_Test['Sex'] = df_Test['Sex'].astype(int) df_Test['Embarked'] = df_Test['Embarked'].astype(int) df_Test.dtypes,not_existent,0
+df_Test.isnull().sum(),not_existent,0
+CHECKPOINT df_Test,not_existent,0
+CHECKPOINT SETUP ASSIGN = StandardScaler() ASSIGN = sc.fit_transform(df_Test) df_Test1,not_existent,0
+CHECKPOINT X.shape,not_existent,0
+SETUP ASSIGN = StandardScaler() ASSIGN = sc.fit_transform(ASSIGN) ASSIGN = sc.transform(ASSIGN),not_existent,0
+SETUP,not_existent,0
+"ASSIGN = Sequential() ASSIGN.add(Dense(units = 20, kernel_initializer = 'he_uniform',activation='relu',input_dim = 8)) ASSIGN.add(Dense(units = 10, kernel_initializer = 'he_uniform',activation='relu')) ASSIGN.add(Dense(units = 15, kernel_initializer = 'he_uniform',activation='relu')) ASSIGN.add(Dense(units = 1, kernel_initializer = 'glorot_uniform', activation = 'sigmoid')) ASSIGN.compile(optimizer = 'Adamax', loss = 'binary_crossentropy', metrics = ['accuracy'])",not_existent,0
+"ASSIGN=classifier.fit(X_train, y_train, validation_split=0.350, batch_size = 5, epochs = 100)",not_existent,0
+"ASSIGN = classifier.predict(df_Test1) ASSIGN = (ASSIGN > 0.5) ASSIGN = y_pred.astype(int) ASSIGN = [item for sublist in y_pred_int for item in sublist] ASSIGN = np.asarray(y_pred_list , dtype = int)",not_existent,0
+CHECKPOINT y_pred1,not_existent,0
+"ASSIGN = pd.DataFrame({'PassengerId': df_Test.PassengerId, 'Survived': y_pred1}) ASSIGN.to_csv('my_submission15.csv', index=False)",not_existent,0
+,not_existent,0
+"SETUP warnings.filterwarnings(""ignore"")",not_existent,0
+"ASSIGN=pd.read_csv(""..path"") ASSIGN=pd.read_csv(""..path"") ASSIGN=pd.read_csv(""..path"") ASSIGN=pd.read_csv(""..path"") ASSIGN=pd.read_csv(""..path"") ASSIGN=pd.read_csv(""..path"")",not_existent,1
+"sales.date=sales.date.apply(lambda x:datetime.datetime.strptime(x, '%d.%m.%Y'))",not_existent,0
+"ASSIGN=sales.groupby([""date_block_num"",""shop_id"",""item_id""])[""date"",""item_price"",""item_cnt_day""].agg({""date"":[""min"",'max'],""item_price"":""mean"",""item_cnt_day"":""sum""})",not_existent,0
+"ASSIGN=item.groupby(['item_category_id']).count() ASSIGN=ASSIGN.sort_values(by='item_id',ascending=False) ASSIGN=ASSIGN.iloc[0:10].reset_index() plt.figure(figsize=(8,4)) ASSIGN= sns.barplot(x.item_category_id, x.item_id, alpha=0.8) plt.title(""Items per Category"") plt.ylabel(' plt.xlabel('Category', fontsize=12) plt.show()",not_existent,0
+sales.head(),not_existent,0
+ASSIGN = sales.groupby('date').item_cnt_day.sum().reset_index() ASSIGN.head(),not_existent,0
+"SETUP ASSIGN = [ go.Scatter( ASSIGN=df_sales['date'], ASSIGN=df_sales['item_cnt_day'], ) ] ASSIGN = go.Layout( ASSIGN=' Sales' ) ASSIGN = go.Figure(data=plot_data, layout=plot_layout) pyoff.iplot(ASSIGN)",not_existent,0
+ASSIGN = df_sales.copy() ASSIGN['prev_sales'] = ASSIGN['item_cnt_day'].shift(1) ASSIGN = ASSIGN.dropna() ASSIGN['diff'] = (ASSIGN['item_cnt_day'] - ASSIGN['prev_sales']) ASSIGN.head(),not_existent,0
+"ASSIGN = [ go.Scatter( ASSIGN=df_diff['date'], ASSIGN=df_diff['diff'], ) ] ASSIGN = go.Layout( ASSIGN='Montly Sales Diff' ) ASSIGN = go.Figure(data=plot_data, layout=plot_layout) pyoff.iplot(ASSIGN)",not_existent,0
+"ASSIGN = df_diff.drop(['prev_sales'],axis=1) for inc in range(1,13): ASSIGN = 'lag_' + str(inc) ASSIGN[ASSIGN] = ASSIGN['diff'].shift(inc) ASSIGN = ASSIGN.dropna().reset_index(drop=True)",not_existent,0
+df_supervised.head(),not_existent,0
+"SETUP CHECKPOINT ASSIGN = smf.ols(formula='diff ~ lag_1', data=df_supervised) ASSIGN = model.fit() ASSIGN = model_fit.rsquared_adj print(ASSIGN)",not_existent,0
+"SETUP CHECKPOINT ASSIGN = smf.ols(formula='diff ~ lag_1+lag_2+lag_3+lag_4+lag_5+lag_6+lag_7+lag_8+lag_9+lag_10+lag_11+lag_12', data=df_supervised) ASSIGN = model.fit() ASSIGN = model_fit.rsquared_adj print(ASSIGN)",not_existent,0
+"SETUP ASSIGN = df_supervised.drop(['item_cnt_day','date'],axis=1) ASSIGN = df_model[0:-6].values, df_model[-6:].values",not_existent,0
+CHECKPOINT test_set,not_existent,0
+"ASSIGN = MinMaxScaler(feature_range=(-1, 1)) ASSIGN = ASSIGN.fit(train_set) ASSIGN = ASSIGN.reshape(ASSIGN.shape[0], ASSIGN.shape[1]) ASSIGN = scaler.transform(train_set) ASSIGN = ASSIGN.reshape(ASSIGN.shape[0], ASSIGN.shape[1]) ASSIGN = scaler.transform(test_set)",not_existent,0
+"ASSIGN = train_set_scaled[:, 1:], train_set_scaled[:, 0:1] ASSIGN = ASSIGN.reshape(ASSIGN.shape[0], 1, ASSIGN.shape[1]) ASSIGN = test_set_scaled[:, 1:], test_set_scaled[:, 0:1] ASSIGN = ASSIGN.reshape(ASSIGN.shape[0], 1, ASSIGN.shape[1])",not_existent,0
+"SETUP ASSIGN = Sequential() ASSIGN.add(LSTM(4, batch_input_shape=(1, X_train.shape[1], X_train.shape[2]), stateful=True)) ASSIGN.add(Dense(1)) ASSIGN.compile(loss='mean_squared_error', optimizer='adam') ASSIGN.fit(X_train, y_train, nb_epoch=50, batch_size=1, verbose=1, shuffle=False)",not_existent,0
+"ASSIGN = model.predict(X_test,batch_size=1)",not_existent,0
+"SETUP ASSIGN = ASSIGN.reshape(ASSIGN.shape[0], 1, ASSIGN.shape[1]) ASSIGN = [] for index in range(0,len(ASSIGN)): print (np.concatenate([ASSIGN[index],X_test[index]],axis=1)) ASSIGN.append(np.concatenate([ASSIGN[index],X_test[index]],axis=1)) ASSIGN = np.array(ASSIGN) ASSIGN = ASSIGN.reshape(ASSIGN.shape[0], ASSIGN.shape[2]) ASSIGN = scaler.inverse_transform(pred_test_set)",not_existent,0
+"ASSIGN = [] ASSIGN = list(sales[-7:].date) ASSIGN = list(sales[-7:].item_cnt_day) for index in range(0,len(pred_test_set_inverted)): ASSIGN = {} ASSIGN['pred_value'] = int(pred_test_set_inverted[index][0] + ASSIGN[index]) ASSIGN['date'] = ASSIGN[index+1] ASSIGN.append(ASSIGN) ASSIGN = pd.DataFrame(result_list)",not_existent,0
+"df_result.to_csv(""Predict.csv"")",not_existent,0
+,not_existent,0

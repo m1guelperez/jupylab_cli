@@ -1,0 +1,464 @@
+{
+    "source": [
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "import pandas as pd",
+                "import numpy as np",
+                "import h5py",
+                "import tensorflow as tf",
+                "from tensorflow import keras",
+                "from keras.models import Sequential",
+                "from keras.layers import Dense",
+                "from keras.layers import Dropout",
+                "from keras.optimizers import Adam",
+                "from keras.optimizers import SGD",
+                "import matplotlib.pyplot as plt",
+                "from keras.models import load_model"
+            ],
+            "content_processed": [
+                "SETUP"
+            ],
+            "tag_pred": [
+                "setup_notebook"
+            ],
+            "correct_tag_ours": [
+                "setup_notebook"
+            ],
+            "headergen_tag": [
+                "Library Loading"
+            ],
+            "headergen_sot": [
+                "Library Loading"
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "train_df = pd.read_csv(\"../input/titanic/train.csv\")",
+                "test_df = pd.read_csv(\"../input/titanic/test.csv\")"
+            ],
+            "content_processed": [
+                "ASSIGN = pd.read_csv(\"..path\")",
+                "ASSIGN = pd.read_csv(\"..path\")"
+            ],
+            "tag_pred": [
+                "ingest_data"
+            ],
+            "correct_tag_ours": [
+                "ingest_data"
+            ],
+            "headergen_tag": [
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "train_df['Age'].fillna((train_df['Age'].mean()),inplace=True)",
+                "",
+                "test_df['Age'].fillna((test_df['Age'].mean()),inplace=True)",
+                "",
+                "train_df['Sex'] = train_df['Sex'].replace('male',value = 1)",
+                "train_df['Sex'] = train_df['Sex'].replace('female',value = 0)",
+                "",
+                "test_df['Sex'] = test_df['Sex'].replace('male',value = 1)",
+                "test_df['Sex'] = test_df['Sex'].replace('female',value = 0)"
+            ],
+            "content_processed": [
+                "train_df['Age'].fillna((train_df['Age'].mean()),inplace=True)",
+                "test_df['Age'].fillna((test_df['Age'].mean()),inplace=True)",
+                "train_df['Sex'] = train_df['Sex'].replace('male',value = 1)",
+                "train_df['Sex'] = train_df['Sex'].replace('female',value = 0)",
+                "test_df['Sex'] = test_df['Sex'].replace('male',value = 1)",
+                "test_df['Sex'] = test_df['Sex'].replace('female',value = 0)"
+            ],
+            "tag_pred": [
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "process_data"
+            ],
+            "headergen_tag": [
+                "Feature Engineering",
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Feature Engineering",
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "train_df.describe()"
+            ],
+            "content_processed": [
+                "train_df.describe()"
+            ],
+            "tag_pred": [
+                "check_results"
+            ],
+            "correct_tag_ours": [
+                "check_results"
+            ],
+            "headergen_tag": [
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "n_train = 700",
+                "X_train_class = train_df[\"Pclass\"].values.reshape(-1,1)",
+                "X_train_sex = train_df[\"Sex\"].values.reshape(-1,1)",
+                "X_train_age = train_df[\"Age\"].values.reshape(-1,1)",
+                "X_train_sib = train_df[\"SibSp\"].values.reshape(-1,1)",
+                "X_train_par = train_df[\"Parch\"].values.reshape(-1,1)",
+                "",
+                "",
+                "y = train_df[\"Survived\"].values.T"
+            ],
+            "content_processed": [
+                "ASSIGN = 700",
+                "ASSIGN = train_df[\"Pclass\"].values.reshape(-1,1)",
+                "ASSIGN = train_df[\"Sex\"].values.reshape(-1,1)",
+                "ASSIGN = train_df[\"Age\"].values.reshape(-1,1)",
+                "ASSIGN = train_df[\"SibSp\"].values.reshape(-1,1)",
+                "ASSIGN = train_df[\"Parch\"].values.reshape(-1,1)",
+                "ASSIGN = train_df[\"Survived\"].values.T"
+            ],
+            "tag_pred": [
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "process_data"
+            ],
+            "headergen_tag": [
+                "Feature Engineering"
+            ],
+            "headergen_sot": [
+                "Feature Engineering"
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "X_train = np.hstack((X_train_sex[:n_train,:],X_train_class[:n_train,:],X_train_sib[:n_train,:],X_train_age[:n_train,:],X_train_par[:n_train,:]))",
+                "X_test = np.hstack((X_train_sex[n_train:,:],X_train_class[n_train:,:],X_train_sib[n_train:,:],X_train_age[n_train:,:],X_train_par[n_train:,:]))",
+                "X_train, X_test = tf.convert_to_tensor(X_train.astype(np.float64)),tf.convert_to_tensor(X_test.astype(np.float64))",
+                "y_train, y_test = y[:n_train], y[n_train:]"
+            ],
+            "content_processed": [
+                "ASSIGN = np.hstack((X_train_sex[:n_train,:],X_train_class[:n_train,:],X_train_sib[:n_train,:],X_train_age[:n_train,:],X_train_par[:n_train,:]))",
+                "ASSIGN = np.hstack((X_train_sex[n_train:,:],X_train_class[n_train:,:],X_train_sib[n_train:,:],X_train_age[n_train:,:],X_train_par[n_train:,:]))",
+                "ASSIGN, ASSIGN = tf.convert_to_tensor(ASSIGN.astype(np.float64)),tf.convert_to_tensor(ASSIGN.astype(np.float64))",
+                "ASSIGN = y[:n_train], y[n_train:]"
+            ],
+            "tag_pred": [
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "process_data"
+            ],
+            "headergen_tag": [
+                "Feature Engineering"
+            ],
+            "headergen_sot": [
+                "Feature Engineering"
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "model = Sequential()",
+                "model.add(Dense(300,input_dim=5,activation='relu'))",
+                "model.add(Dropout(0.2))",
+                "model.add(Dense(150,activation='relu'))",
+                "model.add(Dropout(0.2))",
+                "model.add(Dense(100,activation='relu'))",
+                "model.add(Dropout(0.2))",
+                "model.add(Dense(50,activation='relu'))",
+                "model.add(Dropout(0.2))",
+                "model.add(Dense(25,activation='relu'))",
+                "model.add(Dropout(0.2))",
+                "model.add(Dense(1,activation='sigmoid'))",
+                "model.compile(loss='binary_crossentropy', optimizer=Adam(learning_rate=0.01,beta_1=0.99,beta_2=0.999), metrics=['accuracy'])"
+            ],
+            "content_processed": [
+                "ASSIGN = Sequential()",
+                "ASSIGN.add(Dense(300,input_dim=5,activation='relu'))",
+                "ASSIGN.add(Dropout(0.2))",
+                "ASSIGN.add(Dense(150,activation='relu'))",
+                "ASSIGN.add(Dropout(0.2))",
+                "ASSIGN.add(Dense(100,activation='relu'))",
+                "ASSIGN.add(Dropout(0.2))",
+                "ASSIGN.add(Dense(50,activation='relu'))",
+                "ASSIGN.add(Dropout(0.2))",
+                "ASSIGN.add(Dense(25,activation='relu'))",
+                "ASSIGN.add(Dropout(0.2))",
+                "ASSIGN.add(Dense(1,activation='sigmoid'))",
+                "ASSIGN.compile(loss='binary_crossentropy', optimizer=Adam(learning_rate=0.01,beta_1=0.99,beta_2=0.999), metrics=['accuracy'])"
+            ],
+            "tag_pred": [
+                "train_model"
+            ],
+            "correct_tag_ours": [
+                "train_model"
+            ],
+            "headergen_tag": [
+                "Model Building and Training"
+            ],
+            "headergen_sot": [
+                "Model Building and Training"
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "history = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs = 300, verbose = 0)"
+            ],
+            "content_processed": [
+                "ASSIGN = model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs = 300, verbose = 0)"
+            ],
+            "tag_pred": [
+                "train_model"
+            ],
+            "correct_tag_ours": [
+                "train_model"
+            ],
+            "headergen_tag": [
+                "Model Building and Training"
+            ],
+            "headergen_sot": [
+                "Model Building and Training"
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "_, train_acc = model.evaluate(X_train, y_train, verbose=2)",
+                "_, test_acc = model.evaluate(X_test, y_test, verbose=2)",
+                "print('Train: %.3f, Test: %.3f' % (train_acc, test_acc))",
+                "",
+                "plt.plot(history.history['accuracy'], label='train')",
+                "plt.plot(history.history['val_accuracy'], label='test')",
+                "plt.legend()",
+                "plt.show()"
+            ],
+            "content_processed": [
+                "CHECKPOINT",
+                "ASSIGN = model.evaluate(X_train, y_train, verbose=2)",
+                "ASSIGN = model.evaluate(X_test, y_test, verbose=2)",
+                "print('Train: %.3f, Test: %.3f' % (train_acc, test_acc))",
+                "plt.plot(history.history['accuracy'], label='train')",
+                "plt.plot(history.history['val_accuracy'], label='test')",
+                "plt.legend()",
+                "plt.show()"
+            ],
+            "tag_pred": [
+                "visualize_data",
+                "check_results",
+                "evaluate_model"
+            ],
+            "correct_tag_ours": [
+                "evaluate_model",
+                "check_results",
+                "visualize_data"
+            ],
+            "headergen_tag": [
+                "Model Building and Training",
+                "Visualization"
+            ],
+            "headergen_sot": [
+                "Model Building and Training",
+                "Visualization"
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "model.save('model_' + str(1) + '.h5')"
+            ],
+            "content_processed": [
+                "model.save('model_' + str(1) + '.h5')"
+            ],
+            "tag_pred": [
+                "transfer_results"
+            ],
+            "correct_tag_ours": [
+                "transfer_results"
+            ],
+            "headergen_tag": [
+                "Model Building and Training"
+            ],
+            "headergen_sot": [
+                "Model Building and Training"
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "model = load_model(\"./model_1.h5\")",
+                "model.summary()"
+            ],
+            "content_processed": [
+                "ASSIGN = load_model(\".path\")",
+                "ASSIGN.summary()"
+            ],
+            "tag_pred": [
+                "check_results",
+                "ingest_data",
+                "train_model"
+            ],
+            "correct_tag_ours": [
+                "check_results",
+                "ingest_data"
+            ],
+            "headergen_tag": [
+                "Model Building and Training"
+            ],
+            "headergen_sot": [
+                "Model Building and Training"
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "X_test_class = test_df[\"Pclass\"].values.reshape(-1,1)",
+                "X_test_sex = test_df[\"Sex\"].values.reshape(-1,1)",
+                "X_test_age = test_df[\"Age\"].values.reshape(-1,1)",
+                "X_test_sib = test_df[\"SibSp\"].values.reshape(-1,1)",
+                "X_test_par = test_df[\"Parch\"].values.reshape(-1,1)",
+                "",
+                "x_test = np.hstack((X_test_sex,X_test_class,X_test_sib,X_test_age,X_test_par)).astype(np.float64)"
+            ],
+            "content_processed": [
+                "ASSIGN = test_df[\"Pclass\"].values.reshape(-1,1)",
+                "ASSIGN = test_df[\"Sex\"].values.reshape(-1,1)",
+                "ASSIGN = test_df[\"Age\"].values.reshape(-1,1)",
+                "ASSIGN = test_df[\"SibSp\"].values.reshape(-1,1)",
+                "ASSIGN = test_df[\"Parch\"].values.reshape(-1,1)",
+                "ASSIGN = np.hstack((X_test_sex,X_test_class,X_test_sib,X_test_age,X_test_par)).astype(np.float64)"
+            ],
+            "tag_pred": [
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "process_data"
+            ],
+            "headergen_tag": [
+                "Feature Engineering"
+            ],
+            "headergen_sot": [
+                "Feature Engineering"
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "y_pred =[]",
+                "prediction = model.predict(x_test).ravel().tolist()",
+                "y_pred += prediction"
+            ],
+            "content_processed": [
+                "ASSIGN =[]",
+                "ASSIGN = model.predict(x_test).ravel().tolist()",
+                "ASSIGN += ASSIGN"
+            ],
+            "tag_pred": [
+                "evaluate_model"
+            ],
+            "correct_tag_ours": [
+                "evaluate_model"
+            ],
+            "headergen_tag": [
+                "Model Building and Training"
+            ],
+            "headergen_sot": [
+                "Model Building and Training"
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "for i in range(0,len(y_pred)):",
+                "    if y_pred[i] > 0.8:",
+                "        y_pred[i] = 1",
+                "    else:",
+                "        y_pred[i] = 0"
+            ],
+            "content_processed": [
+                "for i in range(0,len(y_pred)):",
+                "if y_pred[i] > 0.8:",
+                "y_pred[i] = 1",
+                "else:",
+                "y_pred[i] = 0"
+            ],
+            "tag_pred": [
+                "process_data"
+            ],
+            "correct_tag_ours": [
+                "None"
+            ],
+            "headergen_tag": [
+                ""
+            ],
+            "headergen_sot": [
+                ""
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                "submission = pd.read_csv('../input/titanic/gender_submission.csv')",
+                "submission['Survived'] = y_pred",
+                "submission.to_csv('submission.csv',index=False)"
+            ],
+            "content_processed": [
+                "ASSIGN = pd.read_csv('..path')",
+                "ASSIGN = y_pred",
+                "ASSIGN.to_csv('ASSIGN.csv',index=False)"
+            ],
+            "tag_pred": [
+                "ingest_data",
+                "transfer_results"
+            ],
+            "correct_tag_ours": [
+                "ingest_data",
+                "transfer_results"
+            ],
+            "headergen_tag": [
+                "Data Preparation"
+            ],
+            "headergen_sot": [
+                "Data Preparation"
+            ]
+        },
+        {
+            "notebook_name": "02-relu-sigmoid",
+            "content": [
+                ""
+            ],
+            "content_processed": [],
+            "tag_pred": [
+                "None"
+            ],
+            "correct_tag_ours": [
+                "None"
+            ],
+            "headergen_tag": [
+                ""
+            ],
+            "headergen_sot": [
+                ""
+            ]
+        }
+    ]
+}
